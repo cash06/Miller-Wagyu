@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miller Wagyu Farms – La Crosse, WI</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --cream-dark: #EDE6D6;
+    --brown-deep: #2C1A0E;
+    --brown-mid: #5C3A1E;
+    --brown-light: #8B5E3C;
+    --gold: #C9973A;
+    --gold-light: #E8C07A;
+    --red-dark: #7A1F1F;
+    --green-sage: #4A5C3A;
+    --text-dark: #1E1209;
+    --text-mid: #4A3520;
+    --text-light: #8B7355;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(44, 26, 14, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201, 151, 58, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: -2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s, color 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--brown-deep) !important;
+    padding: 8px 20px !important;
+    border-radius: 2px;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(160deg, rgba(44,26,14,0.82) 0%, rgba(92,58,30,0.65) 50%, rgba(44,26,14,0.88) 100%),
+      url('https://images.unsplash.com/photo-1565130838609-c3a86655db61?w=1800&q=80') center/cover no-repeat;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 24px;
+    animation: heroFade 1.2s ease forwards;
+  }
+
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    color: rgba(245,240,232,0.78);
+    margin-bottom: 36px;
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-location {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 44px;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--brown-deep);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 1.5px solid rgba(245,240,232,0.5);
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { border-color: var(--gold-light); background: rgba(201,151,58,0.12); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(245,240,232,0.5);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(201,151,58,0.6), transparent);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--brown-deep);
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(201,151,58,0.2);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold-light);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .trust-icon { font-size: 1rem; }
+
+  /* ── SECTION SHARED ── */
+  section { position: relative; }
+
+  .section-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    display: block;
+    flex: 1;
+    max-width: 50px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--brown-deep);
+    margin-bottom: 16px;
+  }
+
+  .section-body {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    max-width: 560px;
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+  }
+
+  .about-image {
+    background: url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=900&q=80') center/cover no-repeat;
+    position: relative;
+  }
+
+  .about-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 70%, var(--cream) 100%);
+  }
+
+  .about-content {
+    padding: 80px 72px 80px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--cream);
+  }
+
+  .about-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-light);
+    border-left: 3px solid var(--gold);
+    padding-left: 20px;
+    margin-top: 28px;
+    line-height: 1.7;
+  }
+
+  .about-sig {
+    margin-top: 32px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+  }
+
+  /* ── PROMISES ── */
+  .promises {
+    padding: 96px 48px;
+    background: var(--brown-deep);
+    text-align: center;
+  }
+
+  .promises .section-title { color: var(--cream); }
+  .promises .section-label { justify-content: center; }
+  .promises .section-label::after { display: none; }
+
+  .promises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 960px;
+    margin: 56px auto 0;
+  }
+
+  .promise-card {
+    padding: 36px 24px;
+    border: 1px solid rgba(201,151,58,0.2);
+    border-radius: 4px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .promise-card:hover { border-color: rgba(201,151,58,0.6); transform: translateY(-4px); }
+
+  .promise-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .promise-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+  }
+
+  .promise-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── SHOP SECTION ── */
+  .shop {
+    padding: 96px 48px;
+    background: var(--cream-dark);
+  }
+
+  .shop-header {
+    max-width: 1100px;
+    margin: 0 auto 56px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .shop-tabs {
+    display: flex;
+    gap: 4px;
+    background: rgba(44,26,14,0.08);
+    padding: 4px;
+    border-radius: 4px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .tab-btn.active {
+    background: var(--brown-deep);
+    color: var(--gold-light);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .product-card {
+    background: var(--cream);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(44,26,14,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(44,26,14,0.12);
+  }
+
+  .product-img {
+    height: 200px;
+    background: var(--cream-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .product-card:hover .product-img img { transform: scale(1.04); }
+
+  .product-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--brown-deep);
+    color: var(--gold-light);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .product-body {
+    padding: 20px 22px 22px;
+  }
+
+  .product-category {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--brown-deep);
+    margin-bottom: 6px;
+  }
+
+  .product-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    font-weight: 300;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--brown-mid);
+    font-weight: 600;
+  }
+
+  .product-price span {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: var(--text-light);
+  }
+
+  .btn-add {
+    background: var(--brown-deep);
+    color: var(--gold-light);
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-add:hover { background: var(--brown-mid); }
+
+  /* ── WHOLESALE SECTION ── */
+  .wholesale {
+    padding: 96px 48px;
+    background: linear-gradient(135deg, var(--brown-deep) 0%, #3d2310 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wholesale::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 80px solid rgba(201,151,58,0.06);
+  }
+
+  .wholesale-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .wholesale .section-title { color: var(--cream); }
+
+  .wholesale .section-body {
+    color: rgba(245,240,232,0.7);
+    margin-top: 16px;
+  }
+
+  .wholesale-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .wholesale-card {
+    background: rgba(245,240,232,0.06);
+    border: 1px solid rgba(201,151,58,0.25);
+    border-radius: 4px;
+    padding: 28px 24px;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+
+  .wholesale-card:hover {
+    background: rgba(201,151,58,0.1);
+    border-color: rgba(201,151,58,0.5);
+  }
+
+  .wholesale-card.featured {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: rgba(201,151,58,0.12);
+    border-color: rgba(201,151,58,0.4);
+  }
+
+  .wc-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .wc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .wc-weight {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.5);
+    font-weight: 300;
+  }
+
+  .wc-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    margin-top: 12px;
+    font-weight: 600;
+  }
+
+  .wc-price span {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: rgba(201,151,58,0.7);
+  }
+
+  .wholesale-cta {
+    margin-top: 32px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* ── MARKET SCHEDULE ── */
+  .markets {
+    padding: 96px 48px;
+    background: var(--cream);
+  }
+
+  .markets-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .markets-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 56px;
+  }
+
+  .market-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .market-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 24px;
+    background: var(--cream-dark);
+    border-radius: 4px;
+    border-left: 3px solid var(--gold);
+    transition: transform 0.2s;
+  }
+
+  .market-item:hover { transform: translateX(4px); }
+
+  .market-day {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-align: center;
+    min-width: 42px;
+    padding-top: 2px;
+    text-transform: uppercase;
+    font-style: italic;
+  }
+
+  .market-info { flex: 1; }
+
+  .market-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--brown-deep);
+    margin-bottom: 4px;
+  }
+
+  .market-details {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .market-badge {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: var(--green-sage);
+    color: white;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial {
+    padding: 96px 48px;
+    background: var(--cream-dark);
+    text-align: center;
+  }
+
+  .testimonial-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-style: italic;
+    color: var(--brown-deep);
+    max-width: 780px;
+    margin: 0 auto 24px;
+    line-height: 1.55;
+  }
+
+  .testimonial-quote::before { content: '\201C'; color: var(--gold); }
+  .testimonial-quote::after  { content: '\201D'; color: var(--gold); }
+
+  .testimonial-author {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    padding: 96px 48px;
+    background: var(--brown-deep);
+  }
+
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact .section-title { color: var(--cream); }
+  .contact .section-body { color: rgba(245,240,232,0.65); margin-top: 16px; }
+
+  .contact-details {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .contact-icon {
+    font-size: 1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .contact-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.7);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .contact-text strong {
+    display: block;
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .contact-form {
+    background: rgba(245,240,232,0.05);
+    border: 1px solid rgba(201,151,58,0.2);
+    border-radius: 4px;
+    padding: 40px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(245,240,232,0.07);
+    border: 1px solid rgba(201,151,58,0.25);
+    border-radius: 3px;
+    padding: 12px 14px;
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .form-group select option { background: var(--brown-deep); }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--gold);
+    color: var(--brown-deep);
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #150d05;
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid rgba(201,151,58,0.15);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+  }
+
+  .footer-logo span {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-top: -2px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold-light); }
+
+  .footer-copy {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.25);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── PRODUCT TAB VISIBILITY ── */
+  .product-set { display: none; }
+  .product-set.active { display: contents; }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 20px; }
+    .about { grid-template-columns: 1fr; }
+    .about-image { height: 320px; }
+    .about-content { padding: 56px 32px; }
+    .wholesale-inner { grid-template-columns: 1fr; gap: 48px; }
+    .markets-header { grid-template-columns: 1fr; gap: 40px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 14px 18px; }
+    .nav-links { display: none; }
+    .shop, .promises, .wholesale, .markets, .testimonial, .contact { padding: 64px 24px; }
+    .wholesale-cards { grid-template-columns: 1fr; }
+    .wholesale-card.featured { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Miller Wagyu <span>La Crosse, Wisconsin</span></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop Cuts</a></li>
+    <li><a href="#wholesale">Bulk Orders</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#contact" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">American Wagyu · La Crosse, Wisconsin</div>
+    <h1 class="hero-title">Farm-Raised<br><em>Wagyu Beef</em></h1>
+    <p class="hero-sub">Raised with care. Sold direct. Tasted forever.</p>
+    <p class="hero-location">📍 La Crosse, WI &nbsp;·&nbsp; Serving MN &amp; WI</p>
+    <div class="hero-btns">
+      <a href="#shop" class="btn-primary">Shop All Cuts</a>
+      <a href="#wholesale" class="btn-outline">Bulk Orders &rarr;</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">🌿</span> Hormone &amp; Antibiotic Free</div>
+  <div class="trust-item"><span class="trust-icon">🐄</span> Pasture Raised</div>
+  <div class="trust-item"><span class="trust-icon">🏡</span> Family Farm · Est. La Crosse, WI</div>
+  <div class="trust-item"><span class="trust-icon">🔪</span> Custom Processing Included</div>
+  <div class="trust-item"><span class="trust-icon">🤝</span> Direct Farm-to-Table</div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image"></div>
+  <div class="about-content">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">Raised in the<br>Coulee Country</h2>
+    <p class="section-body">Steve and Sally Miller have farmed all their lives — both raised on dairy farms in the beautiful coulee region of La Crosse. Farming isn't just what they do; it's who they are. That tradition of care, quality, and hard work is baked into every animal they raise.</p>
+    <blockquote class="about-quote">
+      "We only know one way to farm — and that's raising quality beef the right way. Something we've passed down to our children and grandchildren."
+    </blockquote>
+    <p class="about-sig">— Steve &amp; Sally Miller, Founders</p>
+  </div>
+</section>
+
+<!-- PROMISES -->
+<section class="promises">
+  <div class="section-label" style="justify-content:center;">Our Promise</div>
+  <h2 class="section-title" style="color:var(--cream);">What Makes Miller Wagyu Different</h2>
+  <div class="promises-grid reveal">
+    <div class="promise-card">
+      <span class="promise-icon">🌾</span>
+      <div class="promise-title">Free Range &amp; Pasture Raised</div>
+      <p class="promise-desc">Our cattle roam freely across our La Crosse farm, living the way cattle should — with space, fresh air, and natural forage.</p>
+    </div>
+    <div class="promise-card">
+      <span class="promise-icon">🚫</span>
+      <div class="promise-title">No Hormones. No Antibiotics.</div>
+      <p class="promise-desc">Never. We believe clean beef is better beef, and we stand behind every cut with that commitment to natural raising.</p>
+    </div>
+    <div class="promise-card">
+      <span class="promise-icon">🔬</span>
+      <div class="promise-title">Internationally Researched Genetics</div>
+      <p class="promise-desc">Our American Wagyu cattle are bred from carefully selected genetics, delivering that signature marbling and buttery flavor.</p>
+    </div>
+    <div class="promise-card">
+      <span class="promise-icon">📦</span>
+      <div class="promise-title">Processing Included</div>
+      <p class="promise-desc">Every wholesale order includes custom processing — cut to your specs, vacuum-sealed, and ready for your freezer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP CUTS -->
+<section class="shop" id="shop">
+  <div class="shop-header">
+    <div>
+      <div class="section-label">Direct Purchase</div>
+      <h2 class="section-title">Shop Individual Cuts</h2>
+    </div>
+    <div class="shop-tabs">
+      <button class="tab-btn active" onclick="showTab('steakhouse', this)">Steakhouse</button>
+      <button class="tab-btn" onclick="showTab('nouveau', this)">Nouveau</button>
+      <button class="tab-btn" onclick="showTab('classic', this)">Classic</button>
+      <button class="tab-btn" onclick="showTab('exotics', this)">Exotics</button>
+    </div>
+  </div>
+
+  <div class="products-grid">
+
+    <!-- STEAKHOUSE -->
+    <div class="product-set active" id="tab-steakhouse">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=500&q=80" alt="Ribeye">
+          <div class="product-badge">Best Seller</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Steakhouse</div>
+          <div class="product-name">Ribeye</div>
+          <p class="product-desc">Very tender with heavy marbling. The crown jewel of any Wagyu experience — rich, buttery, and unforgettable.</p>
+          <div class="product-footer">
+            <div class="product-price">$65 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=500&q=80" alt="NY Strip">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Steakhouse</div>
+          <div class="product-name">New York Strip</div>
+          <p class="product-desc">Tender with robust flavor and moderate marbling. A classic cut elevated by Wagyu genetics.</p>
+          <div class="product-footer">
+            <div class="product-price">$65 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500&q=80" alt="Filet Mignon">
+          <div class="product-badge">Premium</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Steakhouse</div>
+          <div class="product-name">Filet Mignon</div>
+          <p class="product-desc">The most tender cut available. Mild, delicate flavor — perfect for grilling, pan-searing, or broiling.</p>
+          <div class="product-footer">
+            <div class="product-price">$75 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=500&q=80" alt="T-Bone">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Steakhouse</div>
+          <div class="product-name">T-Bone</div>
+          <p class="product-desc">Bone-in New York Strip with a strip of Tenderloin. Two cuts in one — best of both worlds.</p>
+          <div class="product-footer">
+            <div class="product-price">$65 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOUVEAU -->
+    <div class="product-set" id="tab-nouveau">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=500&q=80" alt="Flat Iron">
+          <div class="product-badge">Chef Favorite</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Nouveau</div>
+          <div class="product-name">Flat Iron</div>
+          <p class="product-desc">Very tender and flavorful with great marbling. A butcher's secret that's gaining well-deserved recognition.</p>
+          <div class="product-footer">
+            <div class="product-price">$40 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&q=80" alt="Picanha">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Nouveau</div>
+          <div class="product-name">Picanha</div>
+          <p class="product-desc">Great marbling with thick fat cap. Flavorful and versatile — a Brazilian steakhouse staple, perfect for any grill.</p>
+          <div class="product-footer">
+            <div class="product-price">$35 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="Hanger">
+          <div class="product-badge">Butcher's Cut</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Nouveau</div>
+          <div class="product-name">Hanger</div>
+          <p class="product-desc">Very tender and flavorful — the "butcher's steak." Only one per animal, which makes it special.</p>
+          <div class="product-footer">
+            <div class="product-price">$50 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80" alt="Denver">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Nouveau</div>
+          <div class="product-name">Denver</div>
+          <p class="product-desc">High marbling, flavorful, tender, rich in flavor. One of the most underrated cuts — exceptional value.</p>
+          <div class="product-footer">
+            <div class="product-price">$40 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLASSIC -->
+    <div class="product-set" id="tab-classic">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80" alt="Ground Beef">
+          <div class="product-badge">Best Value</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Classic</div>
+          <div class="product-name">Ground Beef</div>
+          <p class="product-desc">Wagyu ground beef transforms everyday meals. Flavorful, versatile, and unlike anything from the grocery store.</p>
+          <div class="product-footer">
+            <div class="product-price">$10 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80" alt="Brisket">
+          <div class="product-badge">Pit Master's Choice</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Classic</div>
+          <div class="product-name">Brisket</div>
+          <p class="product-desc">Large, flavorful cut perfect for slow cooking, smoking, and braising. Wagyu brisket is on another level.</p>
+          <div class="product-footer">
+            <div class="product-price">$12.50 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=500&q=80" alt="Short Ribs">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Classic</div>
+          <div class="product-name">Short Ribs</div>
+          <p class="product-desc">Flavorful and fatty — braise, smoke, or slow cook. Wagyu short ribs are rich, fall-off-the-bone perfection.</p>
+          <div class="product-footer">
+            <div class="product-price">$12.50 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=500&q=80" alt="Flank">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Classic</div>
+          <div class="product-name">Flank Steak</div>
+          <p class="product-desc">Lean, beefy flavor — great for grilling, broiling, or stir-fry. Marinates beautifully.</p>
+          <div class="product-footer">
+            <div class="product-price">$35 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXOTICS -->
+    <div class="product-set" id="tab-exotics">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&q=80" alt="Marrow Bones">
+          <div class="product-badge">Nose-to-Tail</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Exotics</div>
+          <div class="product-name">Marrow Bones</div>
+          <p class="product-desc">Rich and creamy — great as a spread or added to soups and stocks to enhance depth of flavor.</p>
+          <div class="product-footer">
+            <div class="product-price">$10 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=500&q=80" alt="Tongue">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Exotics</div>
+          <div class="product-name">Tongue</div>
+          <p class="product-desc">Nutrient dense, tender, rich flavor. Versatile for broiling, stewing, pickling, and grilling.</p>
+          <div class="product-footer">
+            <div class="product-price">$50 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80" alt="Heart">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Exotics</div>
+          <div class="product-name">Heart</div>
+          <p class="product-desc">Nutrient dense, great for grilling, pan-searing, and browning. A true whole-animal eating experience.</p>
+          <div class="product-footer">
+            <div class="product-price">$20 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&q=80" alt="Liver">
+        </div>
+        <div class="product-body">
+          <div class="product-category">Exotics</div>
+          <div class="product-name">Liver</div>
+          <p class="product-desc">Mineral rich, with a deep, earthy flavor. A nutritional powerhouse beloved by traditional and adventurous cooks alike.</p>
+          <div class="product-footer">
+            <div class="product-price">$15 <span>/ lb</span></div>
+            <button class="btn-add" onclick="openContact()">Inquire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHOLESALE -->
+<section class="wholesale" id="wholesale">
+  <div class="wholesale-inner">
+    <div>
+      <div class="section-label" style="color:var(--gold);">Bulk Orders</div>
+      <h2 class="section-title">Stock Your Freezer.<br>Feed Your Family All Year.</h2>
+      <p class="section-body">Buy a quarter, half, or whole animal direct from our farm. Processing is included — your beef arrives custom-cut, vacuum-sealed, and ready to store. It's the best value way to enjoy Miller Wagyu all year long.</p>
+      <div class="wholesale-cta">
+        <a href="#contact" class="btn-primary">Request a Bulk Order</a>
+        <a href="#contact" class="btn-outline" style="color:var(--gold-light);border-color:rgba(201,151,58,0.4);">Ask a Question</a>
+      </div>
+    </div>
+    <div class="wholesale-cards reveal">
+      <div class="wholesale-card featured">
+        <div>
+          <div class="wc-label">Most Popular</div>
+          <div class="wc-title">Half Animal</div>
+          <div class="wc-weight">~375 lbs hanging weight · ~220 lbs take-home · Processing included</div>
+        </div>
+        <div>
+          <div class="wc-price">$7 <span>/ lb hanging weight</span></div>
+          <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:14px;font-size:0.68rem;">Order a Half</a>
+        </div>
+      </div>
+      <div class="wholesale-card">
+        <div class="wc-label">Family-Sized</div>
+        <div class="wc-title">Whole Animal</div>
+        <div class="wc-weight">~750 lbs HW · Processing incl.</div>
+        <div class="wc-price">$7 <span>/ lb HW</span></div>
+      </div>
+      <div class="wholesale-card">
+        <div class="wc-label">Great Starter</div>
+        <div class="wc-title">Quarter Animal</div>
+        <div class="wc-weight">~188 lbs HW · Processing incl.</div>
+        <div class="wc-price">$7 <span>/ lb HW</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FARMERS MARKETS -->
+<section class="markets" id="markets">
+  <div class="markets-inner">
+    <div class="markets-header">
+      <div>
+        <div class="section-label">Find Us</div>
+        <h2 class="section-title">Farmers Market<br>Schedule</h2>
+        <p class="section-body">Come meet the family and taste the difference. We bring fresh cuts and bulk order information to markets across La Crosse and the region.</p>
+      </div>
+      <div>
+        <p style="font-family:'EB Garamond',serif;font-size:1.05rem;color:var(--text-mid);line-height:1.7;margin-bottom:20px;">Can't make it to a market? We also offer <strong>farm pickup</strong> at W3402 Jungen Rd, La Crosse. Contact us to schedule.</p>
+        <a href="#contact" class="btn-primary" style="font-size:0.7rem;">Schedule Farm Pickup</a>
+      </div>
+    </div>
+    <div class="market-list reveal">
+      <div class="market-item">
+        <div class="market-day">Fri</div>
+        <div class="market-info">
+          <div class="market-name">La Crosse Farmers Market — Burns Park</div>
+          <div class="market-details">Main St between 7th &amp; 8th St, La Crosse · 4:00 PM – Dusk · May through October</div>
+        </div>
+        <div class="market-badge">Weekly</div>
+      </div>
+      <div class="market-item">
+        <div class="market-day">Sat</div>
+        <div class="market-info">
+          <div class="market-name">Crowley Park Saturday Market</div>
+          <div class="market-details">2100 Campbell Rd, La Crosse · 9:00 AM – 12:00 PM · June through October (bi-weekly)</div>
+        </div>
+        <div class="market-badge">Bi-Weekly</div>
+      </div>
+      <div class="market-item">
+        <div class="market-day">Sat</div>
+        <div class="market-info">
+          <div class="market-name">Jackson Plaza Saturday Market</div>
+          <div class="market-details">19th St S &amp; Jackson St, La Crosse · 8:00 AM – 1:00 PM · May through October</div>
+        </div>
+        <div class="market-badge">Weekly</div>
+      </div>
+      <div class="market-item">
+        <div class="market-day">Wed</div>
+        <div class="market-info">
+          <div class="market-name">Festival Foods Holmen Market</div>
+          <div class="market-details">Holmen American Legion, 419 1st Ave W · 3:00 – 6:00 PM · June through September</div>
+        </div>
+        <div class="market-badge">Weekly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <p class="testimonial-quote">We compared Miller's American Wagyu to grass-fed Angus and immediately noticed a difference in quality and taste. My kids request it now.</p>
+  <p class="testimonial-author">— Verified Customer, La Crosse WI</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="section-label" style="color:var(--gold);">Get In Touch</div>
+      <h2 class="section-title">Ready to Order<br>or Have Questions?</h2>
+      <p class="section-body">Whether you're interested in individual cuts, a bulk animal, or just want to learn more — we'd love to hear from you. We're a family farm and we answer every message personally.</p>
+      <div class="contact-details">
+        <div class="contact-row">
+          <span class="contact-icon">📍</span>
+          <div class="contact-text">
+            <strong>Address</strong>
+            W3402 Jungen Rd, La Crosse, Wisconsin 54601
+          </div>
+        </div>
+        <div class="contact-row">
+          <span class="contact-icon">📞</span>
+          <div class="contact-text">
+            <strong>Phone</strong>
+            Steven (Owner): <a href="tel:6083864670" style="color:var(--gold-light);text-decoration:none;">608-386-4670</a><br>
+            Catherine (Manager): <a href="tel:6083868338" style="color:var(--gold-light);text-decoration:none;">608-386-8338</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <span class="contact-icon">✉️</span>
+          <div class="contact-text">
+            <strong>Email</strong>
+            <a href="mailto:millerwagyu@gmail.com" style="color:var(--gold-light);text-decoration:none;">millerwagyu@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Steve">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Johnson">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="you@email.com">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="608-555-0100">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>I'm interested in…</label>
+        <select>
+          <option value="">Select an option</option>
+          <option>Individual cuts</option>
+          <option>Quarter animal (~188 lb HW)</option>
+          <option>Half animal (~375 lb HW)</option>
+          <option>Whole animal (~750 lb HW)</option>
+          <option>Restaurant / wholesale inquiry</option>
+          <option>General question</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us what you're looking for…"></textarea>
+      </div>
+      <button class="form-submit">Send Message &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Miller Wagyu <span>La Crosse, Wisconsin</span></div>
+  <ul class="footer-links">
+    <li><a href="#shop">Shop Cuts</a></li>
+    <li><a href="#wholesale">Bulk Orders</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Miller Wagyu Farms · La Crosse, WI</p>
+</footer>
+
+<script>
+  // Tab switching
+  function showTab(tab, btn) {
+    document.querySelectorAll('.product-set').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Scroll to contact
+  function openContact() {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 40 ? '0 4px 32px rgba(0,0,0,0.35)' : 'none';
+  });
+</script>
+</body>
+</html>
