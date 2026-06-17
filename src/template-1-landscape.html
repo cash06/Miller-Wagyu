@@ -35,9 +35,7 @@
     display: flex; align-items: center; gap: 12px; text-decoration: none;
   }
   .nav-logo-img {
-    height: 46px; width: 46px; object-fit: contain;
-    border-radius: 50%; border: 1.5px solid rgba(201,151,58,0.4);
-    background: rgba(255,255,255,0.05);
+    height: 44px; width: auto; object-fit: contain;
   }
   .nav-brand-text { display: flex; flex-direction: column; }
   .nav-brand-name {
@@ -72,7 +70,7 @@
     position: absolute; inset: 0;
     background:
       linear-gradient(to bottom, rgba(27,42,53,0.6) 0%, rgba(27,42,53,0.35) 50%, rgba(27,42,53,0.75) 100%),
-      url('images/farm.jpg') center/cover no-repeat;
+      url('../images/landscape%20day.JPG') center/cover no-repeat;
   }
   .hero-content {
     position: relative; z-index: 2; text-align: center; padding: 0 24px;
@@ -255,7 +253,7 @@
     display: grid; grid-template-columns: 1fr 1fr; min-height: 580px;
   }
   .story-img {
-    background: url('images/farm%20overhead%20view.jpg') center/cover no-repeat;
+    background: url('../images/farm%20overhead%20view.jpg') center/cover no-repeat;
     position: relative;
   }
   .story-img::after {
@@ -295,25 +293,45 @@
     text-transform: uppercase; color: var(--text-light);
   }
 
-  /* PROMISES */
-  .promises {
-    padding: 80px 48px; background: var(--slate); text-align: center;
+  /* WHY SECTION */
+  .why {
+    padding: 88px 48px; background: var(--slate);
   }
-  .promises .section-label { justify-content: center; color: var(--gold); }
-  .promises .section-label::after { display: none; }
-  .promises .section-title { color: var(--cream); margin-bottom: 48px; }
-  .promises-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 32px; max-width: 960px; margin: 0 auto;
+  .why-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start;
   }
-  .promise-card {
-    padding: 32px 20px; border: 1px solid rgba(201,151,58,0.18); border-radius: 6px;
-    transition: border-color 0.3s, transform 0.3s;
+  .why-left {}
+  .why-left .section-label { color: var(--gold); }
+  .why-left .section-title { color: var(--cream); margin-bottom: 28px; line-height: 1.1; }
+  .why-pullquote {
+    font-family: 'Playfair Display', serif; font-size: 1.25rem; font-style: italic;
+    color: var(--cream); line-height: 1.65;
+    border-left: 3px solid var(--gold); padding-left: 22px; margin-bottom: 20px;
   }
-  .promise-card:hover { border-color: rgba(201,151,58,0.55); transform: translateY(-4px); }
-  .promise-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
-  .promise-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--gold-light); margin-bottom: 10px; }
-  .promise-desc { font-size: 0.8rem; color: rgba(247,243,236,0.55); line-height: 1.65; font-weight: 300; }
+  .why-sig {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); opacity: 0.7;
+  }
+  .why-facts { display: flex; flex-direction: column; gap: 0; }
+  .why-fact {
+    display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: start;
+    padding: 24px 0; border-bottom: 1px solid rgba(201,151,58,0.12);
+    transition: border-color 0.2s;
+  }
+  .why-fact:first-child { border-top: 1px solid rgba(201,151,58,0.12); }
+  .why-fact:hover { border-bottom-color: rgba(201,151,58,0.35); }
+  .why-fact-num {
+    font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic;
+    color: var(--gold); opacity: 0.65; padding-top: 2px;
+  }
+  .why-fact-title {
+    font-family: 'Playfair Display', serif; font-size: 1rem;
+    color: var(--gold-light); margin-bottom: 5px;
+  }
+  .why-fact-body {
+    font-size: 0.78rem; font-weight: 300; color: rgba(247,243,236,0.5); line-height: 1.65;
+  }
 
   /* BULK ORDERS */
   .bulk {
@@ -415,7 +433,7 @@
     flex-wrap: wrap; gap: 20px; border-top: 1px solid rgba(201,151,58,0.15);
   }
   .footer-brand { display: flex; align-items: center; gap: 10px; }
-  .footer-logo-img { height: 36px; width: 36px; object-fit: contain; border-radius: 50%; opacity: 0.85; }
+  .footer-logo-img { height: 34px; width: auto; object-fit: contain; opacity: 0.85; }
   .footer-brand-text { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold-light); }
   .footer-brand-sub { font-size: 0.57rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
   .footer-links { display: flex; gap: 24px; list-style: none; }
@@ -433,7 +451,8 @@
     .story-content { padding: 52px 28px; }
     .bulk-inner { grid-template-columns: 1fr; gap: 40px; }
     .markets-grid { grid-template-columns: 1fr; }
-    .shop, .promises, .bulk, .markets { padding: 56px 22px; }
+    .shop, .why, .bulk, .markets { padding: 56px 22px; }
+    .why-inner { grid-template-columns: 1fr; gap: 40px; }
     footer { flex-direction: column; text-align: center; }
   }
 </style>
@@ -443,7 +462,6 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-brand">
-    <img src="../images/cow.jpg" alt="Miller Wagyu Logo" class="nav-logo-img">
     <div class="nav-brand-text">
       <span class="nav-brand-name">Miller Wagyu</span>
       <span class="nav-brand-sub">La Crosse, Wisconsin</span>
@@ -475,11 +493,11 @@
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
-  <div class="trust-item">🌿 Hormone &amp; Antibiotic Free</div>
-  <div class="trust-item">🐄 Pasture Raised</div>
-  <div class="trust-item">🏡 Family Farm · La Crosse, WI</div>
-  <div class="trust-item">📦 Processing Included</div>
-  <div class="trust-item">🤝 Direct Farm-to-Table</div>
+  <div class="trust-item">Hormone &amp; Antibiotic Free</div>
+  <div class="trust-item">Pasture Raised</div>
+  <div class="trust-item">Family Farm · La Crosse, WI</div>
+  <div class="trust-item">Processing Included</div>
+  <div class="trust-item">Direct Farm-to-Table</div>
 </div>
 
 <!-- CATEGORY STRIP + SHOP -->
@@ -490,19 +508,19 @@
       <p>Select a category to browse available cuts</p>
       <div class="cat-cards">
         <div class="cat-card active" onclick="showCat('steakhouse', this)">
-          <div class="cat-card-img"><img src="../images/Ribeye.jpg" alt="Steakhouse"></div>
+          <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1566904326734-e17fb7905d35?auto=format&fit=crop&w=800&q=80" alt="Steakhouse"></div>
           <div class="cat-card-label">Steakhouse <span class="cat-card-count">5 cuts</span></div>
         </div>
         <div class="cat-card" onclick="showCat('classic', this)">
-          <div class="cat-card-img"><img src="../images/Wagyu%20Ground%20Beef.jpg" alt="Classic"></div>
+          <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1576488445602-400cb75f421a?auto=format&fit=crop&w=800&q=80" alt="Classic"></div>
           <div class="cat-card-label">Classic <span class="cat-card-count">4 cuts</span></div>
         </div>
         <div class="cat-card" onclick="showCat('nouveau', this)">
-          <div class="cat-card-img"><img src="../images/Flank%20Steak.jpg" alt="Nouveau"></div>
+          <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1558199141-391d935676f0?auto=format&fit=crop&w=800&q=80" alt="Nouveau"></div>
           <div class="cat-card-label">Nouveau <span class="cat-card-count">4 cuts</span></div>
         </div>
         <div class="cat-card" onclick="showCat('exotics', this)">
-          <div class="cat-card-img"><img src="../images/wagyu%20heart.jpg" alt="Exotics"></div>
+          <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1623174025518-b49000fb653d?auto=format&fit=crop&w=800&q=80" alt="Exotics"></div>
           <div class="cat-card-label">Exotics <span class="cat-card-count">6 cuts</span></div>
         </div>
       </div>
@@ -789,38 +807,46 @@
   <div class="story-content">
     <div class="section-label">Our Story</div>
     <h2 class="section-title">Raised in the<br>Coulee Country</h2>
-    <p class="section-body">Steve and Sally Miller have farmed all their lives — both raised on dairy farms in the beautiful coulee region of La Crosse. Farming isn't just what they do; it's who they are.</p>
-    <blockquote class="story-quote">
-      "We only know one way to farm — and that's raising quality beef the right way. Something we've passed down to our children and grandchildren."
-    </blockquote>
-    <p class="story-sig">— Steve &amp; Sally Miller, Founders</p>
+    <p class="section-body">Steve still farms the same land his father and grandfather did — land that raised his children and is now cherished by his grandchildren. A member of the American Wagyu Association, Steve has spent years building a herd of full-blooded Wagyu cattle that are all at least 98% pure Wagyu, every one with registered genetics proving its pedigree.</p>
   </div>
 </section>
 
-<!-- PROMISES -->
-<section class="promises">
-  <div class="section-label">Our Promise</div>
-  <h2 class="section-title">What Makes Miller Wagyu Different</h2>
-  <div class="promises-grid">
-    <div class="promise-card">
-      <span class="promise-icon">🌾</span>
-      <div class="promise-title">Pasture Raised</div>
-      <p class="promise-desc">Our cattle roam freely across our La Crosse farm with space, fresh air, and natural forage.</p>
+<!-- WHY MILLER WAGYU -->
+<section class="why">
+  <div class="why-inner">
+    <div class="why-left">
+      <div class="section-label">The Miller Standard</div>
+      <h2 class="section-title">Why our<br>Wagyu is<br>different.</h2>
     </div>
-    <div class="promise-card">
-      <span class="promise-icon">🚫</span>
-      <div class="promise-title">No Hormones · No Antibiotics</div>
-      <p class="promise-desc">Never. Clean beef is better beef, and we stand behind every cut with that commitment.</p>
-    </div>
-    <div class="promise-card">
-      <span class="promise-icon">🔬</span>
-      <div class="promise-title">World-Class Genetics</div>
-      <p class="promise-desc">American Wagyu bred from carefully selected genetics, delivering signature marbling and buttery flavor.</p>
-    </div>
-    <div class="promise-card">
-      <span class="promise-icon">📦</span>
-      <div class="promise-title">Processing Included</div>
-      <p class="promise-desc">Every wholesale order includes custom processing — cut to your specs, vacuum-sealed, freezer-ready.</p>
+    <div class="why-facts">
+      <div class="why-fact">
+        <div class="why-fact-num">01</div>
+        <div>
+          <div class="why-fact-title">Same land. Three generations.</div>
+          <p class="why-fact-body">Steve farms the same coulee-country land his father and grandfather did. This isn't a venture farm or a contract operation — it's family land that his children were raised on and his grandchildren love.</p>
+        </div>
+      </div>
+      <div class="why-fact">
+        <div class="why-fact-num">02</div>
+        <div>
+          <div class="why-fact-title">At least 98% pure Wagyu. Every animal. Registered.</div>
+          <p class="why-fact-body">Steve is a member of the American Wagyu Association. Every animal in the herd has registered genetics proving its pedigree — so you know exactly what you're eating. No guessing, no marketing claims.</p>
+        </div>
+      </div>
+      <div class="why-fact">
+        <div class="why-fact-num">03</div>
+        <div>
+          <div class="why-fact-title">Zero hormones. Zero antibiotics. No exceptions.</div>
+          <p class="why-fact-body">Not "raised without added hormones." Not "antibiotic-free when possible." Never. That's a promise we've kept since the first day and we're not stopping.</p>
+        </div>
+      </div>
+      <div class="why-fact">
+        <div class="why-fact-num">04</div>
+        <div>
+          <div class="why-fact-title">Know your farmer. Buy direct.</div>
+          <p class="why-fact-body">There are no regulations on Wagyu labeling — anyone can call their beef Wagyu. We back ours with registered genetics and an open invitation: stop by the farm and see for yourself.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -931,7 +957,7 @@
       </div>
       <div class="market-aside">
         <p>Can't make it to a market? We also offer <strong>farm pickup</strong> at W3402 Jungen Rd, La Crosse. Contact us to schedule a time.</p>
-        <p style="margin-top:16px;font-style:normal;font-size:0.85rem;color:var(--text-light);">📞 Steven: <a href="tel:6083864670" style="color:var(--gold);text-decoration:none;">608-386-4670</a><br>Catherine: <a href="tel:6083868338" style="color:var(--gold);text-decoration:none;">608-386-8338</a><br>✉️ <a href="mailto:millerwagyu@gmail.com" style="color:var(--gold);text-decoration:none;">millerwagyu@gmail.com</a></p>
+        <p style="margin-top:16px;font-style:normal;font-size:0.85rem;color:var(--text-light);">Steven: <a href="tel:6083864670" style="color:var(--gold);text-decoration:none;">608-386-4670</a><br>Catherine: <a href="tel:6083868338" style="color:var(--gold);text-decoration:none;">608-386-8338</a><br><a href="mailto:millerwagyu@gmail.com" style="color:var(--gold);text-decoration:none;">millerwagyu@gmail.com</a></p>
         <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:24px;font-size:0.7rem;">Schedule Farm Pickup</a>
       </div>
     </div>
@@ -941,7 +967,6 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">
-    <img src="../images/cow.jpg" alt="Logo" class="footer-logo-img">
     <div>
       <div class="footer-brand-text">Miller Wagyu</div>
       <div class="footer-brand-sub">La Crosse, Wisconsin</div>

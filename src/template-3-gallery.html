@@ -3,38 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miller Wagyu – Template 3: Gallery</title>
+<title>Miller Wagyu – Template 3: Editorial</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black: #080808;
-    --dark: #111111;
-    --dark-mid: #1a1a1a;
-    --charcoal: #242424;
-    --white: #f9f6f1;
-    --white-dim: rgba(249,246,241,0.65);
-    --amber: #e8951e;
-    --amber-dim: rgba(232,149,30,0.7);
-    --amber-glow: rgba(232,149,30,0.15);
-    --red-acc: #c23b22;
+    --forest: #0b1a0c;
+    --forest-mid: #132015;
+    --forest-light: #1c3020;
+    --forest-border: rgba(255,255,255,0.08);
+    --cream: #f2ece0;
+    --cream-dim: rgba(242,236,224,0.65);
+    --gold: #c99440;
+    --gold-dim: rgba(201,148,64,0.7);
+    --gold-glow: rgba(201,148,64,0.12);
+    --white: #f8f5ee;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--forest); color: var(--cream); overflow-x: hidden; }
 
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 900;
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 48px;
-    background: rgba(8,8,8,0.92); backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(232,149,30,0.2);
+    background: rgba(11,26,12,0.94); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--forest-border);
   }
   .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .nav-logo-img {
-    height: 44px; width: 44px; object-fit: contain; border-radius: 50%;
-    border: 1.5px solid var(--amber); padding: 2px;
-    filter: brightness(1.1) contrast(1.05);
+    height: 44px; width: auto; object-fit: contain;
   }
   .nav-brand-name {
     font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
@@ -42,236 +40,295 @@
   }
   .nav-brand-sub {
     font-size: 0.58rem; font-weight: 300; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--amber); opacity: 0.7;
-    margin-top: 1px;
+    text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-top: 1px;
   }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a {
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
-    text-transform: uppercase; color: rgba(249,246,241,0.65);
+    text-transform: uppercase; color: rgba(242,236,224,0.6);
     text-decoration: none; transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--amber); }
+  .nav-links a:hover { color: var(--gold); }
   .nav-cta {
-    background: var(--amber); color: var(--black) !important;
+    background: var(--gold); color: var(--forest) !important;
     padding: 8px 22px; border-radius: 2px; font-weight: 600 !important;
     transition: opacity 0.2s !important;
   }
   .nav-cta:hover { opacity: 0.85 !important; }
 
-  /* HERO - BOLD SPLIT */
+  /* HERO - CINEMATIC ANIMATED */
+  @keyframes kenburns {
+    from { transform: scale(1); }
+    to   { transform: scale(1.1); }
+  }
+  @keyframes slideFromLeft {
+    from { transform: translateX(-110%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes slideFromRight {
+    from { transform: translateX(110%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes drawLine {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
   .hero {
-    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-    padding-top: 72px; overflow: hidden;
+    min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
   }
-  .hero-left {
-    position: relative; overflow: hidden;
-  }
-  .hero-left-img {
+  .hero-bg {
     position: absolute; inset: 0;
-    background: url('images/meat.jpg') center/cover no-repeat;
+    background: url('../images/landscape%20dusk.JPG') center/cover no-repeat;
+    animation: kenburns 16s ease-out forwards;
+    will-change: transform;
   }
-  .hero-left-img::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(8,8,8,0.4) 0%, rgba(8,8,8,0.1) 100%);
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(11,26,12,0.97) 0%, rgba(11,26,12,0.65) 40%, rgba(11,26,12,0.2) 75%, transparent 100%),
+      linear-gradient(to bottom, rgba(11,26,12,0.6) 0%, transparent 20%);
   }
-  .hero-left-strip {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    display: grid; grid-template-columns: repeat(3, 1fr); height: 100px; overflow: hidden;
-  }
-  .hero-strip-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-  .hero-right {
-    background: var(--dark); display: flex; flex-direction: column; justify-content: center;
-    padding: 60px 64px 60px 52px; position: relative; overflow: hidden;
-  }
-  .hero-right::before {
-    content: ''; position: absolute; top: -100px; right: -100px;
-    width: 400px; height: 400px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(232,149,30,0.08) 0%, transparent 70%);
+  .hero-center {
+    flex: 1; position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 100px 48px 48px; text-align: center;
   }
   .hero-eyebrow {
-    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--amber); margin-bottom: 20px;
-    display: flex; align-items: center; gap: 12px;
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.3s;
   }
-  .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--amber); opacity: 0.5; }
-  .hero-title {
+  .hero-title-row {
+    display: flex; align-items: baseline; justify-content: center;
+    gap: 0.12em; margin-bottom: 0;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.5rem, 7vw, 6rem);
-    letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 24px; color: var(--white);
+    font-size: clamp(5.5rem, 13vw, 11rem);
+    letter-spacing: 0.03em; line-height: 0.95; color: var(--white);
   }
-  .hero-title span { color: var(--amber); }
+  .word-clip { overflow: hidden; }
+  .word-miller {
+    display: block;
+    animation: slideFromLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.55s;
+    transform: translateX(-110%);
+  }
+  .word-wagyu {
+    display: block; color: var(--gold);
+    animation: slideFromRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.55s;
+    transform: translateX(110%);
+  }
+  .hero-rule {
+    width: 100%; max-width: 520px; height: 1px;
+    background: var(--gold); margin: 22px auto 28px;
+    transform-origin: left center; transform: scaleX(0);
+    animation: drawLine 0.6s ease forwards 1.35s;
+  }
   .hero-sub {
-    font-size: 1rem; font-weight: 300; color: var(--white-dim);
-    line-height: 1.7; margin-bottom: 36px; max-width: 380px;
+    font-size: 0.95rem; font-weight: 300; color: var(--cream-dim);
+    line-height: 1.75; max-width: 480px; margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1.6s;
   }
-  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-amber {
-    background: var(--amber); color: var(--black);
+  .hero-btns {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1.85s;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--forest);
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 14px 32px; border-radius: 2px; text-decoration: none; border: none; cursor: pointer;
+    padding: 14px 36px; border-radius: 2px; text-decoration: none; border: none; cursor: pointer;
     transition: opacity 0.2s, transform 0.2s;
   }
-  .btn-amber:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-gold:hover { opacity: 0.85; transform: translateY(-2px); }
   .btn-ghost {
-    border: 1px solid rgba(249,246,241,0.3); color: var(--white);
+    border: 1px solid rgba(242,236,224,0.3); color: var(--cream);
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 14px 32px; border-radius: 2px; text-decoration: none; cursor: pointer;
+    padding: 14px 36px; border-radius: 2px; text-decoration: none; cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
   }
-  .btn-ghost:hover { border-color: var(--amber); background: var(--amber-glow); }
-  .hero-stats {
-    display: flex; gap: 36px; margin-top: 44px; padding-top: 36px;
-    border-top: 1px solid rgba(249,246,241,0.08);
+  .btn-ghost:hover { border-color: var(--gold); background: var(--gold-glow); }
+
+  /* STATS ROW */
+  .hero-stats-row {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; gap: 56px;
+    padding: 24px 48px 0;
+    border-top: 1px solid rgba(242,236,224,0.1);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 2.1s;
   }
   .hero-stat-num {
     font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
-    color: var(--amber); letter-spacing: 0.04em; line-height: 1;
+    color: var(--gold); letter-spacing: 0.04em; line-height: 1;
   }
   .hero-stat-label {
-    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--white-dim); margin-top: 4px;
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--cream-dim); margin-top: 4px;
+  }
+
+  /* MARQUEE TICKER */
+  .hero-ticker {
+    position: relative; z-index: 2;
+    background: rgba(11,26,12,0.7); backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(201,148,64,0.2);
+    overflow: hidden; padding: 12px 0;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 2.4s;
+  }
+  .ticker-track {
+    display: flex; white-space: nowrap;
+    animation: ticker 22s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-dim); padding: 0 28px; flex-shrink: 0;
+  }
+  .ticker-dot {
+    color: var(--gold); flex-shrink: 0; font-size: 1.1rem; line-height: 1; padding: 0 4px;
   }
 
   /* IMAGE MOSAIC STRIP */
   .mosaic {
     display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; height: 260px;
-    gap: 3px; background: var(--black);
+    gap: 3px; background: var(--forest);
   }
   .mosaic-item { overflow: hidden; position: relative; }
   .mosaic-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .mosaic-item:hover img { transform: scale(1.05); }
   .mosaic-label {
     position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px;
-    background: linear-gradient(to top, rgba(8,8,8,0.8), transparent);
+    background: linear-gradient(to top, rgba(11,26,12,0.85), transparent);
     font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--amber); opacity: 0;
-    transition: opacity 0.3s;
+    color: var(--gold); opacity: 0; transition: opacity 0.3s;
   }
   .mosaic-item:hover .mosaic-label { opacity: 1; }
 
   /* TRUST BAR */
   .trust-bar {
-    background: var(--amber); padding: 14px 48px;
-    display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap;
+    background: var(--gold); padding: 14px 48px;
+    display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap;
   }
   .trust-item {
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--black); display: flex; align-items: center; gap: 8px;
+    color: var(--forest); padding: 0 28px;
+    border-right: 1px solid rgba(11,26,12,0.25);
   }
+  .trust-item:last-child { border-right: none; }
 
   /* SECTION SHARED */
   .section-label-dark {
     font-size: 0.63rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--amber); margin-bottom: 12px;
+    color: var(--gold); margin-bottom: 12px;
     display: flex; align-items: center; gap: 10px;
   }
-  .section-label-dark::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--amber); opacity: 0.4; }
+  .section-label-dark::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--gold); opacity: 0.4; }
   .section-title-dark {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: 0.04em; color: var(--white); line-height: 0.95; margin-bottom: 16px;
   }
   .section-body-dark {
-    font-size: 0.95rem; font-weight: 300; color: var(--white-dim); line-height: 1.75; max-width: 500px;
+    font-size: 0.95rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; max-width: 500px;
   }
 
   /* SHOP */
-  .shop { padding: 88px 48px; background: var(--dark); }
+  .shop { padding: 88px 48px; background: var(--forest-mid); }
   .shop-inner { max-width: 1200px; margin: 0 auto; }
   .shop-header {
     display: flex; align-items: flex-end; justify-content: space-between;
     gap: 24px; flex-wrap: wrap; margin-bottom: 40px;
   }
-  .shop-tabs { display: flex; gap: 2px; background: rgba(249,246,241,0.05); padding: 4px; border-radius: 3px; flex-wrap: wrap; }
+  .shop-tabs { display: flex; gap: 2px; background: rgba(242,236,224,0.04); padding: 4px; border-radius: 3px; flex-wrap: wrap; }
   .tab-btn {
     font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-    padding: 9px 20px; border: none; background: transparent; color: rgba(249,246,241,0.5);
+    padding: 9px 20px; border: none; background: transparent; color: rgba(242,236,224,0.45);
     border-radius: 2px; cursor: pointer; transition: all 0.2s;
   }
-  .tab-btn.active { background: var(--amber); color: var(--black); }
-  .tab-btn:hover:not(.active) { color: var(--amber); }
+  .tab-btn.active { background: var(--gold); color: var(--forest); }
+  .tab-btn:hover:not(.active) { color: var(--gold); }
   .products-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px;
   }
   .product-set { display: none; }
   .product-set.active { display: contents; }
   .product-card {
-    background: var(--charcoal); border-radius: 3px; overflow: hidden;
-    border: 1px solid rgba(249,246,241,0.06);
+    background: var(--forest-light); border-radius: 3px; overflow: hidden;
+    border: 1px solid var(--forest-border);
     transition: transform 0.25s, border-color 0.25s; cursor: pointer;
   }
-  .product-card:hover { transform: translateY(-5px); border-color: rgba(232,149,30,0.35); }
+  .product-card:hover { transform: translateY(-5px); border-color: rgba(201,148,64,0.35); }
   .product-img { height: 200px; overflow: hidden; position: relative; }
   .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
   .product-card:hover .product-img img { transform: scale(1.06); }
   .product-badge {
     position: absolute; top: 10px; left: 10px;
-    background: var(--amber); color: var(--black);
+    background: var(--gold); color: var(--forest);
     font-size: 0.56rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
     padding: 4px 10px; border-radius: 1px;
   }
   .product-body { padding: 18px 20px 20px; }
   .product-cat {
     font-size: 0.58rem; font-weight: 600; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--amber-dim); margin-bottom: 5px;
+    text-transform: uppercase; color: var(--gold-dim); margin-bottom: 5px;
   }
   .product-name {
     font-family: 'Playfair Display', serif; font-size: 1.15rem;
     color: var(--white); margin-bottom: 7px;
   }
-  .product-desc { font-size: 0.77rem; color: var(--white-dim); line-height: 1.55; margin-bottom: 16px; font-weight: 300; }
+  .product-desc { font-size: 0.77rem; color: var(--cream-dim); line-height: 1.55; margin-bottom: 16px; font-weight: 300; }
   .product-footer { display: flex; align-items: center; justify-content: space-between; }
   .product-price {
     font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
-    color: var(--amber); letter-spacing: 0.04em;
+    color: var(--gold); letter-spacing: 0.04em;
   }
-  .product-price span { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--white-dim); }
+  .product-price span { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--cream-dim); }
   .btn-inquire {
-    background: transparent; color: var(--amber); border: 1px solid rgba(232,149,30,0.4);
+    background: transparent; color: var(--gold); border: 1px solid rgba(201,148,64,0.4);
     font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
     padding: 8px 16px; border-radius: 2px; cursor: pointer; transition: all 0.2s;
   }
-  .btn-inquire:hover { background: var(--amber); color: var(--black); }
+  .btn-inquire:hover { background: var(--gold); color: var(--forest); }
 
-  /* BREED INFO SECTION */
-  .breed-section {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-    background: var(--black);
+  /* FARM STORY - SPLIT */
+  .farm-story {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 500px;
+    background: var(--forest);
   }
-  .breed-img-col { position: relative; overflow: hidden; min-height: 480px; }
-  .breed-img-col img { width: 100%; height: 100%; object-fit: cover; }
-  .breed-content {
+  .farm-story-img { position: relative; overflow: hidden; }
+  .farm-story-img img { width: 100%; height: 100%; object-fit: cover; }
+  .farm-story-content {
     padding: 72px 64px; display: flex; flex-direction: column; justify-content: center;
-    background: var(--dark-mid);
+    background: var(--forest-mid);
   }
-  .breed-facts { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
-  .breed-fact { display: flex; gap: 16px; align-items: flex-start; }
-  .breed-fact-num {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--amber);
-    letter-spacing: 0.04em; line-height: 1; flex-shrink: 0; width: 44px; text-align: right;
+  .farm-story-body { font-size: 0.95rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; margin-bottom: 24px; }
+  .farm-story-quote {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic;
+    color: var(--white); line-height: 1.7; position: relative; padding: 0 0 0 22px;
+    border-left: 3px solid var(--gold); margin-bottom: 16px;
   }
-  .breed-fact-text { font-size: 0.85rem; font-weight: 300; color: var(--white-dim); line-height: 1.65; }
-  .breed-fact-text strong { display: block; color: var(--white); font-weight: 600; margin-bottom: 2px; font-size: 0.9rem; }
+  .farm-story-sig { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); }
 
-  /* CUT CHART SECTION */
-  .cut-section {
-    background: var(--charcoal); padding: 72px 48px; text-align: center;
-  }
-  .cut-section .section-label-dark { justify-content: center; }
-  .cut-section .section-label-dark::after { display: none; }
-  .cut-img { max-width: 900px; margin: 36px auto 0; border-radius: 4px; overflow: hidden; border: 1px solid rgba(232,149,30,0.15); }
-  .cut-img img { width: 100%; height: auto; display: block; }
-
-  /* OUR STORY */
-  .story { background: var(--black); position: relative; }
+  /* OUR STORY HERO */
+  .story { background: var(--forest); }
   .story-hero {
-    height: 460px; position: relative; overflow: hidden;
-    background: url('images/farm%20overhead%20view.jpg') center/cover no-repeat;
+    height: 440px; position: relative; overflow: hidden;
+    background: url('../images/farm%20overhead%20view.jpg') center/cover no-repeat;
   }
   .story-hero::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.85) 100%);
+    background: linear-gradient(to bottom, rgba(11,26,12,0.25) 0%, rgba(11,26,12,0.88) 100%);
   }
   .story-hero-text {
     position: absolute; bottom: 0; left: 0; right: 0; padding: 48px;
@@ -282,154 +339,128 @@
     font-size: clamp(3rem, 6vw, 5rem); letter-spacing: 0.04em; line-height: 0.95;
     color: var(--white);
   }
-  .story-hero-title span { color: var(--amber); }
-  .story-hero-body { font-size: 0.95rem; font-weight: 300; color: var(--white-dim); line-height: 1.75; }
-  .story-quote-section {
-    padding: 64px 48px; background: var(--dark);
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
-  }
-  .story-photo { border-radius: 3px; overflow: hidden; height: 300px; }
-  .story-photo img { width: 100%; height: 100%; object-fit: cover; }
-  .story-center { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
-  .story-blockquote {
-    font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
-    color: var(--white); line-height: 1.7; position: relative; padding: 0 0 0 22px;
-    border-left: 3px solid var(--amber);
-  }
-  .story-sig { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber-dim); }
+  .story-hero-title span { color: var(--gold); }
+  .story-hero-body { font-size: 0.95rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; }
 
-  /* LOCAL BUSINESSES */
-  .locals-section {
-    padding: 56px 48px; background: var(--charcoal); text-align: center;
+  /* LANDSCAPE FEATURE BANNER */
+  .landscape-banner {
+    height: 320px; position: relative; overflow: hidden;
+    background: url('../images/landscape.jpg') center/cover no-repeat;
   }
-  .locals-section p {
-    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--white-dim); margin-bottom: 28px;
+  .landscape-banner::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(11,26,12,0.4);
   }
-  .locals-img { max-width: 800px; margin: 0 auto; border-radius: 4px; overflow: hidden; opacity: 0.7; }
-  .locals-img img { width: 100%; height: auto; display: block; }
+  .landscape-banner-text {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  }
+  .landscape-banner-text h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.08em; color: var(--white); text-align: center;
+  }
+  .landscape-banner-text p { font-size: 0.82rem; font-weight: 300; color: var(--cream-dim); letter-spacing: 0.1em; }
 
   /* BULK ORDERS */
-  .bulk { padding: 88px 48px; background: var(--dark); }
+  .bulk { padding: 88px 48px; background: var(--forest-mid); }
   .bulk-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 72px; align-items: start; }
-  .bulk-left {}
   .bulk-price-row {
     margin-top: 36px; display: grid; grid-template-columns: 1fr; gap: 12px;
   }
   .price-card {
-    border: 1px solid rgba(232,149,30,0.2); border-radius: 3px; padding: 20px 22px;
-    background: rgba(249,246,241,0.03); display: flex; align-items: center; justify-content: space-between;
+    border: 1px solid rgba(201,148,64,0.2); border-radius: 3px; padding: 20px 22px;
+    background: rgba(242,236,224,0.03); display: flex; align-items: center; justify-content: space-between;
     gap: 16px; transition: border-color 0.2s, background 0.2s; cursor: pointer;
   }
-  .price-card:hover { border-color: rgba(232,149,30,0.45); background: var(--amber-glow); }
-  .price-card.featured { border-color: rgba(232,149,30,0.45); background: var(--amber-glow); }
-  .pc-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber-dim); margin-bottom: 4px; }
+  .price-card:hover { border-color: rgba(201,148,64,0.45); background: var(--gold-glow); }
+  .price-card.featured { border-color: rgba(201,148,64,0.45); background: var(--gold-glow); }
+  .pc-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 4px; }
   .pc-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 3px; }
-  .pc-weight { font-size: 0.72rem; font-weight: 300; color: var(--white-dim); }
+  .pc-weight { font-size: 0.72rem; font-weight: 300; color: var(--cream-dim); }
   .pc-price {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--amber);
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold);
     letter-spacing: 0.04em; white-space: nowrap;
   }
-  .pc-price span { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--white-dim); }
+  .pc-price span { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--cream-dim); }
   .bulk-btns { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
 
   /* CONTACT FORM */
   .contact-form {
-    background: var(--charcoal); border: 1px solid rgba(232,149,30,0.18); border-radius: 4px; padding: 36px;
+    background: var(--forest-light); border: 1px solid rgba(201,148,64,0.18); border-radius: 4px; padding: 36px;
   }
   .form-title {
     font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
     letter-spacing: 0.04em; color: var(--white); margin-bottom: 4px;
   }
-  .form-subtitle { font-size: 0.82rem; font-weight: 300; color: var(--white-dim); margin-bottom: 24px; }
+  .form-subtitle { font-size: 0.82rem; font-weight: 300; color: var(--cream-dim); margin-bottom: 24px; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
   .form-group label {
     font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--amber-dim);
+    text-transform: uppercase; color: var(--gold-dim);
   }
   .form-group input, .form-group select, .form-group textarea {
-    background: rgba(249,246,241,0.05); border: 1px solid rgba(249,246,241,0.1);
+    background: rgba(242,236,224,0.05); border: 1px solid rgba(242,236,224,0.1);
     border-radius: 3px; padding: 11px 14px; color: var(--white);
     font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; outline: none;
     transition: border-color 0.2s;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--amber); }
-  .form-group select option { background: var(--charcoal); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--forest-light); }
   .form-group textarea { resize: vertical; min-height: 90px; }
   .form-submit {
-    width: 100%; background: var(--amber); color: var(--black); border: none;
+    width: 100%; background: var(--gold); color: var(--forest); border: none;
     font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em;
     padding: 15px; border-radius: 2px; cursor: pointer; transition: opacity 0.2s;
   }
   .form-submit:hover { opacity: 0.85; }
 
   /* MARKETS */
-  .markets { padding: 80px 48px; background: var(--dark-mid); }
+  .markets { padding: 80px 48px; background: var(--forest); }
   .markets-inner { max-width: 1100px; margin: 0 auto; }
   .markets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 44px; }
   .market-list { display: flex; flex-direction: column; gap: 12px; }
   .market-item {
     display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px;
-    background: var(--charcoal); border-radius: 3px; border-left: 3px solid var(--amber);
+    background: var(--forest-mid); border-radius: 3px; border-left: 3px solid var(--gold);
     transition: transform 0.2s;
   }
   .market-item:hover { transform: translateX(4px); }
   .market-day {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--amber);
+    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--gold);
     min-width: 36px; text-align: center; letter-spacing: 0.04em; padding-top: 1px;
   }
   .market-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--white); margin-bottom: 3px; }
-  .market-details { font-size: 0.72rem; font-weight: 300; color: var(--white-dim); line-height: 1.5; }
+  .market-details { font-size: 0.72rem; font-weight: 300; color: var(--cream-dim); line-height: 1.5; }
   .market-badge {
     font-size: 0.55rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-    padding: 3px 8px; border-radius: 2px; background: #3d6b32; color: white;
+    padding: 3px 8px; border-radius: 2px; background: #2a5c28; color: white;
     white-space: nowrap; align-self: center;
   }
   .market-aside { display: flex; flex-direction: column; gap: 22px; }
-  .market-aside p { font-size: 0.92rem; font-weight: 300; color: var(--white-dim); line-height: 1.75; }
-  .contact-info-row { display: flex; gap: 12px; align-items: flex-start; }
-  .contact-info-row span { font-size: 1rem; margin-top: 1px; }
-  .contact-info-row div { font-size: 0.82rem; font-weight: 300; color: var(--white-dim); line-height: 1.65; }
-  .contact-info-row strong { display: block; color: var(--amber); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 3px; }
-  .contact-info-row a { color: rgba(232,149,30,0.8); text-decoration: none; }
-  .contact-info-row a:hover { color: var(--amber); }
-
-  /* FARM IMAGE BANNER */
-  .farm-banner {
-    height: 320px; position: relative; overflow: hidden;
-    background: url('images/farm.jpg') center/cover no-repeat;
-  }
-  .farm-banner::after {
-    content: ''; position: absolute; inset: 0;
-    background: rgba(8,8,8,0.45);
-  }
-  .farm-banner-text {
-    position: absolute; inset: 0; z-index: 2;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  }
-  .farm-banner-text h3 {
-    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem);
-    letter-spacing: 0.08em; color: var(--white); text-align: center;
-  }
-  .farm-banner-text p { font-size: 0.82rem; font-weight: 300; color: var(--white-dim); letter-spacing: 0.1em; }
+  .market-aside p { font-size: 0.92rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; }
+  .contact-info-row { display: flex; flex-direction: column; gap: 4px; }
+  .contact-info-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); }
+  .contact-info-val { font-size: 0.85rem; font-weight: 300; color: var(--cream-dim); line-height: 1.65; }
+  .contact-info-val a { color: rgba(201,148,64,0.8); text-decoration: none; }
+  .contact-info-val a:hover { color: var(--gold); }
 
   /* FOOTER */
   footer {
-    background: var(--black); padding: 36px 48px;
+    background: var(--forest); padding: 36px 48px;
     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
-    border-top: 1px solid rgba(232,149,30,0.15);
+    border-top: 1px solid rgba(201,148,64,0.15);
   }
   .footer-brand { display: flex; align-items: center; gap: 10px; }
-  .footer-logo-img { height: 36px; width: 36px; object-fit: contain; border-radius: 50%; border: 1px solid var(--amber); opacity: 0.8; }
+  .footer-logo-img { height: 34px; width: auto; object-fit: contain; opacity: 0.8; }
   .footer-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--white); letter-spacing: 0.06em; }
-  .footer-brand-sub { font-size: 0.56rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); opacity: 0.55; }
+  .footer-brand-sub { font-size: 0.56rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.55; }
   .footer-links { display: flex; gap: 22px; list-style: none; }
-  .footer-links a { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(249,246,241,0.3); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--amber); }
-  .footer-copy { font-size: 0.62rem; font-weight: 300; color: rgba(249,246,241,0.2); letter-spacing: 0.08em; }
+  .footer-links a { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,236,224,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.62rem; font-weight: 300; color: rgba(242,236,224,0.2); letter-spacing: 0.08em; }
 
-  /* REVEAL ANIMATION */
+  /* REVEAL */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -437,20 +468,20 @@
   @media (max-width: 960px) {
     nav { padding: 12px 20px; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-left { height: 50vh; }
-    .hero-right { padding: 48px 28px; }
+    .hero-center { padding: 80px 24px 32px; }
+    .hero-title-row { font-size: clamp(4rem, 18vw, 6rem); }
+    .hero-stats-row { gap: 28px; padding: 16px 24px 0; flex-wrap: wrap; justify-content: center; }
     .mosaic { grid-template-columns: 1fr 1fr; height: 320px; }
-    .breed-section { grid-template-columns: 1fr; }
-    .breed-img-col { min-height: 260px; }
+    .farm-story { grid-template-columns: 1fr; }
+    .farm-story-img { height: 260px; }
+    .farm-story-content { padding: 52px 28px; }
     .story-hero-text { grid-template-columns: 1fr; }
-    .story-quote-section { grid-template-columns: 1fr; }
-    .story-photo { height: 200px; }
     .bulk-inner { grid-template-columns: 1fr; gap: 40px; }
     .markets-grid { grid-template-columns: 1fr; }
     .shop, .bulk, .markets { padding: 56px 22px; }
     footer { flex-direction: column; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
+    .trust-item { border-right: none; padding: 6px 16px; }
   }
 </style>
 </head>
@@ -459,7 +490,6 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-brand">
-    <img src="../images/cow.jpg" alt="Miller Wagyu" class="nav-logo-img">
     <div>
       <div class="nav-brand-name">Miller Wagyu</div>
       <div class="nav-brand-sub">La Crosse, Wisconsin</div>
@@ -476,35 +506,69 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-left">
-    <div class="hero-left-img"></div>
-    <div class="hero-left-strip">
-      <div class="hero-strip-img"><img src="../images/Ribeye.jpg" alt="Ribeye"></div>
-      <div class="hero-strip-img"><img src="../images/rib%20plate.jpg" alt="Rib Plate"></div>
-      <div class="hero-strip-img"><img src="../images/Porterhouse%20Steak.jpg" alt="Porterhouse"></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-eyebrow">American Wagyu · La Crosse, Wisconsin</div>
-    <h1 class="hero-title">FARM<br><span>RAISED.</span><br>DIRECT<br>TO YOU.</h1>
-    <p class="hero-sub">Miller Wagyu Farms raises exceptional American Wagyu beef in the coulee country of La Crosse — hormone-free, pasture-raised, and sold direct. The difference is in every bite.</p>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-center">
+    <div class="hero-eyebrow">American Wagyu &nbsp;·&nbsp; La Crosse, Wisconsin</div>
+    <h1 class="hero-title-row">
+      <span class="word-clip"><span class="word-miller">MILLER</span></span>
+      <span class="word-clip"><span class="word-wagyu">WAGYU</span></span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">Raised in the coulee country of La Crosse — hormone-free, pasture-raised, and sold direct from our family farm to your table.</p>
     <div class="hero-btns">
-      <a href="#shop" class="btn-amber">Shop All Cuts</a>
+      <a href="#shop" class="btn-gold">Shop All Cuts</a>
       <a href="#bulk" class="btn-ghost">Bulk Orders &rarr;</a>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="hero-stat-num">100%</div>
-        <div class="hero-stat-label">Hormone Free</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">3</div>
-        <div class="hero-stat-label">Generations</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">$7</div>
-        <div class="hero-stat-label">Per lb (HW)</div>
-      </div>
+  </div>
+
+  <div class="hero-stats-row">
+    <div>
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Hormone Free</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">98%</div>
+      <div class="hero-stat-label">Pure Wagyu</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">$7</div>
+      <div class="hero-stat-label">Per lb (HW)</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">19+</div>
+      <div class="hero-stat-label">Cuts Available</div>
+    </div>
+  </div>
+
+  <div class="hero-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Ribeye</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Filet Mignon</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">New York Strip</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Porterhouse</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">T-Bone</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Short Ribs</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Skirt Steak</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Thor's Hammer</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Korean Short Ribs</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Wagyu Ground Beef</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Osso Buco</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Flank Steak</span><span class="ticker-dot">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">Ribeye</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Filet Mignon</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">New York Strip</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Porterhouse</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">T-Bone</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Short Ribs</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Skirt Steak</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Thor's Hammer</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Korean Short Ribs</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Wagyu Ground Beef</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Osso Buco</span><span class="ticker-dot">·</span>
+      <span class="ticker-item">Flank Steak</span><span class="ticker-dot">·</span>
     </div>
   </div>
 </section>
@@ -512,7 +576,7 @@
 <!-- IMAGE MOSAIC -->
 <div class="mosaic">
   <div class="mosaic-item">
-    <img src="../images/farm%20overhead%20view.jpg" alt="Farm">
+    <img src="../images/landscape%20day.JPG" alt="The Miller Farm">
     <div class="mosaic-label">The Miller Farm</div>
   </div>
   <div class="mosaic-item">
@@ -524,18 +588,18 @@
     <div class="mosaic-label">Short Ribs</div>
   </div>
   <div class="mosaic-item">
-    <img src="../images/cow.jpg" alt="Wagyu Cattle">
-    <div class="mosaic-label">Our Cattle</div>
+    <img src="../images/meat.jpg" alt="Wagyu Beef">
+    <div class="mosaic-label">Fresh Cuts</div>
   </div>
 </div>
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
-  <div class="trust-item">🌿 Hormone &amp; Antibiotic Free</div>
-  <div class="trust-item">🐄 Pasture Raised</div>
-  <div class="trust-item">🏡 Family Farm · La Crosse, WI</div>
-  <div class="trust-item">📦 Processing Included</div>
-  <div class="trust-item">🤝 Direct Farm-to-Table</div>
+  <div class="trust-item">Hormone &amp; Antibiotic Free</div>
+  <div class="trust-item">Pasture Raised</div>
+  <div class="trust-item">Family Farm · La Crosse, WI</div>
+  <div class="trust-item">Processing Included</div>
+  <div class="trust-item">Direct Farm-to-Table</div>
 </div>
 
 <!-- SHOP CUTS -->
@@ -824,81 +888,35 @@
   </div>
 </section>
 
-<!-- BREED INFO -->
-<section class="breed-section" id="story">
-  <div class="breed-img-col reveal">
-    <img src="../images/wagyu%20breed%20info.jpg" alt="Wagyu Breed Info">
+<!-- FARM STORY -->
+<section class="farm-story" id="story">
+  <div class="farm-story-img reveal">
+    <img src="../images/landscape%20dusk.JPG" alt="Miller Farm at Dusk">
   </div>
-  <div class="breed-content reveal">
-    <div class="section-label-dark">The Breed</div>
-    <h2 class="section-title-dark">What Makes<br>Wagyu <span style="color:var(--amber)">Different</span></h2>
-    <div class="breed-facts">
-      <div class="breed-fact">
-        <div class="breed-fact-num">A5</div>
-        <div class="breed-fact-text"><strong>World's Highest Marbling Grade</strong>American Wagyu is bred for exceptional intramuscular fat — the signature buttery texture that sets it apart from all other beef.</div>
-      </div>
-      <div class="breed-fact">
-        <div class="breed-fact-num">🌿</div>
-        <div class="breed-fact-text"><strong>Pasture Raised, No Hormones</strong>Our cattle roam freely on our La Crosse farm. No hormones, no antibiotics — ever. Just natural, clean beef.</div>
-      </div>
-      <div class="breed-fact">
-        <div class="breed-fact-num">3</div>
-        <div class="breed-fact-text"><strong>Generations of Family Farming</strong>Steve and Sally Miller were both raised on dairy farms in the coulee region. That tradition of care defines every animal they raise.</div>
-      </div>
-    </div>
+  <div class="farm-story-content reveal">
+    <div class="section-label-dark">Our Story</div>
+    <h2 class="section-title-dark">Raised in the<br>Coulee Country</h2>
+    <p class="farm-story-body">Steve still farms the same land his father and grandfather did — land that raised his children and is now cherished by his grandchildren. A member of the American Wagyu Association, he has built a herd of full-blooded Wagyu cattle at least 98% pure, every animal with registered genetics proving its pedigree. We are dedicated to raising the finest quality Wagyu in a sustainable way — and being stewards of the land that has been in this family for generations.</p>
   </div>
 </section>
 
-<!-- CUT CHART -->
-<section class="cut-section">
-  <div class="section-label-dark">Know Your Cuts</div>
-  <h2 class="section-title-dark">From Farm to Fork</h2>
-  <p style="font-size:0.88rem;font-weight:300;color:var(--white-dim);margin-top:8px;">Every cut, every part — raised with care right here in La Crosse, Wisconsin.</p>
-  <div class="cut-img reveal">
-    <img src="../images/cut%20info.jpg" alt="Beef Cut Chart">
-  </div>
-</section>
-
-<!-- OUR STORY -->
+<!-- OVERHEAD STORY SECTION -->
 <section class="story">
   <div class="story-hero">
     <div class="story-hero-text">
       <div>
-        <h3 class="story-hero-title">Raised in the<br><span>Coulee Country</span></h3>
+        <h3 class="story-hero-title">American<br><span>Wagyu.</span><br>Wisconsin<br>Raised.</h3>
       </div>
       <div class="story-hero-body">
-        Steve and Sally Miller have farmed all their lives — both raised on dairy farms in the beautiful coulee region of La Crosse. Farming isn't just what they do; it's who they are. That tradition of care, quality, and hard work is baked into every animal they raise.
+        Our cattle roam freely across our La Crosse farm — hormone-free and antibiotic-free, always. American Wagyu bred from world-class genetics, delivering the signature buttery marbling that sets Miller Wagyu apart from anything at a grocery store.
       </div>
     </div>
   </div>
-  <div class="story-quote-section">
-    <div class="story-photo reveal">
-      <img src="../images/mailbox.jpg" alt="Miller Farm Mailbox">
-    </div>
-    <div class="story-center reveal">
-      <blockquote class="story-blockquote">
-        "We only know one way to farm — and that's raising quality beef the right way. Something we've passed down to our children and grandchildren."
-      </blockquote>
-      <div class="story-sig">— Steve &amp; Sally Miller, Founders</div>
-      <a href="#contact" class="btn-amber" style="display:inline-block;margin-top:8px;">Get in Touch</a>
-    </div>
-    <div class="story-photo reveal">
-      <img src="../images/rib%20plate.jpg" alt="Rib Plate">
-    </div>
-  </div>
 </section>
 
-<!-- LOCAL BUSINESSES -->
-<section class="locals-section">
-  <p>Trusted by local businesses across the La Crosse region</p>
-  <div class="locals-img reveal">
-    <img src="../images/local%20businesses%20logos.jpg" alt="Local Business Partners">
-  </div>
-</section>
-
-<!-- FARM BANNER -->
-<div class="farm-banner">
-  <div class="farm-banner-text">
+<!-- LANDSCAPE BANNER -->
+<div class="landscape-banner">
+  <div class="landscape-banner-text">
     <h3>W3402 Jungen Rd · La Crosse, Wisconsin</h3>
     <p>Farm pickup available · Serving MN &amp; WI</p>
   </div>
@@ -907,7 +925,7 @@
 <!-- BULK ORDERS + CONTACT -->
 <section class="bulk" id="bulk">
   <div class="bulk-inner">
-    <div class="bulk-left">
+    <div>
       <div class="section-label-dark">Bulk Orders</div>
       <h2 class="section-title-dark">Stock Your<br>Freezer.</h2>
       <p class="section-body-dark">Buy a quarter, half, or whole animal direct from our farm. Processing included — custom-cut, vacuum-sealed, and ready for your freezer.</p>
@@ -938,7 +956,7 @@
         </div>
       </div>
       <div class="bulk-btns">
-        <a href="#contact" class="btn-amber">Request a Bulk Order</a>
+        <a href="#contact" class="btn-gold">Request a Bulk Order</a>
         <a href="#contact" class="btn-ghost">Ask a Question</a>
       </div>
     </div>
@@ -946,16 +964,16 @@
       <div class="form-title">Get In Touch</div>
       <div class="form-subtitle">We answer every message personally — we're a family farm.</div>
       <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" placeholder="Steve"></div>
-        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Johnson"></div>
+        <div class="form-group"><label for="t3-fname">First Name</label><input id="t3-fname" type="text" placeholder="Steve"></div>
+        <div class="form-group"><label for="t3-lname">Last Name</label><input id="t3-lname" type="text" placeholder="Johnson"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"></div>
-        <div class="form-group"><label>Phone</label><input type="tel" placeholder="608-555-0100"></div>
+        <div class="form-group"><label for="t3-email">Email</label><input id="t3-email" type="email" placeholder="you@email.com"></div>
+        <div class="form-group"><label for="t3-phone">Phone</label><input id="t3-phone" type="tel" placeholder="608-555-0100"></div>
       </div>
       <div class="form-group">
-        <label>I'm interested in…</label>
-        <select>
+        <label for="t3-interest">I'm interested in…</label>
+        <select id="t3-interest">
           <option value="">Select an option</option>
           <option>Quarter animal (~188 lb HW)</option>
           <option>Half animal (~375 lb HW)</option>
@@ -966,8 +984,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Message</label>
-        <textarea placeholder="Tell us what you're looking for…"></textarea>
+        <label for="t3-msg">Message</label>
+        <textarea id="t3-msg" placeholder="Tell us what you're looking for…"></textarea>
       </div>
       <button class="form-submit">Send Message &rarr;</button>
     </div>
@@ -1017,22 +1035,21 @@
       <div class="market-aside">
         <p>Can't make it to a market? We also offer <strong style="color:var(--white)">farm pickup</strong> at our place in La Crosse. Just reach out and we'll schedule a time.</p>
         <div class="contact-info-row">
-          <span>📍</span>
-          <div><strong>Address</strong>W3402 Jungen Rd, La Crosse, Wisconsin 54601</div>
+          <div class="contact-info-label">Address</div>
+          <div class="contact-info-val">W3402 Jungen Rd, La Crosse, Wisconsin 54601</div>
         </div>
         <div class="contact-info-row">
-          <span>📞</span>
-          <div>
-            <strong>Phone</strong>
+          <div class="contact-info-label">Phone</div>
+          <div class="contact-info-val">
             Steven: <a href="tel:6083864670">608-386-4670</a><br>
             Catherine: <a href="tel:6083868338">608-386-8338</a>
           </div>
         </div>
         <div class="contact-info-row">
-          <span>✉️</span>
-          <div><strong>Email</strong><a href="mailto:millerwagyu@gmail.com">millerwagyu@gmail.com</a></div>
+          <div class="contact-info-label">Email</div>
+          <div class="contact-info-val"><a href="mailto:millerwagyu@gmail.com">millerwagyu@gmail.com</a></div>
         </div>
-        <a href="#contact" class="btn-amber" style="display:inline-block;margin-top:8px;">Schedule Farm Pickup</a>
+        <a href="#contact" class="btn-gold" style="display:inline-block;margin-top:8px;">Schedule Farm Pickup</a>
       </div>
     </div>
   </div>
@@ -1041,7 +1058,6 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">
-    <img src="../images/cow.jpg" alt="Logo" class="footer-logo-img">
     <div>
       <div class="footer-brand-name">Miller Wagyu</div>
       <div class="footer-brand-sub">La Crosse, Wisconsin</div>
@@ -1054,7 +1070,7 @@
     <li><a href="#story">Our Story</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <p class="footer-copy">© 2026 Miller Wagyu Farms · La Crosse, WI</p>
+  <p class="footer-copy">&copy; 2026 Miller Wagyu Farms · La Crosse, WI</p>
 </footer>
 
 <script>
