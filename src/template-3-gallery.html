@@ -3,7 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miller Wagyu – Template 3: Editorial</title>
+<title>Miller Wagyu | Wisconsin Raised American Wagyu Beef | La Crosse, WI</title>
+<meta name="description" content="Family raised American Wagyu beef from the coulee region of La Crosse, Wisconsin. Shop premium cuts, reserve a quarter, half, or whole animal, and find us at local farmers markets across MN and WI.">
+
+<!-- Social link previews (Facebook, iMessage, etc.)
+     NOTE: og:image and og:url must be absolute URLs. Update the domain when the site is deployed. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Miller Wagyu">
+<meta property="og:title" content="Miller Wagyu | Wisconsin Raised American Wagyu Beef">
+<meta property="og:description" content="Family raised American Wagyu from La Crosse, WI. Premium cuts, bulk orders with processing included, and four weekly farmers markets.">
+<meta property="og:image" content="../images/meat.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Local business structured data for Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Miller Wagyu Farms",
+  "description": "Family farm raising American Wagyu beef in the coulee region of La Crosse, Wisconsin. Individual cuts and bulk quarter, half, and whole animal orders with processing included.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "W3402 Jungen Rd",
+    "addressLocality": "La Crosse",
+    "addressRegion": "WI",
+    "postalCode": "54601",
+    "addressCountry": "US"
+  },
+  "telephone": "+1-608-386-4670",
+  "email": "millerwagyu@gmail.com",
+  "priceRange": "$$",
+  "areaServed": ["Wisconsin", "Minnesota"]
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -223,15 +255,13 @@
 
   /* TRUST BAR */
   .trust-bar {
-    background: var(--gold); padding: 14px 48px;
-    display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap;
+    background: var(--gold); padding: 15px 48px;
+    display: flex; align-items: center; justify-content: center; gap: 10px 46px; flex-wrap: wrap;
   }
   .trust-item {
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--forest); padding: 0 28px;
-    border-right: 1px solid rgba(11,26,12,0.25);
+    color: var(--forest); white-space: nowrap;
   }
-  .trust-item:last-child { border-right: none; }
 
   /* SECTION SHARED */
   .section-label-dark {
@@ -303,13 +333,6 @@
     color: var(--gold); letter-spacing: 0.04em;
   }
   .product-price span { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--cream-dim); }
-  .btn-inquire {
-    background: transparent; color: var(--gold); border: 1px solid rgba(201,148,64,0.4);
-    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-    padding: 8px 16px; border-radius: 2px; cursor: pointer; transition: all 0.2s;
-  }
-  .btn-inquire:hover { background: var(--gold); color: var(--forest); }
-
   /* FARM STORY - SPLIT */
   .farm-story {
     display: grid; grid-template-columns: 1fr 1fr; min-height: 500px;
@@ -532,6 +555,243 @@
   .cut-card-price span { font-family: 'DM Sans', sans-serif; font-size: 0.58rem; font-weight: 300; color: var(--cream-dim); }
   .cut-card-desc { font-size: 0.68rem; font-weight: 300; color: var(--cream-dim); line-height: 1.5; margin-top: 2px; }
 
+  /* SHARED HELPERS */
+  body.no-scroll { overflow: hidden; }
+  button.btn-gold, button.btn-ghost { font-family: 'DM Sans', sans-serif; }
+  button.btn-ghost { background: transparent; }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(22px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+  /* NAV BOX BUTTON */
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
+  .nav-box-btn {
+    position: relative; display: flex; align-items: center; gap: 8px;
+    background: transparent; border: 1px solid rgba(201,148,64,0.4); color: var(--gold);
+    border-radius: 2px; padding: 8px 14px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-box-btn:hover { background: var(--gold-glow); border-color: var(--gold); }
+  .nav-box-count {
+    background: var(--gold); color: var(--forest); min-width: 18px; height: 18px;
+    border-radius: 9px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; padding: 0 5px;
+  }
+  .pop { animation: countPop 0.35s ease; display: inline-flex; }
+  @keyframes countPop { 30% { transform: scale(1.5); } }
+
+  /* FLY-TO-BOX DOT */
+  .fly-dot {
+    position: fixed; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--gold); z-index: 2550; pointer-events: none;
+    box-shadow: 0 0 12px rgba(201,148,64,0.8);
+    transition: transform 0.7s cubic-bezier(0.2,0.6,0.3,1), opacity 0.7s;
+  }
+
+  /* ADD-TO-BOX BUTTONS */
+  .product-footer { gap: 8px; flex-wrap: wrap; }
+  .btn-add {
+    width: 34px; height: 32px; flex: 0 0 auto;
+    background: var(--gold); color: var(--forest); border: none; border-radius: 2px;
+    font-size: 1.05rem; line-height: 1; font-weight: 600; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-add:hover { transform: scale(1.08); box-shadow: 0 0 14px rgba(201,148,64,0.4); }
+  .cut-card-add {
+    flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%; align-self: center;
+    border: 1px solid rgba(201,148,64,0.4); background: transparent; color: var(--gold);
+    cursor: pointer; font-size: 0.95rem; line-height: 1; transition: all 0.2s;
+  }
+  .cut-card-add:hover { background: var(--gold); color: var(--forest); }
+
+  /* BOX DRAWER */
+  .box-overlay {
+    position: fixed; inset: 0; background: rgba(4,10,5,0.6); backdrop-filter: blur(3px);
+    z-index: 1200; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+  }
+  .box-overlay.open { opacity: 1; visibility: visible; }
+  .box-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 94vw;
+    background: var(--forest-mid); border-left: 1px solid rgba(201,148,64,0.25);
+    z-index: 1210; transform: translateX(105%);
+    transition: transform 0.45s cubic-bezier(0.2,0.8,0.25,1);
+    display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+  }
+  .box-drawer.open { transform: none; }
+  .box-head { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 16px; border-bottom: 1px solid var(--forest-border); }
+  .box-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.06em; color: var(--white); }
+  .box-sub { font-size: 0.68rem; color: var(--cream-dim); font-weight: 300; margin-top: 2px; max-width: 260px; line-height: 1.5; }
+  .box-close { background: none; border: none; color: var(--cream-dim); font-size: 1.6rem; cursor: pointer; line-height: 1; transition: color 0.2s, transform 0.2s; }
+  .box-close:hover { color: var(--gold); transform: rotate(90deg); }
+  .box-items { flex: 1; overflow-y: auto; padding: 16px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .box-items::-webkit-scrollbar { width: 4px; }
+  .box-items::-webkit-scrollbar-thumb { background: rgba(201,148,64,0.3); border-radius: 2px; }
+  .box-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: rgba(242,236,224,0.35); font-size: 0.78rem; font-weight: 300; text-align: center; padding: 40px 10px; line-height: 1.7; }
+  .be-icon { font-size: 1.8rem; opacity: 0.5; }
+  .box-item {
+    display: flex; gap: 12px; align-items: center;
+    background: rgba(242,236,224,0.03); border: 1px solid rgba(201,148,64,0.12);
+    border-radius: 6px; padding: 10px; animation: cardIn 0.35s ease backwards;
+  }
+  .box-item img { width: 52px; height: 52px; border-radius: 5px; object-fit: cover; }
+  .bi-body { flex: 1; min-width: 0; }
+  .bi-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--white); }
+  .bi-price { font-size: 0.66rem; color: var(--gold-dim); margin-top: 1px; }
+  .bi-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .bi-qty button { width: 22px; height: 22px; border-radius: 3px; border: 1px solid rgba(201,148,64,0.35); background: transparent; color: var(--gold); cursor: pointer; font-size: 0.85rem; line-height: 1; transition: background 0.15s; }
+  .bi-qty button:hover { background: var(--gold-glow); }
+  .bi-qty span { font-size: 0.72rem; color: var(--cream); min-width: 44px; text-align: center; font-weight: 300; }
+  .bi-line { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; color: var(--gold); white-space: nowrap; }
+  .bi-remove { background: none; border: none; color: rgba(242,236,224,0.3); cursor: pointer; font-size: 1rem; transition: color 0.2s; align-self: flex-start; }
+  .bi-remove:hover { color: #d66a6a; }
+  .box-foot { padding: 18px 24px 22px; border-top: 1px solid var(--forest-border); background: rgba(11,26,12,0.5); }
+  .box-total-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); font-weight: 600; }
+  .box-total { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; color: var(--gold); letter-spacing: 0.03em; }
+  .box-note { font-size: 0.62rem; color: rgba(242,236,224,0.4); font-weight: 300; margin: 6px 0 14px; line-height: 1.5; }
+  .box-cta { width: 100%; text-align: center; }
+  .box-clear { width: 100%; margin-top: 10px; background: none; border: none; color: rgba(242,236,224,0.35); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; font-weight: 600; transition: color 0.2s; }
+  .box-clear:hover { color: #d66a6a; }
+
+  /* TOASTS */
+  .toasts { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 2500; display: flex; flex-direction: column; gap: 10px; align-items: center; pointer-events: none; width: max-content; max-width: 92vw; }
+  .toast {
+    background: rgba(11,26,12,0.92); backdrop-filter: blur(8px);
+    border: 1px solid rgba(201,148,64,0.4); color: var(--cream);
+    font-size: 0.76rem; font-weight: 400; padding: 12px 22px; border-radius: 40px;
+    display: flex; gap: 10px; align-items: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    animation: toastIn 0.4s cubic-bezier(0.2,0.8,0.3,1);
+  }
+  .toast .t-ico { color: var(--gold); }
+  .toast.out { animation: toastOut 0.3s ease forwards; }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(16px) scale(0.95); } }
+  @keyframes toastOut { to { opacity: 0; transform: translateY(10px); } }
+
+  /* COOKING GUIDE */
+  .cook {
+    padding: 88px 48px; position: relative; overflow: hidden;
+    background: radial-gradient(820px 460px at 72% 50%, rgba(201,148,64,0.08), transparent 70%), var(--forest);
+  }
+  .cook-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+  .cook-tips { margin-top: 26px; display: flex; flex-direction: column; gap: 14px; }
+  .cook-tip { display: flex; gap: 14px; align-items: flex-start; }
+  .ct-num { font-family: 'Bebas Neue', sans-serif; color: var(--gold); font-size: 1.05rem; border: 1px solid rgba(201,148,64,0.35); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: 0 0 30px; }
+  .ct-body strong { display: block; font-size: 0.84rem; color: var(--white); font-weight: 600; margin-bottom: 2px; }
+  .ct-body span { font-size: 0.75rem; font-weight: 300; color: var(--cream-dim); line-height: 1.55; }
+  .doneness-card {
+    background: rgba(201,148,64,0.04);
+    border: 1px solid rgba(201,148,64,0.22); border-radius: 10px; padding: 30px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+  }
+  .heat-glow {
+    position: absolute; top: 42%; left: 42%; width: 360px; height: 250px;
+    transform: translate(-50%,-50%); border-radius: 50%;
+    filter: blur(70px); opacity: 0.3; background: #c4524e;
+    transition: background 0.7s ease; pointer-events: none;
+  }
+  .doneness-card > *:not(.heat-glow) { position: relative; z-index: 1; }
+  .doneness-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+  .d-btn {
+    flex: 1; min-width: 64px; background: transparent;
+    border: 1px solid rgba(242,236,224,0.15); color: rgba(242,236,224,0.5);
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 9px 6px; border-radius: 3px; cursor: pointer; transition: all 0.2s;
+  }
+  .d-btn:hover { border-color: rgba(201,148,64,0.5); color: var(--gold); }
+  .d-btn.active { background: var(--gold); border-color: var(--gold); color: var(--forest); }
+  .doneness-display { display: flex; gap: 24px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .steak-slice {
+    width: 178px; height: 110px; flex: 0 0 178px;
+    position: relative; overflow: hidden;
+    clip-path: path('M 14,62 C 10,34 34,14 66,12 C 96,10 118,20 138,16 C 158,12 172,26 170,44 C 168,60 156,66 150,78 C 142,94 118,104 90,102 C 58,100 40,96 28,84 C 20,76 17,72 14,62 Z');
+    background: #4a2f24;
+    filter: drop-shadow(0 12px 22px rgba(0,0,0,0.5));
+  }
+  .steak-slice::before {
+    content: ''; position: absolute; top: 13px; left: 20%; right: 20%;
+    height: 11px; border-radius: 50%;
+    background: rgba(242,236,224,0.3); filter: blur(3px);
+    transform: rotate(-3deg);
+  }
+  .steak-slice::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(120px 40px at 30% 55%, rgba(255,255,255,0.10), transparent 65%),
+      repeating-linear-gradient(115deg, transparent 0 14px, rgba(255,255,255,0.05) 14px 17px, transparent 17px 34px);
+    mix-blend-mode: screen; pointer-events: none;
+  }
+  @keyframes sizzle { 30% { transform: scale(1.045) rotate(-0.6deg); } }
+  .steak-slice.sizzle { animation: sizzle 0.45s ease; }
+  .thermo { display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; }
+  .thermo-track {
+    width: 10px; height: 104px; border-radius: 6px 6px 0 0;
+    background: rgba(242,236,224,0.09); border: 1px solid rgba(242,236,224,0.16); border-bottom: none;
+    position: relative; overflow: hidden;
+  }
+  .thermo-fill {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 37%;
+    background: linear-gradient(to top, #c99440, #d8623c);
+    transition: height 0.6s cubic-bezier(0.3,0.7,0.3,1);
+  }
+  .thermo-bulb {
+    width: 22px; height: 22px; border-radius: 50%; margin-top: -3px; position: relative; z-index: 1;
+    background: radial-gradient(circle at 35% 35%, #e8c37a, #c99440);
+    box-shadow: 0 0 14px rgba(201,148,64,0.5);
+    border: 1px solid rgba(242,236,224,0.2);
+  }
+  .thermo-label { font-size: 0.5rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); margin-top: 6px; }
+  .d-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--white); letter-spacing: 0.05em; }
+  .d-temp { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.05em; margin-top: 2px; }
+  .d-pull { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); margin-top: 4px; }
+  .d-desc { font-size: 0.78rem; font-weight: 300; color: var(--cream-dim); line-height: 1.65; min-height: 58px; }
+  .d-reco { margin-top: 14px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0; transition: opacity 0.3s; }
+  .d-reco.show { opacity: 0.85; }
+
+  /* BULK SELECTION */
+  .price-card { position: relative; }
+  .pc-check {
+    position: absolute; top: -7px; right: -7px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--gold); color: var(--forest);
+    display: none; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+  }
+  .price-card.featured .pc-check { display: flex; }
+  .bulk-calc {
+    margin-top: 22px; border: 1px solid rgba(201,148,64,0.25);
+    background: linear-gradient(135deg, rgba(201,148,64,0.08), rgba(201,148,64,0.02));
+    border-radius: 6px; padding: 22px 24px;
+  }
+  .bc-head { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 16px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .bc-sel { color: var(--gold); font-size: 0.66rem; }
+  .bc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .bc-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; color: var(--white); letter-spacing: 0.03em; }
+  .bc-label { font-size: 0.55rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); margin-top: 3px; line-height: 1.4; }
+  .bc-note { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(201,148,64,0.14); font-size: 0.68rem; font-weight: 300; color: var(--cream-dim); line-height: 1.6; }
+  .bc-note strong { color: var(--gold); font-weight: 600; }
+
+  /* FORM VALIDATION + SUCCESS */
+  .contact-form { position: relative; overflow: hidden; }
+  .form-group input.invalid, .form-group textarea.invalid { border-color: #c05050; animation: shake 0.35s ease; }
+  @keyframes shake { 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+  .form-success {
+    position: absolute; inset: 0; background: #243828; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; text-align: center; padding: 30px;
+    opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s;
+  }
+  .form-success.show { opacity: 1; visibility: visible; }
+  .fs-circle { width: 74px; height: 74px; }
+  .fs-circle circle { stroke: var(--gold); stroke-width: 2; fill: none; stroke-dasharray: 220; stroke-dashoffset: 220; }
+  .fs-circle path { stroke: var(--gold); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; }
+  .form-success.show circle { animation: drawStroke 0.7s ease forwards; }
+  .form-success.show path { animation: drawStroke 0.5s ease forwards 0.5s; }
+  @keyframes drawStroke { to { stroke-dashoffset: 0; } }
+  .fs-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.06em; color: var(--white); text-transform: uppercase; }
+  .form-success p { font-size: 0.78rem; font-weight: 300; color: var(--cream-dim); line-height: 1.7; max-width: 330px; }
+  .fs-again { background: none; border: none; color: var(--gold); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; margin-top: 6px; }
+
   /* RESPONSIVE */
   @media (max-width: 960px) {
     nav { padding: 12px 20px; }
@@ -551,15 +811,44 @@
     .bulk-inner { grid-template-columns: 1fr; gap: 40px; }
     .markets-grid { grid-template-columns: 1fr; }
     .shop, .bulk, .markets, .cuts-diagram { padding: 56px 22px; }
-    .cuts-diagram-grid { grid-template-columns: 1fr; }
-    .cuts-diagram-right { display: none; }
+    .cuts-diagram-grid { grid-template-columns: 1fr; gap: 28px; }
+    .cut-panel-inner { min-height: 0; }
+    .cut-panel-placeholder { padding: 26px 0; }
+    .placeholder-icon { transform: rotate(90deg); }
     footer { flex-direction: column; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
-    .trust-item { border-right: none; padding: 6px 16px; }
+    .trust-bar { gap: 8px 24px; }
+    .nav-box-btn .nbb-text { display: none; }
+    .bc-grid { grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .cook { padding: 56px 22px; }
+    .cook-inner { grid-template-columns: 1fr; gap: 40px; }
+    .box-drawer { width: 100vw; max-width: 100vw; }
   }
 </style>
 </head>
 <body>
+
+<!-- TOASTS -->
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- YOUR BOX DRAWER -->
+<div class="box-overlay" id="boxOverlay"></div>
+<aside class="box-drawer" id="boxDrawer" aria-label="Your box">
+  <div class="box-head">
+    <div>
+      <div class="box-title">YOUR BOX</div>
+      <div class="box-sub">A reserve list. We confirm availability &amp; exact weights with you personally</div>
+    </div>
+    <button class="box-close" id="boxClose" aria-label="Close">&times;</button>
+  </div>
+  <div class="box-items" id="boxItems"></div>
+  <div class="box-foot">
+    <div class="box-total-row"><span>Estimated Total</span><span class="box-total" id="boxTotal">$0</span></div>
+    <p class="box-note">Prices are per pound. Your final total is based on the actual weight of each cut.</p>
+    <button class="btn-gold box-cta" id="boxSubmit">Request These Cuts &rarr;</button>
+    <button class="box-clear" id="boxClear">Clear Box</button>
+  </div>
+</aside>
 
 <!-- NAV -->
 <nav>
@@ -577,6 +866,13 @@
     <li><a href="#story">Our Story</a></li>
     <li><a href="#contact" class="nav-cta">Order Now</a></li>
   </ul>
+  <div class="nav-actions">
+    <button class="nav-box-btn" id="navBoxBtn" aria-label="Open your box">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="nbb-text">Your Box</span>
+      <span class="nav-box-count" id="navBoxCount">0</span>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -672,6 +968,8 @@
 <div class="trust-bar">
   <div class="trust-item">Hormone &amp; Antibiotic Free</div>
   <div class="trust-item">Pasture Raised</div>
+  <div class="trust-item">Raised with Humane Practices</div>
+  <div class="trust-item">Genetics Verified by American Wagyu Association</div>
   <div class="trust-item">Family Farm · La Crosse, WI</div>
   <div class="trust-item">Processing Included</div>
   <div class="trust-item">Direct Farm to Table</div>
@@ -707,7 +1005,6 @@
             <p class="product-desc">Very tender with heavy marbling. The crown jewel of the Wagyu experience.</p>
             <div class="product-footer">
               <div class="product-price">$65 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -719,7 +1016,6 @@
             <p class="product-desc">Robust flavor, moderate marbling. A classic elevated by Wagyu genetics.</p>
             <div class="product-footer">
               <div class="product-price">$65 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -734,7 +1030,6 @@
             <p class="product-desc">The most tender cut. Mild, delicate, and perfect for any occasion.</p>
             <div class="product-footer">
               <div class="product-price">$75 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -743,10 +1038,9 @@
           <div class="product-body">
             <div class="product-cat">Steakhouse</div>
             <div class="product-name">T Bone</div>
-            <p class="product-desc">Two cuts in one — NY Strip + Tenderloin on the bone.</p>
+            <p class="product-desc">Two cuts in one: NY Strip + Tenderloin on the bone.</p>
             <div class="product-footer">
               <div class="product-price">$65 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -761,7 +1055,6 @@
             <p class="product-desc">Larger T Bone with oversized tenderloin. The ultimate table centerpiece.</p>
             <div class="product-footer">
               <div class="product-price">$70 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -780,7 +1073,6 @@
             <p class="product-desc">Transforms everyday meals. Unlike anything from the grocery store.</p>
             <div class="product-footer">
               <div class="product-price">$10 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -792,7 +1084,6 @@
             <p class="product-desc">Braise, smoke, or slow cook. Falls off the bone.</p>
             <div class="product-footer">
               <div class="product-price">$12.50 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -804,7 +1095,6 @@
             <p class="product-desc">Hearty and full of flavor. The perfect slow cooked Sunday roast.</p>
             <div class="product-footer">
               <div class="product-price">$12 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -816,7 +1106,6 @@
             <p class="product-desc">Lean yet tender. Exceptional for roasting or crock pot meals.</p>
             <div class="product-footer">
               <div class="product-price">$12 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -832,7 +1121,6 @@
             <p class="product-desc">Lean, beefy flavor. Great for grilling, broiling, or stir fry.</p>
             <div class="product-footer">
               <div class="product-price">$35 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -847,7 +1135,6 @@
             <p class="product-desc">Bold, intense flavor. Perfect for fajitas and high heat grilling.</p>
             <div class="product-footer">
               <div class="product-price">$35 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -859,7 +1146,6 @@
             <p class="product-desc">Perfect balance of tenderness and flavor with Wagyu marbling.</p>
             <div class="product-footer">
               <div class="product-price">$40 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -868,10 +1154,9 @@
           <div class="product-body">
             <div class="product-cat">Nouveau</div>
             <div class="product-name">Korean Short Ribs</div>
-            <p class="product-desc">Flanken style — ideal for Korean BBQ, marinated and grilled hot.</p>
+            <p class="product-desc">Flanken style, ideal for Korean BBQ, marinated and grilled hot.</p>
             <div class="product-footer">
               <div class="product-price">$25 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -890,7 +1175,6 @@
             <p class="product-desc">Nutrient dense, great for grilling or pan searing.</p>
             <div class="product-footer">
               <div class="product-price">$20 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -899,10 +1183,9 @@
           <div class="product-body">
             <div class="product-cat">Exotics</div>
             <div class="product-name">Wagyu Tongue</div>
-            <p class="product-desc">Tender, rich flavor — versatile for broiling, stewing, or pickling.</p>
+            <p class="product-desc">Tender, rich flavor. Versatile for broiling, stewing, or pickling.</p>
             <div class="product-footer">
               <div class="product-price">$50 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -914,7 +1197,6 @@
             <p class="product-desc">Mineral rich, deep earthy flavor. A nutritional powerhouse.</p>
             <div class="product-footer">
               <div class="product-price">$15 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -926,7 +1208,6 @@
             <p class="product-desc">Collagen rich, ideal for slow braised soups and stews.</p>
             <div class="product-footer">
               <div class="product-price">$15 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -935,10 +1216,9 @@
           <div class="product-body">
             <div class="product-cat">Exotics</div>
             <div class="product-name">Osso Buco</div>
-            <p class="product-desc">Cross cut shank with bone marrow — braised low and slow.</p>
+            <p class="product-desc">Cross cut shank with bone marrow, braised low and slow.</p>
             <div class="product-footer">
               <div class="product-price">$20 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -950,10 +1230,9 @@
           <div class="product-body">
             <div class="product-cat">Exotics</div>
             <div class="product-name">Thor's Hammer</div>
-            <p class="product-desc">Dramatic bone in shank — smoked or braised until meltingly tender.</p>
+            <p class="product-desc">Dramatic bone in shank, smoked or braised until meltingly tender.</p>
             <div class="product-footer">
               <div class="product-price">$25 <span>/ lb</span></div>
-              <button class="btn-inquire" onclick="scrollToContact()">Inquire</button>
             </div>
           </div>
         </div>
@@ -971,7 +1250,7 @@
   <div class="farm-story-content reveal">
     <div class="section-label-dark">Our Story</div>
     <h2 class="section-title-dark">Raised in the<br>Coulee Region</h2>
-    <p class="farm-story-body">Steve still farms the same land his father and grandfather did — land that raised his children and is now cherished by his grandchildren. A member of the American Wagyu Association, he has built a herd of full blooded Wagyu cattle at least 98% pure, every animal with registered genetics proving its pedigree. We are dedicated to raising the finest quality Wagyu in a sustainable way — and being stewards of the land that has been in this family for generations.</p>
+    <p class="farm-story-body">Steve still farms the same land his father and grandfather did: land that raised his children and is now cherished by his grandchildren. A member of the American Wagyu Association, he has built a herd of full blooded Wagyu cattle at least 98% pure, every animal's genetics verified by the American Wagyu Association. We are dedicated to raising the finest quality Wagyu with humane practices and in a sustainable way, as stewards of the land that has been in this family for generations.</p>
   </div>
 </section>
 
@@ -983,7 +1262,7 @@
         <h3 class="story-hero-title">American<br><span>Wagyu.</span><br>Wisconsin<br>Raised.</h3>
       </div>
       <div class="story-hero-body">
-        Our cattle roam freely across our La Crosse farm — hormone free and antibiotic free, always. American Wagyu bred from world class genetics, delivering the signature buttery marbling that sets Miller Wagyu apart from anything at a grocery store.
+        Our cattle roam freely across our La Crosse farm, raised with humane practices, hormone free and antibiotic free, always. American Wagyu bred from world class genetics verified by the American Wagyu Association, delivering the signature buttery marbling that sets Miller Wagyu apart from anything at a grocery store.
       </div>
     </div>
   </div>
@@ -1020,7 +1299,7 @@
     <path fill="#0c1e0d" stroke="rgba(201,148,64,0.28)" stroke-width="0.8"
           d="m 60.40604,0.00420474 c -1.68356,0.09256 -3.29461,0.36523 -4.81249,0.78119 C 51.4763,1.9136647 48.61462,6.2819847 44.78109,11.159535 c -5.95281,7.574 -21.07254,2.52152 -22.74992,9.24924 -2.28263,9.15539 6.0001,10.80411 7.21873,11.24907 0.03584,0.01569 0.1014,0.04904 0.125,0.0625 4e-5,0.0029 1.2e-4,0.02765 0,0.03124 -6.16202,17.52388 -9.65517,13.66549 -25.68741,28.31017 C 0.55501,62.923125 0,76.185415 0,76.185425 c 5.92061,4.58719 4.90752,3.20858 13.5312,4.31214 4.87038,0.62326 4.9,2.52856 12.06246,3.90593 3.075,0.59134 8.27489,-0.722 11.03121,-0.24998 8.20975,1.40594 10.6963,4.64927 23.90617,6.40573 5.38,0.71538 7.13883,-2.18008 18.06243,-2.21857 6.44679,-0.02273 7.50711,4.1253 10.96872,7.81185 2.49528,2.65747 19.61344,42.014565 21.56243,45.839965 2.53636,4.97837 3.37442,7.72341 2.93748,9.6867 -0.49713,2.23393 0.19291,3.6755 3.78124,7.71812 2.42335,2.73016 21.51369,24.39991 26.2499,28.18517 1.87913,1.50189 6.84229,3.64522 7.46873,3.99967 0.007,-6e-5 0.0298,10e-6 0.0312,0 1e-4,0.003 2.1e-4,0.0276 0,0.0312 0.0287,0.11776 3.95803,26.55812 12.81245,37.0282 -3.8e-4,0.004 6e-5,0.0284 0,0.0312 0.003,0 0.0276,2.7e-4 0.0312,0 -5.8e-4,0.003 1.5e-4,0.0285 0,0.0312 0.012,0.0194 0.0466,0.0677 0.0625,0.0937 1.10616,2.18196 1.07449,14.87465 0.9375,26.21659 -0.0739,5.89099 -11.14728,26.80994 -12.40621,29.49757 -3.33504,7.12044 -2.30917,10.05007 3.96874,11.18658 3.69057,0.66805 4.44804,0.67883 4.71873,0.78118 0.001,0 0.024,8e-5 0.0312,0 -3.7e-4,0.004 7e-5,0.0284 0,0.0312 0.003,8e-5 0.0276,2.2e-4 0.0312,0 10e-4,1e-5 0.0239,9e-5 0.0312,0 7e-5,0.007 2.9e-4,0.0296 0,0.0312 l 0,4.37464 c 19.19639,0.46756 28.89349,-0.77748 31.37489,-10.53038 0.64141,-2.52101 3.56195,-2.50792 4.09374,-2.62479 0.001,-5e-5 0.0239,-10e-5 0.0312,0 5e-5,-0.007 1.8e-4,-0.0295 0,-0.0312 0.33651,-9.43807 -4.37837,-16.90968 -3.74999,-48.80847 0.10422,-5.29038 12.04265,-48.8389 17.34369,-49.65216 1.51626,-0.23257 49.92841,-5.85905 61.34354,-2.09357 3.9089,1.28946 35.21923,12.15451 37.71861,14.28007 0.0179,0.0163 0.0482,0.0473 0.0625,0.0625 2.46244,2.6086 5.46315,2.44666 11.24996,-0.5937 2.6226,-1.37784 81.08752,-31.72359 83.12471,-31.74738 0.007,-4e-5 0.0297,5e-5 0.0312,0 7.82547,26.36015 5.32958,16.87343 20.68743,36.09077 -1.7e-4,0.002 -4e-5,0.0242 0,0.0312 0.004,0.009 0.023,0.0453 0.0312,0.0625 0.61584,2.45983 -0.38212,44.66743 -6.68748,56.08912 -1.32466,2.39956 -11.84765,17.12132 -7.12497,17.18608 18.32949,0.25147 23.15973,-0.52204 27.6874,-6.37447 l 5.31248,-7.2494 c 0.46257,-17.95764 -2.99642,-34.65347 1.37501,-50.4021 1.49278,-5.37795 2.09096,-7.67205 2.68748,-8.40555 0.0353,-0.0417 0.0843,-0.0885 0.125,-0.12499 0.007,-0.006 0.0244,-0.0263 0.0312,-0.0312 0.0102,-0.006 0.0513,-0.0257 0.0625,-0.0312 0.0226,-0.0105 0.0462,-0.0232 0.0625,-0.0312 0.003,-0.004 0.0285,-0.0284 0.0312,-0.0312 0.003,1e-5 0.0276,-1.1e-4 0.0312,0 0.005,2e-5 0.025,-3.2e-4 0.0312,0 0.002,-7e-5 0.0297,2.4e-4 0.0312,0 0.006,1.7e-4 0.0281,2.8e-4 0.0312,0 0.0128,-7.1e-4 0.0495,-1e-4 0.0625,0 0.007,2.6e-4 0.0189,2.2e-4 0.0312,0 0.005,2e-5 0.0279,-3.3e-4 0.0312,0 0.005,-1.1e-4 0.0251,2.5e-4 0.0312,0 0.002,1.2e-4 0.0295,-3.2e-4 0.0312,0 0.3459,0.0705 0.76571,0.37441 1.375,0.74994 3.48833,2.15011 4.64579,23.94939 6.78123,38.84054 0.74243,5.17732 -1.40132,15.30382 -1.875,16.74862 -4.18119,12.75424 -10.00913,15.87588 -11.21871,25.06044 l 7.12498,0.68744 c 8.39799,0.81685 14.72923,-0.20363 19.93743,-2.53104 6.55915,-2.93109 6.54411,-6.42305 13.24995,-23.52931 -2.4e-4,-0.003 8e-5,-0.0284 0,-0.0312 0.004,-0.003 0.0245,-0.0247 0.0312,-0.0312 0.32804,-2.12494 -4.47214,-31.3871 -4.81248,-38.34059 -0.59485,-12.15397 -0.52035,-13.03525 1.68749,-16.56113 2.03042,-3.24245 3.12492,-4.73352 1.71874,-10.46789 -6.56519,-26.77306 5.37228,-56.0005 6.78123,-58.1827 0.003,-0.003 0.028,-0.0283 0.0312,-0.0312 10e-4,0 0.0238,-7e-5 0.0312,0 -2.9e-4,-0.0111 3.9e-4,-0.0516 0,-0.0625 0.007,1e-4 0.0298,-3e-5 0.0312,0 4.5e-4,2.4e-4 0.0237,1.2e-4 0.0312,0 -6e-5,0.007 10e-6,0.0286 0,0.0312 -10e-6,0.9048 -5.53121,26.9224 -5.53123,31.4974 -1e-5,2.1289 0.48681,4.33807 1.09375,4.93709 0.003,0.003 0.0246,0.0246 0.0312,0.0312 0.0159,0.0214 0.0469,0.0679 0.0625,0.0937 0.006,0.0121 0.0233,0.0469 0.0312,0.0625 0.0141,0.0217 0.0479,0.0686 0.0625,0.0937 0.54263,1.18262 0.77808,4.94163 0.59374,10.06167 -0.18383,5.10812 -0.10122,7.93857 0.34375,8.81177 0.005,0.0105 0.0258,0.0517 0.0312,0.0625 0.0161,0.0259 0.0462,0.072 0.0625,0.0937 0.003,0.003 0.028,0.0281 0.0312,0.0312 0.002,0.002 0.0244,0.0243 0.0312,0.0312 0.002,0.001 0.0244,0.0241 0.0312,0.0312 0.007,-7e-5 0.0299,2e-5 0.0313,0 0.007,0.007 0.0279,0.0276 0.0312,0.0312 0.007,-4e-5 0.0299,0 0.0312,0 10e-4,2.7e-4 0.0285,0 0.0312,0 0.002,2.2e-4 0.0245,6e-5 0.0312,0 0.004,3e-5 0.0268,2e-4 0.0312,0 0.002,-1.5e-4 0.0246,-1.3e-4 0.0312,0 10e-4,-2e-4 0.0285,-6e-5 0.0312,0 0.0241,-0.007 0.0764,-0.0235 0.0937,-0.0312 0.0132,-0.006 0.0465,-0.0229 0.0625,-0.0312 0.33505,-0.21189 0.76,-0.81978 1.28125,-1.7811 0.40632,-0.74933 0.93302,-1.43237 1.34374,-1.7811 0.0578,-0.0476 0.15993,-0.11833 0.21875,-0.15624 0.0315,-0.0159 0.10016,-0.0495 0.125,-0.0625 0.003,-0.003 0.0284,-0.0283 0.0312,-0.0312 0.003,-2e-5 0.0279,-2.4e-4 0.0312,0 0.007,7e-5 0.0301,8e-5 0.0312,0 0.006,-6e-5 0.0286,-1e-4 0.0312,0 0.003,-1.6e-4 0.025,-5e-5 0.0312,0 0.002,2.9e-4 0.0247,1.7e-4 0.0312,0 0.0158,0.004 0.069,0.022 0.0937,0.0312 10e-4,3e-5 0.0239,9e-5 0.0312,0 6e-5,0.007 1.9e-4,0.0295 0,0.0312 0.003,0.003 0.0286,0.0285 0.0312,0.0312 0.003,-4e-5 0.0276,1.7e-4 0.0312,0 0.0162,0.0162 0.0521,0.0529 0.0625,0.0625 1.775,1.69734 8.0509,15.52257 8.65622,19.3109 0.22514,1.40871 0.48134,2.32017 0.8125,2.81227 0.0173,0.0247 0.0447,0.0711 0.0625,0.0937 0.006,0.007 0.0252,0.0242 0.0312,0.0312 0.0226,0.0254 0.0703,0.0715 0.0937,0.0937 0.003,0.003 0.0249,0.0247 0.0312,0.0312 0.007,0.007 0.0281,0.0279 0.0312,0.0312 0.003,-3e-5 0.0307,-3.3e-4 0.0312,0 -3.2e-4,0.004 8e-5,0.0284 0,0.0312 0.004,-1.1e-4 0.0284,5e-5 0.0312,0 0.007,0.007 0.0281,0.0278 0.0312,0.0312 0.0163,0.008 0.0527,0.0264 0.0625,0.0312 0.01,0.005 0.0461,0.0231 0.0625,0.0312 10e-4,-3e-5 0.0239,4e-5 0.0312,0 0.0109,0.006 0.0519,0.0258 0.0625,0.0312 0.003,-1e-5 0.0278,1.2e-4 0.0312,0 0.007,-7e-5 0.0301,-8e-5 0.0312,0 0.006,-2.9e-4 0.0258,1.2e-4 0.0312,0 0.003,2e-5 0.0304,-2.6e-4 0.0312,0 0.003,0.003 0.0247,0.0245 0.0313,0.0312 0.001,-4e-5 0.0239,4e-5 0.0312,0 0.19256,0.007 0.41312,-0.0641 0.65625,-0.15623 0.24049,-0.0911 0.45769,-0.19851 0.625,-0.34373 0.036,-0.0323 0.0864,-0.0842 0.125,-0.12499 0.006,-0.007 0.026,-0.0251 0.0312,-0.0312 0.003,-0.003 0.0246,-0.0247 0.0312,-0.0312 -2.3e-4,-0.0113 4.3e-4,-0.0517 0,-0.0625 0.003,1e-5 0.0275,-2.2e-4 0.0312,0 0.0162,-0.0231 0.0474,-0.0693 0.0625,-0.0937 0.42941,-0.72076 0.43216,-2.00101 0.0937,-4.43713 -0.26126,-1.8813 -0.38299,-3.00068 -0.28125,-3.49971 0.006,-0.005 0.0255,-0.0259 0.0312,-0.0312 -2.6e-4,-0.003 7e-5,-0.0286 0,-0.0312 0.007,-0.0152 0.0249,-0.0504 0.0312,-0.0625 -1.7e-4,-0.002 -4e-5,-0.0242 0,-0.0312 0.002,-1e-5 0.0239,-9e-5 0.0312,0 6e-5,-0.007 2e-4,-0.0295 0,-0.0312 0.007,-0.007 0.0281,-0.0284 0.0312,-0.0312 0.003,-0.004 0.0252,-0.0251 0.0312,-0.0312 0.007,-0.007 0.0283,-0.028 0.0312,-0.0312 0.007,5e-5 0.0299,-3e-5 0.0312,0 0.001,-6e-5 0.0239,-10e-5 0.0312,0 6e-5,-0.007 1.9e-4,-0.0295 0,-0.0312 0.002,-2.9e-4 0.0247,-1.4e-4 0.0312,0 0.005,-8e-5 0.0261,-1.3e-4 0.0312,0 0.003,2.3e-4 0.0248,1.2e-4 0.0312,0 0.003,0.003 0.0247,0.0248 0.0312,0.0312 0.007,-4e-5 0.0299,2e-5 0.0312,0 0.18901,0.0592 0.45671,0.23413 0.78124,0.49996 0.37161,0.30442 0.7034,0.57566 0.9375,0.68744 10e-4,-3e-5 0.024,5e-5 0.0312,0 0.011,0.006 0.0521,0.0258 0.0625,0.0312 0.003,-1e-5 0.0277,1e-4 0.0312,0 0.007,-7e-5 0.0301,-9e-5 0.0312,0 0.006,-1.9e-4 0.0259,1.6e-4 0.0312,0 0.0108,-4e-5 0.0464,2.6e-4 0.0625,0 0.0119,-0.004 0.0442,-0.0252 0.0625,-0.0312 0.008,-0.003 0.0269,0.002 0.0312,0 0.003,-0.003 0.0285,-0.0284 0.0312,-0.0312 0.0117,-0.005 0.0521,-0.026 0.0625,-0.0312 0.006,-0.006 0.0287,-0.0283 0.0312,-0.0312 -2.6e-4,-0.002 -9e-5,-0.0242 0,-0.0312 0.37978,-0.62658 0.35587,-3.05906 0.28125,-9.18674 -0.0412,-3.38053 -0.0446,-5.13403 0.125,-5.68703 -3.7e-4,-0.003 6e-5,-0.0284 0,-0.0312 0.003,-0.003 0.0276,-0.028 0.0312,-0.0312 -4e-5,-0.003 1.7e-4,-0.0278 0,-0.0312 0.007,-0.013 0.0232,-0.0473 0.0312,-0.0625 0.007,1e-4 0.0299,-5e-5 0.0312,0 0.003,-0.003 0.0246,-0.0247 0.0312,-0.0312 0.002,-4e-5 0.0245,2e-5 0.0312,0 10e-4,2.7e-4 0.0285,6e-5 0.0312,0 10e-4,5e-5 0.0239,1e-4 0.0312,0 6e-5,0.007 1.9e-4,0.0295 0,0.0312 0.003,-4e-5 0.0307,-2.9e-4 0.0312,0 -4e-4,0.003 6e-5,0.0284 0,0.0312 0.003,1.1e-4 0.0276,2e-4 0.0312,0 0.0255,0.032 0.071,0.0954 0.0937,0.12499 0.20643,0.27942 0.49788,0.843 0.87499,1.62487 0.80687,1.67302 1.48782,3.72565 1.53125,4.56212 0.0109,0.21052 0.0572,0.3992 0.0937,0.53121 0.008,0.0277 0.0204,0.0665 0.0312,0.0937 0.008,0.0195 0.0232,0.0479 0.0312,0.0625 -3.5e-4,0.0111 3e-4,0.0516 0,0.0625 0.003,-2e-5 0.0275,2.3e-4 0.0312,0 -6e-4,0.003 0,0.0283 0,0.0312 0.003,0 0.0276,2.5e-4 0.0312,0 0.007,-5e-5 0.0298,1e-5 0.0312,0 0.003,0.003 0.0247,0.0247 0.0312,0.0312 0.002,3.1e-4 0.0242,1.1e-4 0.0312,0 0.003,2.6e-4 0.0251,2e-5 0.0312,0 0.007,1.3e-4 0.0293,3.1e-4 0.0312,0 0.0235,-0.007 0.0741,-0.0224 0.0937,-0.0312 0.0328,-0.0218 0.0942,-0.0702 0.12501,-0.0937 0.23513,-0.18932 0.57688,-0.57278 0.99999,-1.1249 1.99765,-2.60664 1.9128,-4.57349 -0.53125,-11.43656 -1.11166,-3.12167 -1.51459,-4.96419 -1.28124,-5.87452 0.0226,-0.0818 0.0603,-0.18327 0.0937,-0.24998 0.006,-0.0108 0.0231,-0.0464 0.0312,-0.0625 0.001,0 0.0239,-8e-5 0.0312,0 -2e-4,-0.002 -7e-5,-0.0242 0,-0.0312 10e-4,0 0.0238,-7e-5 0.0312,0 -3.5e-4,-0.011 3.2e-4,-0.0515 0,-0.0625 0.007,-0.006 0.0287,-0.0284 0.0312,-0.0312 0.005,-0.005 0.026,-0.026 0.0312,-0.0312 0.006,-0.007 0.0285,-0.0288 0.0312,-0.0312 10e-4,-2e-5 0.0239,-9e-5 0.0312,0 6e-5,-0.007 1.9e-4,-0.0295 0,-0.0312 0.003,3e-5 0.0307,3e-4 0.0312,0 -8e-5,-0.003 3.2e-4,-0.0277 0,-0.0312 0.007,2.2e-4 0.0306,3.2e-4 0.0312,0 0.0236,-0.0154 0.076,-0.0502 0.0937,-0.0625 0.001,-2e-5 0.0239,-9e-5 0.0312,0 6e-5,-0.007 1.9e-4,-0.0295 0,-0.0312 0.006,-0.005 0.0248,-0.0255 0.0312,-0.0312 0.0275,-0.0254 0.068,-0.066 0.0937,-0.0937 0.006,-0.007 0.0263,-0.0251 0.0312,-0.0312 0.001,0 0.0239,-9e-5 0.0312,0 -1.8e-4,-0.002 -5e-5,-0.0242 0,-0.0312 10e-4,1e-5 0.0239,-7e-5 0.0313,0 -3.2e-4,-0.011 3.5e-4,-0.0514 0,-0.0625 0.46336,-0.75321 0.3169,-2.42357 -0.46875,-5.65579 -1.03536,-4.25959 -1.03645,-5.7179 0.0312,-7.68686 1.10252,-2.03322 1.05209,-3.46436 -0.375,-8.53055 -1.3408,-4.75945 -1.79788,-6.77064 -1.46875,-7.59312 -1.8e-4,-0.0108 2.8e-4,-0.0514 0,-0.0625 0.006,-0.006 0.0255,-0.026 0.0312,-0.0312 0.003,-0.003 0.0245,-0.0246 0.0312,-0.0312 -2.3e-4,-0.002 -7e-5,-0.0242 0,-0.0312 0.0227,-0.0259 0.0697,-0.0698 0.0937,-0.0937 0.002,-0.005 0.0293,-0.0253 0.0312,-0.0312 0.001,-0.003 -10e-4,-0.0285 0,-0.0312 0.003,4e-5 0.0276,-2.5e-4 0.0312,0 0.0173,-0.0121 0.0693,-0.0468 0.0937,-0.0625 0.0107,-0.006 0.0517,-0.0258 0.0625,-0.0312 0.003,4e-5 0.0277,-1.5e-4 0.0312,0 0.22475,-0.0864 0.5166,-0.12498 0.875,-0.12499 0.38167,1e-5 0.70425,-0.11406 0.9375,-0.31247 0.97451,-0.8858 0.59651,-3.54709 -1.15625,-7.43689 -1.53475,-3.40608 -1.78642,-7.95144 -1.90624,-34.34092 -0.14846,-32.688655 -5.56562,-60.752565 -6.18748,-62.338605 -8.37127,-21.35147 -6.92717,-17.90781 -18.46869,-28.21642 -74.3286,5.0732 -117.71298,13.091813 -158.12444,15.52997 C 175.84135,39.449425 216.65278,33.019882 80.28097,2.2852747 74.308106,0.93914886 67.48476,-0.08929526 61.49978,0.00420474 c -0.1949,0.00304 -0.369311,-0.0068 -0.56249,0 -0.11671,0.0041 -0.25878,-0.00562 -0.375,0 -0.05447,0.00263 -0.10194,-0.00299 -0.15625,0 z"/>
 
-    <!-- CHUCK — top/neck edge (curve, follows body outline) kept as traced; the two edges shared
+    <!-- CHUCK - top/neck edge (curve, follows body outline) kept as traced; the two edges shared
          with Rib and Brisket are straightened so they exactly match those regions' shared edges
          (no more independently-traced curves drifting apart into overlap/gap slivers) -->
     <path class="cut-region cut-chuck" data-cut="chuck"
@@ -1029,18 +1308,18 @@
     <path class="cut-region cut-rib" data-cut="rib"
           d="M 203.54,135.59 L 196.79,34.87 C 197.36155,36.8654 297.14064,34.9173 296.65,36.27 L 301.75,136.34 L 203.54,135.59 Z"/>
 
-    <!-- SHORT LOIN — simplified to a clean quadrilateral (the original traced path1339
+    <!-- SHORT LOIN - simplified to a clean quadrilateral (the original traced path1339
          had a zigzag notch on its right edge that crossed into the Sirloin column) -->
     <path class="cut-region cut-shortloin" data-cut="shortloin"
           d="M 296.65,36.27 L 359.40,33.66 L 364.42,141.88 L 301.75,136.34 Z"/>
 
-    <!-- SIRLOIN — full primal, left edge hugs Short Loin's new right edge,
+    <!-- SIRLOIN - full primal, left edge hugs Short Loin's new right edge,
          right edge is an exact copy of Round's left-edge curve (path1349, reversed),
          so the two regions share one continuous boundary line instead of two diverging ones -->
     <path class="cut-region cut-sirloin" data-cut="sirloin"
           d="M 359.40,33.66 L 411.56997,26.565163 C 437.54059,84.058659 426.57652,164.26149 421.89,163.23 L 364.42,141.88 Z"/>
 
-    <!-- TENDERLOIN — sub-region within Sirloin primal, upper portion, inset to match the curved column -->
+    <!-- TENDERLOIN - sub-region within Sirloin primal, upper portion, inset to match the curved column -->
     <path class="cut-region cut-tenderloin" data-cut="tenderloin"
           d="M 360,48 L 419,48 L 428,97 L 362,97 Z"/>
 
@@ -1053,11 +1332,11 @@
     <path class="cut-region cut-plate" data-cut="flank"
           d="M 203.54,135.59 L 301.75,136.34 L 302.45,178.31 C 288.61947,178.72647 202.28994,187.21021 200.99,187.50 L 203.54,135.59 Z"/>
 
-    <!-- FLANK — straight quadrilateral, vertices in actual perimeter order: top edge
+    <!-- FLANK - straight quadrilateral, vertices in actual perimeter order: top edge
          (J4→A) matches Short Loin's bottom edge, next edge (A→J11) matches Sirloin's
          bottom edge exactly, then down to J7 (Plate corner) and back up to J4 (matches
          Plate's right edge). Earlier version visited these same 4 points in J4→J7→A→J11
-         order, which is NOT the perimeter order — it traced a self-intersecting bowtie
+         order, which is NOT the perimeter order - it traced a self-intersecting bowtie
          that ate most of the fill, leaving only a thin sliver. -->
     <path class="cut-region cut-flank" data-cut="flank"
           d="M 301.75,136.34 L 364.42,141.88 L 421.89,163.23 L 302.45,178.31 Z"/>
@@ -1097,23 +1376,69 @@
   </div>
 </section>
 
+<!-- COOKING GUIDE -->
+<section class="cook" id="cook">
+  <div class="cook-inner">
+    <div class="cook-left reveal">
+      <div class="section-label-dark">Wagyu 101</div>
+      <h2 class="section-title-dark">Find Your Perfect Temperature.</h2>
+      <p class="section-body-dark">Wagyu's rich marbling begins to render at a lower temperature than ordinary beef, so every level of doneness tastes a little different. Tap through the guide to find your family's sweet spot.</p>
+      <div class="cook-tips">
+        <div class="cook-tip"><div class="ct-num">1</div><div class="ct-body"><strong>Verified genetics</strong><span>Every animal is at least 98% pure Wagyu, with genetics verified by the American Wagyu Association.</span></div></div>
+        <div class="cook-tip"><div class="ct-num">2</div><div class="ct-body"><strong>Humanely raised</strong><span>Raised with humane practices on pasture in the coulee region. Hormone and antibiotic free, always.</span></div></div>
+        <div class="cook-tip"><div class="ct-num">3</div><div class="ct-body"><strong>Farm direct</strong><span>Custom cut, vacuum sealed, and sold straight from our family farm to your table.</span></div></div>
+      </div>
+    </div>
+    <div class="cook-right reveal">
+      <div class="doneness-card">
+        <div class="heat-glow" id="heatGlow"></div>
+        <div class="doneness-btns" id="donenessBtns">
+          <button class="d-btn" data-d="0">Blue</button>
+          <button class="d-btn" data-d="1">Rare</button>
+          <button class="d-btn active" data-d="2">Med Rare</button>
+          <button class="d-btn" data-d="3">Medium</button>
+          <button class="d-btn" data-d="4">Med Well</button>
+          <button class="d-btn" data-d="5">Well</button>
+        </div>
+        <div class="doneness-display">
+          <div class="steak-slice" id="steakSlice" aria-hidden="true"></div>
+          <div class="thermo" aria-hidden="true">
+            <div class="thermo-track"><div class="thermo-fill" id="thermoFill"></div></div>
+            <div class="thermo-bulb"></div>
+            <div class="thermo-label">&deg;F</div>
+          </div>
+          <div>
+            <div class="d-name" id="dName">Medium Rare</div>
+            <div class="d-temp" id="dTemp">130&ndash;135&deg;F</div>
+            <div class="d-pull" id="dPull">Pull at 125&deg;F &amp; rest</div>
+          </div>
+        </div>
+        <p class="d-desc" id="dDesc">The sweet spot for Wagyu: the intramuscular fat is fully rendered, carrying flavor through every bite.</p>
+        <div class="d-reco show" id="dReco">&#9733; Our recommendation for Wagyu steaks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- BULK ORDERS + CONTACT -->
 <section class="bulk" id="bulk">
   <div class="bulk-inner">
     <div>
       <div class="section-label-dark">Bulk Orders</div>
       <h2 class="section-title-dark">Stock Your<br>Freezer.</h2>
-      <p class="section-body-dark">Buy a quarter, half, or whole animal direct from our farm. Processing included — custom cut, vacuum sealed, and ready for your freezer.</p>
+      <p class="section-body-dark">Buy a quarter, half, or whole animal direct from our farm. Processing included: custom cut, vacuum sealed, and ready for your freezer.</p>
       <div class="bulk-price-row">
-        <div class="price-card featured">
+        <div class="price-card featured" data-size="half">
+          <span class="pc-check">&#10003;</span>
           <div>
             <div class="pc-label">Most Popular</div>
             <div class="pc-title">Half Animal</div>
-            <div class="pc-weight">~375 lbs hanging weight · ~220 lbs take home · Processing included</div>
+            <div class="pc-weight">~375 lbs hanging weight · 160&ndash;220 lbs take home · Processing included</div>
           </div>
           <div class="pc-price">$7 <span>/ lb HW</span></div>
         </div>
-        <div class="price-card">
+        <div class="price-card" data-size="whole">
+          <span class="pc-check">&#10003;</span>
           <div>
             <div class="pc-label">Family Sized</div>
             <div class="pc-title">Whole Animal</div>
@@ -1121,7 +1446,8 @@
           </div>
           <div class="pc-price">$7 <span>/ lb HW</span></div>
         </div>
-        <div class="price-card">
+        <div class="price-card" data-size="quarter">
+          <span class="pc-check">&#10003;</span>
           <div>
             <div class="pc-label">Great Starter</div>
             <div class="pc-title">Quarter Animal</div>
@@ -1130,14 +1456,23 @@
           <div class="pc-price">$7 <span>/ lb HW</span></div>
         </div>
       </div>
+      <div class="bulk-calc reveal">
+        <div class="bc-head"><span>What You'd Take Home</span><span class="bc-sel" id="bcSel">Half Animal</span></div>
+        <div class="bc-grid">
+          <div><div class="bc-num" id="bcCost">$2,625</div><div class="bc-label">Estimated Cost</div></div>
+          <div><div class="bc-num" id="bcTake">160&ndash;220</div><div class="bc-label">Lbs Finished Beef</div></div>
+          <div><div class="bc-num" id="bcServings">~586</div><div class="bc-label">6 oz Servings</div></div>
+          <div><div class="bc-num" id="bcMeals">145</div><div class="bc-label">Family Meals*</div></div>
+        </div>
+        <div class="bc-note" id="bcFreezer">Fits in <strong>20 cu ft of freezer space</strong> &middot; roughly 45&ndash;48 weeks of beef &middot; *dinners for a family of four</div>
+      </div>
       <div class="bulk-btns">
-        <a href="#contact" class="btn-gold">Request a Bulk Order</a>
-        <a href="#contact" class="btn-ghost">Ask a Question</a>
+        <a href="#contact" class="btn-gold" id="bulkRequestBtn">Request a Bulk Order</a>
       </div>
     </div>
     <div class="contact-form" id="contact">
       <div class="form-title">Get In Touch</div>
-      <div class="form-subtitle">We answer every message personally — we're a family farm.</div>
+      <div class="form-subtitle">We answer every message personally. We're a family farm.</div>
       <div class="form-row">
         <div class="form-group"><label for="t3-fname">First Name</label><input id="t3-fname" type="text" placeholder="Steve"></div>
         <div class="form-group"><label for="t3-lname">Last Name</label><input id="t3-lname" type="text" placeholder="Johnson"></div>
@@ -1162,7 +1497,13 @@
         <label for="t3-msg">Message</label>
         <textarea id="t3-msg" placeholder="Tell us what you're looking for…"></textarea>
       </div>
-      <button class="form-submit">Send Message &rarr;</button>
+      <button class="form-submit" id="formSubmit">Send Message &rarr;</button>
+      <div class="form-success" id="formSuccess">
+        <svg class="fs-circle" viewBox="0 0 74 74"><circle cx="37" cy="37" r="34"/><path d="M23 38l10 10 18-20"/></svg>
+        <div class="fs-title">Thanks, <span id="fsWho">Friend</span>!</div>
+        <p>We read every message personally. This concept form isn't wired up yet; in the finished site it will land straight in our inbox. For now, reach us at <a href="mailto:millerwagyu@gmail.com" style="color:var(--gold)">millerwagyu@gmail.com</a> or call Steve at 608.386.4670.</p>
+        <button class="fs-again" id="fsAgain">&larr; Back to the form</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1177,7 +1518,7 @@
         <div class="market-item">
           <div class="market-day">FRI</div>
           <div class="market-info">
-            <div class="market-name">La Crosse Farmers Market — Burns Park</div>
+            <div class="market-name">La Crosse Farmers Market · Burns Park</div>
             <div class="market-details">Main St between 7th &amp; 8th · 4:00 PM – Dusk · May–October</div>
           </div>
           <div class="market-badge">Weekly</div>
@@ -1272,7 +1613,7 @@
   const CUT_DATA = {
     chuck: {
       label: 'Chuck', tagline: 'Rich & Flavorful',
-      blurb: "The shoulder — a well exercised muscle group, so it's packed with flavor and connective tissue that breaks down beautifully with low, slow cooking or grinding.",
+      blurb: "The shoulder is a well exercised muscle group, so it's packed with flavor and connective tissue that breaks down beautifully with low, slow cooking or grinding.",
       cuts: [
         { name: 'Wagyu Ground Beef', price: 10, unit: 'lb', img: '../images/Wagyu%20Ground%20Beef.jpg', desc: 'Transforms everyday meals.' },
         { name: 'Short Ribs', price: 12.5, unit: 'lb', img: '../images/Short%20Ribs.jpg', desc: 'Braise, smoke, or slow cook.' }
@@ -1287,7 +1628,7 @@
     },
     shortloin: {
       label: 'Short Loin', tagline: 'Steakhouse Royalty',
-      blurb: "Just behind the ribs along the spine — lean and naturally tender, which is why it yields the classic steakhouse cuts.",
+      blurb: "Just behind the ribs along the spine. Lean and naturally tender, which is why it yields the classic steakhouse cuts.",
       cuts: [
         { name: 'New York Strip', price: 65, unit: 'lb', img: '../images/New%20York%20Strip.jpg', desc: 'Robust flavor, moderate marbling.' },
         { name: 'T Bone', price: 65, unit: 'lb', img: '../images/T-bone.jpg', desc: 'Two premium cuts on one bone.' },
@@ -1303,14 +1644,14 @@
     },
     sirloin: {
       label: 'Sirloin', tagline: 'Versatile & Bold',
-      blurb: "Between the short loin and the round — a bit firmer and more heavily worked than the loin, with bold, beefy flavor at a friendlier price.",
+      blurb: "Between the short loin and the round. A bit firmer and more heavily worked than the loin, with bold, beefy flavor at a friendlier price.",
       cuts: [
         { name: 'Sirloin Steak', price: 40, unit: 'lb', img: '../images/Sirloin%20Steak.jpg', desc: 'Perfect balance of tenderness and bold Wagyu flavor.' }
       ]
     },
     round: {
       label: 'Round', tagline: 'Hearty & Wholesome',
-      blurb: "The rear leg — a lean, hardworking muscle group with little fat, so it shines in roasts and slow braises rather than quick sear steaks.",
+      blurb: "The rear leg is a lean, hardworking muscle group with little fat, so it shines in roasts and slow braises rather than quick sear steaks.",
       cuts: [
         { name: 'Rump Roast', price: 12, unit: 'lb', img: '../images/Rump%20Roast.jpg', desc: 'The perfect slow cooked Sunday roast.' },
         { name: 'Sirloin Tip Roast', price: 12, unit: 'lb', img: '../images/Sirloin%20Tip%20Roast.jpg', desc: 'Lean, exceptional for roasting or crock pot.' }
@@ -1318,7 +1659,7 @@
     },
     flank: {
       label: 'Flank & Plate', tagline: "Chef's Favorites",
-      blurb: "The belly — thin, well exercised muscle with intense beefy flavor. Best marinated and sliced thin against the grain rather than cooked low and slow.",
+      blurb: "The belly: thin, well exercised muscle with intense beefy flavor. Best marinated and sliced thin against the grain rather than cooked low and slow.",
       cuts: [
         { name: 'Flank Steak', price: 35, unit: 'lb', img: '../images/Flank%20Steak.jpg', desc: 'Lean, beefy. Perfect for grilling or stir fry.' },
         { name: 'Skirt Steak', price: 35, unit: 'lb', img: '../images/Skirt%20steak.jpg', desc: 'Bold, intense. Perfect for fajitas.', badge: "Chef's Pick" },
@@ -1327,7 +1668,7 @@
     },
     brisket: {
       label: 'Brisket & Shank', tagline: 'Low & Slow Perfection',
-      blurb: "The chest and lower leg — dense with connective tissue from constantly bearing weight, so it needs long, slow cooking until it's tender enough to fall apart.",
+      blurb: "The chest and lower leg, dense with connective tissue from constantly bearing weight, so it needs long, slow cooking until it's tender enough to fall apart.",
       cuts: [
         { name: 'Short Ribs', price: 12.5, unit: 'lb', img: '../images/Short%20Ribs.jpg', desc: 'Braise or smoke until it falls off the bone.' },
         { name: 'Osso Buco', price: 20, unit: 'lb', img: '../images/Osso%20buco.jpg', desc: 'Cross cut shank with bone marrow.' },
@@ -1371,10 +1712,12 @@
             <div class="cut-card-price">$${cut.price % 1 === 0 ? cut.price : cut.price.toFixed(2)} <span>/ ${cut.unit}</span></div>
             <p class="cut-card-desc">${cut.desc}</p>
           </div>
+          <button class="cut-card-add" title="Add to Box" data-name="${cut.name}">+</button>
         </div>
       `).join('');
       panel.style.opacity = '1';
       panel.style.transform = 'translateX(0)';
+      if (window.innerWidth <= 960) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 160);
   }
 
@@ -1385,6 +1728,261 @@
   document.querySelectorAll('.diagram-cut-label').forEach(label => {
     label.addEventListener('click', () => selectCut(label.dataset.cut));
   });
+
+  /* ════════════════ BOX + DONENESS + BULK + FORM ════════════════ */
+  (function () {
+    'use strict';
+    const $  = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+    const fmtPrice = p => '$' + (p % 1 === 0 ? p : p.toFixed(2));
+
+    /* ── Toasts ── */
+    const toastsEl = $('#toasts');
+    function toast(msg, ico = '✓') {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span class="t-ico">${ico}</span><span>${msg}</span>`;
+      toastsEl.appendChild(t);
+      setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, 2800);
+    }
+
+    /* ── Product catalog (extracted from the cards) ── */
+    const PRODUCTS = {};
+    $$('.product-card').forEach(card => {
+      const name = card.querySelector('.product-name').textContent.trim();
+      const price = parseFloat(card.querySelector('.product-price').textContent.replace(/[^0-9.]/g, ''));
+      const img = card.querySelector('.product-img img').getAttribute('src');
+      PRODUCTS[name] = { name, price, img };
+      const add = document.createElement('button');
+      add.className = 'btn-add';
+      add.title = 'Add to Box';
+      add.setAttribute('aria-label', 'Add ' + name + ' to box');
+      add.textContent = '+';
+      add.addEventListener('click', e => { e.stopPropagation(); addToBox(name, 1, add); });
+      card.querySelector('.product-footer').appendChild(add);
+    });
+
+    /* ── Your Box (reserve list) ── */
+    let BOX = [];
+    try { BOX = JSON.parse(localStorage.getItem('mwBox')) || []; } catch (e) { BOX = []; }
+    BOX = BOX.filter(i => PRODUCTS[i.name]);
+    const saveBox = () => localStorage.setItem('mwBox', JSON.stringify(BOX));
+    const boxDrawer = $('#boxDrawer'), boxOverlay = $('#boxOverlay');
+    function openBox() {
+      renderBox();
+      boxDrawer.classList.add('open');
+      boxOverlay.classList.add('open');
+      document.body.classList.add('no-scroll');
+    }
+    function closeBox() {
+      boxDrawer.classList.remove('open');
+      boxOverlay.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    }
+    $('#navBoxBtn').addEventListener('click', openBox);
+    $('#boxClose').addEventListener('click', closeBox);
+    boxOverlay.addEventListener('click', closeBox);
+
+    function flyToBox(src) {
+      if (reduceMotion) return;
+      const target = $('#navBoxBtn');
+      if (!target || !src.getBoundingClientRect) return;
+      const a = src.getBoundingClientRect(), b = target.getBoundingClientRect();
+      if (!a.width) return;
+      const d = document.createElement('div');
+      d.className = 'fly-dot';
+      d.style.left = (a.left + a.width / 2 - 7) + 'px';
+      d.style.top = (a.top + a.height / 2 - 7) + 'px';
+      document.body.appendChild(d);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        d.style.transform = `translate(${b.left + b.width / 2 - (a.left + a.width / 2)}px, ${b.top + b.height / 2 - (a.top + a.height / 2)}px) scale(0.35)`;
+        d.style.opacity = '0';
+      }));
+      setTimeout(() => d.remove(), 800);
+    }
+
+    function addToBox(name, qty = 1, srcEl) {
+      const p = PRODUCTS[name];
+      if (!p) { toast('That cut isn’t available right now', '!'); return; }
+      const it = BOX.find(i => i.name === name);
+      if (it) it.qty += qty; else BOX.push({ name, qty });
+      saveBox();
+      renderBox();
+      toast(`${name} added to your box`);
+      if (srcEl) flyToBox(srcEl);
+    }
+    function changeQty(name, d) {
+      const it = BOX.find(i => i.name === name);
+      if (!it) return;
+      it.qty += d;
+      if (it.qty <= 0) BOX = BOX.filter(i => i !== it);
+      saveBox();
+      renderBox();
+    }
+    function renderBox() {
+      const wrap = $('#boxItems');
+      const count = BOX.reduce((s, i) => s + i.qty, 0);
+      const countEl = $('#navBoxCount');
+      countEl.textContent = count;
+      countEl.classList.remove('pop'); void countEl.offsetWidth; countEl.classList.add('pop');
+      let total = 0;
+      if (!BOX.length) {
+        wrap.innerHTML = `<div class="box-empty"><div class="be-icon">&#129385;</div><p>Your box is empty.<br>Add cuts from the shop or straight off the cow diagram.</p></div>`;
+      } else {
+        wrap.innerHTML = BOX.map(i => {
+          const p = PRODUCTS[i.name];
+          const line = p.price * i.qty;
+          total += line;
+          return `
+            <div class="box-item">
+              <img src="${p.img}" alt="${p.name}">
+              <div class="bi-body">
+                <div class="bi-name">${p.name}</div>
+                <div class="bi-price">${fmtPrice(p.price)} / lb</div>
+                <div class="bi-qty">
+                  <button data-q="-1" data-name="${p.name}" aria-label="Less">&minus;</button>
+                  <span>&asymp; ${i.qty} lb</span>
+                  <button data-q="1" data-name="${p.name}" aria-label="More">+</button>
+                </div>
+              </div>
+              <div class="bi-line">${fmt(line)}</div>
+              <button class="bi-remove" data-rm="${p.name}" title="Remove">&times;</button>
+            </div>`;
+        }).join('');
+      }
+      $('#boxTotal').textContent = fmt(total);
+    }
+    $('#boxItems').addEventListener('click', e => {
+      const q = e.target.closest('[data-q]');
+      if (q) { changeQty(q.dataset.name, +q.dataset.q); return; }
+      const rm = e.target.closest('[data-rm]');
+      if (rm) { BOX = BOX.filter(i => i.name !== rm.dataset.rm); saveBox(); renderBox(); }
+    });
+    $('#boxClear').addEventListener('click', () => {
+      if (!BOX.length) return;
+      BOX = []; saveBox(); renderBox();
+      toast('Box cleared');
+    });
+    $('#boxSubmit').addEventListener('click', () => {
+      if (!BOX.length) { toast('Your box is empty', '!'); return; }
+      const lines = BOX.map(i => `• ${i.name}: about ${i.qty} lb (${fmtPrice(PRODUCTS[i.name].price)}/lb)`);
+      const total = BOX.reduce((s, i) => s + PRODUCTS[i.name].price * i.qty, 0);
+      prefillForm('Individual cuts',
+        `Hi Steve & Sally!\n\nI'd like to reserve the following cuts:\n${lines.join('\n')}\n\nEstimated total: ${fmt(total)} (I understand final pricing is by actual weight.)\n\nThanks!`);
+      closeBox();
+      scrollToContact();
+      setTimeout(() => toast('Request drafted. Add your contact details and send'), 650);
+    });
+    function prefillForm(optionText, msg) {
+      const sel = document.getElementById('t3-interest');
+      [...sel.options].forEach(o => {
+        if (o.textContent.trim().toLowerCase().startsWith(optionText.toLowerCase())) sel.selectedIndex = o.index;
+      });
+      document.getElementById('t3-msg').value = msg;
+    }
+    renderBox();
+
+    /* Add-to-box from the cow diagram panel */
+    $('#cutCards').addEventListener('click', e => {
+      const b = e.target.closest('.cut-card-add');
+      if (b) addToBox(b.dataset.name, 1, b);
+    });
+
+    /* ── Doneness guide ──
+       c = center color, m = transition tone, k = crust depth (%), temp = midpoint °F for the thermometer */
+    const DONENESS = [
+      { n: 'Blue Rare',   t: '115–120°F', p: 'Pull at 110°F & rest', c: '#a01f35', m: '#822634', k: 10, temp: 117, glow: '#8c1f35', d: "Seared outside, cool deep-red center. For the purists: the marbling stays silky and just barely warmed." },
+      { n: 'Rare',        t: '120–125°F', p: 'Pull at 115°F & rest', c: '#b32e40', m: '#8e2f3b', k: 13, temp: 122, glow: '#a12b3f', d: "Warm red center. The fat is starting to soften and the texture is lush and buttery." },
+      { n: 'Medium Rare', t: '130–135°F', p: 'Pull at 125°F & rest', c: '#c4524e', m: '#9a3f42', k: 17, temp: 132, glow: '#c4524e', reco: true, d: "The sweet spot for Wagyu: the intramuscular fat is fully rendered, carrying flavor through every bite." },
+      { n: 'Medium',      t: '140–145°F', p: 'Pull at 135°F & rest', c: '#c97a5e', m: '#99584a', k: 25, temp: 142, glow: '#c97a5e', d: "Pink center with a firmer bite. Still juicy thanks to the marbling, but you're leaving a little silk on the table." },
+      { n: 'Medium Well', t: '150–155°F', p: 'Pull at 145°F & rest', c: '#b98a6f', m: '#8d6753', k: 35, temp: 152, glow: '#b98a6f', d: "Just a whisper of pink. The marbling keeps it juicier than regular beef would be at this temperature." },
+      { n: 'Well Done',   t: '160°F+',    p: 'Pull at 155°F & rest', c: '#a08a72', m: '#7c6350', k: 46, temp: 162, glow: '#9a8163', d: "Cooked through. If this is your table's style, our slow-cooked cuts (short ribs, roasts, osso buco) will treat you even better." }
+    ];
+    const slice = $('#steakSlice');
+    function renderDoneness(d, animate) {
+      const edge = Math.round(d.k * 0.55);
+      slice.style.background =
+        `linear-gradient(to bottom, #35231c 0%, #4a2f24 ${edge}%, ${d.m} ${d.k}%, ${d.c} 50%, ${d.m} ${100 - d.k}%, #4a2f24 ${100 - edge}%, #35231c 100%)`;
+      $('#thermoFill').style.height = Math.min(100, Math.max(6, (d.temp - 110) / 60 * 100)) + '%';
+      $('#heatGlow').style.background = d.glow;
+      $('#dName').textContent = d.n;
+      $('#dTemp').textContent = d.t;
+      $('#dPull').textContent = d.p;
+      $('#dDesc').textContent = d.d;
+      $('#dReco').classList.toggle('show', !!d.reco);
+      if (animate && !reduceMotion) {
+        slice.classList.remove('sizzle'); void slice.offsetWidth; slice.classList.add('sizzle');
+      }
+    }
+    $$('#donenessBtns .d-btn').forEach(btn => btn.addEventListener('click', () => {
+      $$('#donenessBtns .d-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDoneness(DONENESS[+btn.dataset.d], true);
+    }));
+    renderDoneness(DONENESS[2], false);
+
+    /* ── Bulk size selection + calculator ──
+       Finished lbs, servings, family meals, weeks, and freezer space come from the
+       farm's own share chart (images/bulk info.jpg). Cost = $7/lb x hanging weight. */
+    const SIZES = {
+      quarter: { label: 'Quarter Animal', hw: 188, lbs: '80–100',  servings: 290,  meals: 70,  weeks: '18–22', freezer: '10 cu ft of freezer space' },
+      half:    { label: 'Half Animal',    hw: 375, lbs: '160–220', servings: 586,  meals: 145, weeks: '45–48', freezer: '20 cu ft of freezer space' },
+      whole:   { label: 'Whole Animal',   hw: 750, lbs: '320–440', servings: 1172, meals: 293, weeks: '94–97', freezer: '40 cu ft of freezer space' }
+    };
+    let currentSize = 'half';
+    function animNum(el, to, opts = {}) {
+      const { prefix = '', suffix = '' } = opts;
+      if (reduceMotion) { el.textContent = prefix + Math.round(to).toLocaleString('en-US') + suffix; return; }
+      const dur = 600, s0 = performance.now();
+      (function step(t) {
+        const p = Math.min(1, (t - s0) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + Math.round(to * e).toLocaleString('en-US') + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      })(s0);
+    }
+    function setSize(key) {
+      const s = SIZES[key];
+      if (!s) return;
+      currentSize = key;
+      $$('.price-card').forEach(c => c.classList.toggle('featured', c.dataset.size === key));
+      $('#bcSel').textContent = s.label;
+      animNum($('#bcCost'), s.hw * 7, { prefix: '$' });
+      animNum($('#bcServings'), s.servings, { prefix: '~' });
+      animNum($('#bcMeals'), s.meals);
+      $('#bcTake').textContent = s.lbs;
+      $('#bcFreezer').innerHTML = `Fits in <strong>${s.freezer}</strong> &middot; roughly ${s.weeks} weeks of beef &middot; *dinners for a family of four`;
+    }
+    $$('.price-card').forEach(c => c.addEventListener('click', () => setSize(c.dataset.size)));
+    $('#bulkRequestBtn').addEventListener('click', () => {
+      const s = SIZES[currentSize];
+      prefillForm(currentSize, `Hi Steve & Sally!\n\nI'm interested in a ${s.label.toLowerCase()} (~${s.hw} lb hanging weight). Could you tell me about availability and next steps?\n\nThanks!`);
+    });
+
+    /* ── Contact form validation + success ── */
+    $('#formSubmit').addEventListener('click', () => {
+      const fname = $('#t3-fname'), email = $('#t3-email'), phone = $('#t3-phone'), msg = $('#t3-msg');
+      let ok = true;
+      function need(el, pass) {
+        el.classList.remove('invalid');
+        if (!pass) { void el.offsetWidth; el.classList.add('invalid'); ok = false; }
+      }
+      const hasEmail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim());
+      const hasPhone = phone.value.replace(/\D/g, '').length >= 7;
+      need(fname, fname.value.trim().length > 0);
+      need(email, hasEmail || hasPhone);
+      need(msg, msg.value.trim().length > 3);
+      if (!ok) { toast('Add your name, a way to reach you, and a message', '!'); return; }
+      $('#fsWho').textContent = fname.value.trim();
+      $('#formSuccess').classList.add('show');
+    });
+    $('#fsAgain').addEventListener('click', () => $('#formSuccess').classList.remove('show'));
+
+    /* ── Escape key closes the box ── */
+    addEventListener('keydown', e => { if (e.key === 'Escape') closeBox(); });
+  })();
 </script>
 </body>
 </html>
