@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipes, Tips &amp; Tricks | Miller Wagyu | La Crosse, WI</title>
+<meta name="description" content="Wagyu recipes, cooking tips, and an interactive meat temperature guide from Miller Wagyu Farms in La Crosse, Wisconsin.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --forest: #0b1a0c;
+    --forest-mid: #132015;
+    --forest-light: #1c3020;
+    --forest-border: rgba(255,255,255,0.08);
+    --cream: #f2ece0;
+    --cream-dim: rgba(242,236,224,0.65);
+    --gold: #c99440;
+    --gold-dim: rgba(201,148,64,0.7);
+    --gold-glow: rgba(201,148,64,0.12);
+    --white: #f8f5ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--forest); color: var(--cream); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 48px;
+    background: rgba(11,26,12,0.94); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--forest-border);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  @keyframes logoBreath {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(201,148,64,0.35), 0 0 10px rgba(201,148,64,0.12); }
+    50%       { box-shadow: 0 0 0 2px rgba(201,148,64,0.85), 0 0 22px rgba(201,148,64,0.32); }
+  }
+  .nav-logo-img {
+    height: 44px; width: 44px; object-fit: cover;
+    border-radius: 50%;
+    animation: logoBreath 3.2s ease-in-out infinite;
+  }
+  .nav-brand-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    color: var(--white); letter-spacing: 0.08em; line-height: 1;
+  }
+  .nav-brand-sub {
+    font-size: 0.58rem; font-weight: 300; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-top: 1px;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(242,236,224,0.6);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--forest) !important;
+    padding: 8px 22px; border-radius: 2px; font-weight: 600 !important;
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85 !important; }
+
+  /* HERO - CINEMATIC ANIMATED */
+  @keyframes kenburns {
+    from { transform: scale(1); }
+    to   { transform: scale(1.1); }
+  }
+  @keyframes slideFromLeft {
+    from { transform: translateX(-110%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes slideFromRight {
+    from { transform: translateX(110%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes drawLine {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .hero {
+    min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('../images/landscape%20dusk.JPG') center/cover no-repeat;
+    animation: kenburns 16s ease-out forwards;
+    will-change: transform;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top, rgba(11,26,12,0.97) 0%, rgba(11,26,12,0.65) 40%, rgba(11,26,12,0.2) 75%, transparent 100%),
+      linear-gradient(to bottom, rgba(11,26,12,0.6) 0%, transparent 20%);
+  }
+  .hero-center {
+    flex: 1; position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 100px 48px 48px; text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.3s;
+  }
+  .hero-title-row {
+    display: flex; align-items: baseline; justify-content: center;
+    gap: 0.12em; margin-bottom: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5.5rem, 13vw, 11rem);
+    letter-spacing: 0.03em; line-height: 0.95; color: var(--white);
+  }
+  .word-clip { overflow: hidden; }
+  .word-miller {
+    display: block;
+    animation: slideFromLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.55s;
+    transform: translateX(-110%);
+  }
+  .word-wagyu {
+    display: block; color: var(--gold);
+    animation: slideFromRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.55s;
+    transform: translateX(110%);
+  }
+  .hero-rule {
+    width: 100%; max-width: 520px; height: 1px;
+    background: var(--gold); margin: 22px auto 28px;
+    transform-origin: left center; transform: scaleX(0);
+    animation: drawLine 0.6s ease forwards 1.35s;
+  }
+  .hero-sub {
+    font-size: 0.95rem; font-weight: 300; color: var(--cream-dim);
+    line-height: 1.75; max-width: 480px; margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1.6s;
+  }
+  .hero-btns {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1.85s;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--forest);
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 14px 36px; border-radius: 2px; text-decoration: none; border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-gold:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1px solid rgba(242,236,224,0.3); color: var(--cream);
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 14px 36px; border-radius: 2px; text-decoration: none; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); background: var(--gold-glow); }
+
+  /* STATS ROW */
+  .hero-stats-row {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; gap: 56px;
+    padding: 24px 48px 0;
+    border-top: 1px solid rgba(242,236,224,0.1);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 2.1s;
+  }
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
+    color: var(--gold); letter-spacing: 0.04em; line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--cream-dim); margin-top: 4px;
+  }
+
+  /* MARQUEE TICKER */
+  .hero-ticker {
+    position: relative; z-index: 2;
+    background: rgba(11,26,12,0.7); backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(201,148,64,0.2);
+    overflow: hidden; padding: 12px 0;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 2.4s;
+  }
+  .ticker-track {
+    display: flex; white-space: nowrap;
+    animation: ticker 22s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-dim); padding: 0 28px; flex-shrink: 0;
+  }
+  .ticker-dot {
+    color: var(--gold); flex-shrink: 0; font-size: 1.1rem; line-height: 1; padding: 0 4px;
+  }
+
+  /* IMAGE MOSAIC STRIP */
+  .mosaic {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; height: 340px;
+    gap: 3px; background: var(--forest);
+  }
+  .mosaic-item { overflow: hidden; position: relative; }
+  .mosaic-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .mosaic-item:hover img { transform: scale(1.05); }
+  .mosaic-label {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px;
+    background: linear-gradient(to top, rgba(11,26,12,0.85), transparent);
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); opacity: 0; transition: opacity 0.3s;
+  }
+  .mosaic-item:hover .mosaic-label { opacity: 1; }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--gold); padding: 15px 48px;
+    display: flex; align-items: center; justify-content: center; gap: 10px 46px; flex-wrap: wrap;
+  }
+  .trust-item {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--forest); white-space: nowrap;
+  }
+
+  /* SECTION SHARED */
+  .section-label-dark {
+    font-size: 0.63rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label-dark::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--gold); opacity: 0.4; }
+  .section-title-dark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.04em; color: var(--white); line-height: 0.95; margin-bottom: 16px;
+  }
+  .section-body-dark {
+    font-size: 0.95rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; max-width: 500px;
+  }
+
+  /* SHOP */
+  .shop { padding: 88px 48px; background: var(--forest-mid); }
+  .shop-inner { max-width: 1200px; margin: 0 auto; }
+  .shop-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .shop-tabs { display: flex; gap: 2px; background: rgba(242,236,224,0.04); padding: 4px; border-radius: 3px; flex-wrap: wrap; }
+  .tab-btn {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 9px 20px; border: none; background: transparent; color: rgba(242,236,224,0.45);
+    border-radius: 2px; cursor: pointer; transition: all 0.2s;
+  }
+  .tab-btn.active { background: var(--gold); color: var(--forest); }
+  .tab-btn:hover:not(.active) { color: var(--gold); }
+  .products-grid { /* wrapper only */ }
+  .product-set { display: none; }
+  .product-set.active {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  #tab-steakhouse.active { grid-template-columns: repeat(3, 1fr); }
+  #tab-steakhouse.active .product-card:nth-child(4) { grid-column-start: 2; }
+  #tab-exotics.active { grid-template-columns: repeat(3, 1fr); }
+  .product-card {
+    background: var(--forest-light); border-radius: 3px; overflow: hidden;
+    border: 1px solid var(--forest-border);
+    transition: transform 0.25s, border-color 0.25s; cursor: pointer;
+  }
+  .product-card:hover { transform: translateY(-5px); border-color: rgba(201,148,64,0.35); }
+  .product-img { height: 200px; overflow: hidden; position: relative; }
+  .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .product-card:hover .product-img img { transform: scale(1.06); }
+  .product-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--gold); color: var(--forest);
+    font-size: 0.56rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 1px;
+  }
+  .product-body { padding: 18px 20px 20px; }
+  .product-cat {
+    font-size: 0.58rem; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold-dim); margin-bottom: 5px;
+  }
+  .product-name {
+    font-family: 'Playfair Display', serif; font-size: 1.15rem;
+    color: var(--white); margin-bottom: 7px;
+  }
+  .product-desc { font-size: 0.77rem; color: var(--cream-dim); line-height: 1.55; margin-bottom: 16px; font-weight: 300; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+    color: var(--gold); letter-spacing: 0.04em;
+  }
+  .product-price span { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--cream-dim); }
+  /* FARM STORY - SPLIT */
+  .farm-story {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 500px;
+    background: var(--forest);
+  }
+  .farm-story-img { position: relative; overflow: hidden; }
+  .farm-story-img img { width: 100%; height: 100%; object-fit: cover; }
+  .farm-story-content {
+    padding: 72px 64px; display: flex; flex-direction: column; justify-content: center;
+    background: var(--forest-mid);
+  }
+  .farm-story-body { font-size: 0.95rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; margin-bottom: 24px; }
+  .farm-story-quote {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic;
+    color: var(--white); line-height: 1.7; position: relative; padding: 0 0 0 22px;
+    border-left: 3px solid var(--gold); margin-bottom: 16px;
+  }
+  .farm-story-sig { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); }
+
+  /* OUR STORY HERO */
+  .story { background: var(--forest); }
+  .story-hero {
+    height: 440px; position: relative; overflow: hidden;
+    background: url('../images/farm%20overhead%20view.jpg') center/cover no-repeat;
+  }
+  .story-hero::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(11,26,12,0.25) 0%, rgba(11,26,12,0.88) 100%);
+  }
+  .story-hero-text {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 48px;
+    z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end;
+  }
+  .story-hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem); letter-spacing: 0.04em; line-height: 0.95;
+    color: var(--white);
+  }
+  .story-hero-title span { color: var(--gold); }
+  .story-hero-body { font-size: 0.95rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; }
+
+  /* LANDSCAPE FEATURE BANNER */
+  .landscape-banner {
+    height: 320px; position: relative; overflow: hidden;
+    background: url('../images/landscape.jpg') center/cover no-repeat;
+  }
+  .landscape-banner::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(11,26,12,0.4);
+  }
+  .landscape-banner-text {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  }
+  .landscape-banner-text h3 {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.08em; color: var(--white); text-align: center;
+  }
+  .landscape-banner-text p { font-size: 0.82rem; font-weight: 300; color: var(--cream-dim); letter-spacing: 0.1em; }
+
+  /* BULK ORDERS */
+  .bulk { padding: 88px 48px; background: var(--forest-mid); }
+  .bulk-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 72px; align-items: start; }
+  .bulk-price-row {
+    margin-top: 36px; display: grid; grid-template-columns: 1fr; gap: 12px;
+  }
+  .price-card {
+    border: 1px solid rgba(201,148,64,0.2); border-radius: 3px; padding: 20px 22px;
+    background: rgba(242,236,224,0.03); display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; transition: border-color 0.2s, background 0.2s; cursor: pointer;
+  }
+  .price-card:hover { border-color: rgba(201,148,64,0.45); background: var(--gold-glow); }
+  .price-card.featured { border-color: rgba(201,148,64,0.45); background: var(--gold-glow); }
+  .pc-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 4px; }
+  .pc-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 3px; }
+  .pc-weight { font-size: 0.72rem; font-weight: 300; color: var(--cream-dim); }
+  .pc-price {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--gold);
+    letter-spacing: 0.04em; white-space: nowrap;
+  }
+  .pc-price span { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: var(--cream-dim); }
+  .bulk-btns { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+  /* CONTACT FORM */
+  .contact-form {
+    background: #243828; border: 1px solid rgba(201,148,64,0.28); border-radius: 4px; padding: 36px;
+  }
+  .form-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+    letter-spacing: 0.04em; color: var(--white); margin-bottom: 4px;
+  }
+  .form-subtitle { font-size: 0.82rem; font-weight: 300; color: var(--cream-dim); margin-bottom: 24px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .form-group label {
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold-dim);
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    background: rgba(242,236,224,0.1); border: 1px solid rgba(242,236,224,0.22);
+    border-radius: 3px; padding: 11px 14px; color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 300; outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--forest-light); }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit {
+    width: 100%; background: var(--gold); color: var(--forest); border: none;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em;
+    padding: 15px; border-radius: 2px; cursor: pointer; transition: opacity 0.2s;
+  }
+  .form-submit:hover { opacity: 0.85; }
+
+  /* MARKETS */
+  .markets { padding: 80px 48px; background: var(--forest); }
+  .markets-inner { max-width: 1100px; margin: 0 auto; }
+  .markets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 44px; }
+  .market-list { display: flex; flex-direction: column; gap: 12px; }
+  .market-item {
+    display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px;
+    background: var(--forest-mid); border-radius: 3px; border-left: 3px solid var(--gold);
+    transition: transform 0.2s;
+  }
+  .market-item:hover { transform: translateX(4px); }
+  .market-day {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--gold);
+    min-width: 36px; text-align: center; letter-spacing: 0.04em; padding-top: 1px;
+  }
+  .market-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--white); margin-bottom: 3px; }
+  .market-details { font-size: 0.72rem; font-weight: 300; color: var(--cream-dim); line-height: 1.5; }
+  .market-badge {
+    font-size: 0.55rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 2px; background: #2a5c28; color: white;
+    white-space: nowrap; align-self: center;
+  }
+  .market-aside { display: flex; flex-direction: column; gap: 22px; }
+  .market-aside p { font-size: 0.92rem; font-weight: 300; color: var(--cream-dim); line-height: 1.75; }
+  .contact-info-row { display: flex; flex-direction: column; gap: 4px; }
+  .contact-info-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); }
+  .contact-info-val { font-size: 0.85rem; font-weight: 300; color: var(--cream-dim); line-height: 1.65; }
+  .contact-info-val a { color: rgba(201,148,64,0.8); text-decoration: none; }
+  .contact-info-val a:hover { color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    background: var(--forest); padding: 36px 48px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    border-top: 1px solid rgba(201,148,64,0.15);
+  }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-logo-img { height: 34px; width: 34px; border-radius: 50%; object-fit: cover; opacity: 0.8; }
+  .footer-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--white); letter-spacing: 0.06em; }
+  .footer-brand-sub { font-size: 0.56rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.55; }
+  .footer-links { display: flex; gap: 22px; list-style: none; }
+  .footer-links a { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,236,224,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.62rem; font-weight: 300; color: rgba(242,236,224,0.2); letter-spacing: 0.08em; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* CUTS DIAGRAM */
+  .cuts-diagram { padding: 88px 48px; background: var(--forest); }
+  .cuts-diagram-inner { max-width: 1200px; margin: 0 auto; }
+  .cuts-diagram-header { max-width: 560px; margin-bottom: 44px; }
+  .cuts-diagram-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
+  .cuts-diagram-center { display: flex; flex-direction: column; align-items: center; }
+  .cuts-diagram-right { display: flex; flex-direction: column; }
+  .cow-diagram { width: 100%; max-width: 640px; filter: drop-shadow(0 0 48px rgba(201,148,64,0.07)); }
+  .cut-region {
+    cursor: pointer; transition: fill 0.25s, stroke 0.25s;
+    stroke: rgba(201,148,64,0.55); stroke-width: 0.45 !important; stroke-dasharray: 6,4;
+  }
+  .cut-region.cut-tenderloin { stroke-dasharray: 4,3; }
+  .cut-region:hover { stroke-width: 0.9 !important; }
+  .cut-region.active { fill: rgba(201,148,64,0.32) !important; stroke: rgba(201,148,64,0.9) !important; stroke-width: 1.2 !important; filter: url(#glowGold); }
+  .cut-chuck      { fill: rgba(212,162,60,0.28); }
+  .cut-rib        { fill: rgba(204,74,53,0.28); }
+  .cut-shortloin  { fill: rgba(58,163,160,0.28); }
+  .cut-tenderloin { fill: rgba(196,61,131,0.32); }
+  .cut-sirloin    { fill: rgba(217,127,46,0.28); }
+  .cut-round      { fill: rgba(74,158,82,0.28); }
+  .cut-brisket    { fill: rgba(122,78,196,0.28); }
+  .cut-plate      { fill: rgba(58,125,196,0.28); }
+  .cut-flank      { fill: rgba(161,58,74,0.28); }
+  .diagram-cut-label { transition: fill 0.25s, opacity 0.25s; cursor: pointer; }
+  .diagram-cut-label:hover { fill: rgba(201,148,64,0.9); }
+  .diagram-cut-label.active { fill: #c99440 !important; opacity: 1 !important; }
+  .cut-panel-inner {
+    background: rgba(201,148,64,0.04);
+    border: 1px solid rgba(201,148,64,0.14); border-radius: 8px; padding: 22px;
+    display: flex; flex-direction: column; min-height: 420px;
+    transition: opacity 0.3s, transform 0.35s;
+  }
+  .cut-panel-placeholder { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+  .placeholder-icon { font-size: 1.6rem; opacity: 0.15; }
+  .cut-panel-placeholder p { font-size: 0.72rem; font-weight: 300; color: rgba(242,236,224,0.28); text-align: center; line-height: 1.6; max-width: 170px; }
+  .cut-panel-content { display: flex; flex-direction: column; flex: 1; }
+  .cut-region-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.08em; color: var(--white); margin-bottom: 2px; }
+  .cut-tagline { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; opacity: 0.8; }
+  .cut-blurb { font-size: 0.72rem; font-weight: 300; color: var(--cream-dim); line-height: 1.55; margin-bottom: 14px; }
+  .cut-cards { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; flex: 1; max-height: 290px; }
+  .cut-cards::-webkit-scrollbar { width: 3px; }
+  .cut-cards::-webkit-scrollbar-thumb { background: rgba(201,148,64,0.3); border-radius: 2px; }
+  .cut-card {
+    display: flex; gap: 11px; align-items: flex-start; padding: 11px;
+    background: rgba(242,236,224,0.03); border: 1px solid rgba(201,148,64,0.11);
+    border-radius: 6px; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  }
+  .cut-card:hover { border-color: rgba(201,148,64,0.38); background: rgba(201,148,64,0.07); transform: translateX(3px); }
+  .cut-card-img { width: 50px; height: 50px; border-radius: 5px; object-fit: cover; flex-shrink: 0; background: rgba(201,148,64,0.08); }
+  .cut-card-body { flex: 1; min-width: 0; }
+  .cut-card-top { display: flex; align-items: center; gap: 7px; margin-bottom: 1px; flex-wrap: wrap; }
+  .cut-card-name { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--white); }
+  .cut-card-badge { font-size: 0.48rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; background: var(--gold); color: var(--forest); padding: 2px 6px; border-radius: 2px; flex-shrink: 0; }
+  .cut-card-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; color: var(--gold); letter-spacing: 0.04em; }
+  .cut-card-price span { font-family: 'DM Sans', sans-serif; font-size: 0.58rem; font-weight: 300; color: var(--cream-dim); }
+  .cut-card-desc { font-size: 0.68rem; font-weight: 300; color: var(--cream-dim); line-height: 1.5; margin-top: 2px; }
+
+  /* SHARED HELPERS */
+  body.no-scroll { overflow: hidden; }
+  button.btn-gold, button.btn-ghost { font-family: 'DM Sans', sans-serif; }
+  button.btn-ghost { background: transparent; }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(22px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+  /* NAV BOX BUTTON */
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
+  .nav-box-btn {
+    position: relative; display: flex; align-items: center; gap: 8px;
+    background: transparent; border: 1px solid rgba(201,148,64,0.4); color: var(--gold);
+    border-radius: 2px; padding: 8px 14px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-box-btn:hover { background: var(--gold-glow); border-color: var(--gold); }
+  .nav-box-count {
+    background: var(--gold); color: var(--forest); min-width: 18px; height: 18px;
+    border-radius: 9px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; padding: 0 5px;
+  }
+  .pop { animation: countPop 0.35s ease; display: inline-flex; }
+  @keyframes countPop { 30% { transform: scale(1.5); } }
+
+  /* FLY-TO-BOX DOT */
+  .fly-dot {
+    position: fixed; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--gold); z-index: 2550; pointer-events: none;
+    box-shadow: 0 0 12px rgba(201,148,64,0.8);
+    transition: transform 0.7s cubic-bezier(0.2,0.6,0.3,1), opacity 0.7s;
+  }
+
+  /* ADD-TO-BOX BUTTONS */
+  .product-footer { gap: 8px; flex-wrap: wrap; }
+  .btn-add {
+    width: 34px; height: 32px; flex: 0 0 auto;
+    background: var(--gold); color: var(--forest); border: none; border-radius: 2px;
+    font-size: 1.05rem; line-height: 1; font-weight: 600; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-add:hover { transform: scale(1.08); box-shadow: 0 0 14px rgba(201,148,64,0.4); }
+  .cut-card-add {
+    flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%; align-self: center;
+    border: 1px solid rgba(201,148,64,0.4); background: transparent; color: var(--gold);
+    cursor: pointer; font-size: 0.95rem; line-height: 1; transition: all 0.2s;
+  }
+  .cut-card-add:hover { background: var(--gold); color: var(--forest); }
+
+  /* BOX DRAWER */
+  .box-overlay {
+    position: fixed; inset: 0; background: rgba(4,10,5,0.6); backdrop-filter: blur(3px);
+    z-index: 1200; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+  }
+  .box-overlay.open { opacity: 1; visibility: visible; }
+  .box-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 94vw;
+    background: var(--forest-mid); border-left: 1px solid rgba(201,148,64,0.25);
+    z-index: 1210; transform: translateX(105%);
+    transition: transform 0.45s cubic-bezier(0.2,0.8,0.25,1);
+    display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+  }
+  .box-drawer.open { transform: none; }
+  .box-head { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 16px; border-bottom: 1px solid var(--forest-border); }
+  .box-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.06em; color: var(--white); }
+  .box-sub { font-size: 0.68rem; color: var(--cream-dim); font-weight: 300; margin-top: 2px; max-width: 260px; line-height: 1.5; }
+  .box-close { background: none; border: none; color: var(--cream-dim); font-size: 1.6rem; cursor: pointer; line-height: 1; transition: color 0.2s, transform 0.2s; }
+  .box-close:hover { color: var(--gold); transform: rotate(90deg); }
+  .box-items { flex: 1; overflow-y: auto; padding: 16px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .box-items::-webkit-scrollbar { width: 4px; }
+  .box-items::-webkit-scrollbar-thumb { background: rgba(201,148,64,0.3); border-radius: 2px; }
+  .box-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: rgba(242,236,224,0.35); font-size: 0.78rem; font-weight: 300; text-align: center; padding: 40px 10px; line-height: 1.7; }
+  .be-icon { font-size: 1.8rem; opacity: 0.5; }
+  .box-item {
+    display: flex; gap: 12px; align-items: center;
+    background: rgba(242,236,224,0.03); border: 1px solid rgba(201,148,64,0.12);
+    border-radius: 6px; padding: 10px; animation: cardIn 0.35s ease backwards;
+  }
+  .box-item img { width: 52px; height: 52px; border-radius: 5px; object-fit: cover; }
+  .bi-body { flex: 1; min-width: 0; }
+  .bi-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--white); }
+  .bi-price { font-size: 0.66rem; color: var(--gold-dim); margin-top: 1px; }
+  .bi-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .bi-qty button { width: 22px; height: 22px; border-radius: 3px; border: 1px solid rgba(201,148,64,0.35); background: transparent; color: var(--gold); cursor: pointer; font-size: 0.85rem; line-height: 1; transition: background 0.15s; }
+  .bi-qty button:hover { background: var(--gold-glow); }
+  .bi-qty span { font-size: 0.72rem; color: var(--cream); min-width: 44px; text-align: center; font-weight: 300; }
+  .bi-line { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; color: var(--gold); white-space: nowrap; }
+  .bi-remove { background: none; border: none; color: rgba(242,236,224,0.3); cursor: pointer; font-size: 1rem; transition: color 0.2s; align-self: flex-start; }
+  .bi-remove:hover { color: #d66a6a; }
+  .box-foot { padding: 18px 24px 22px; border-top: 1px solid var(--forest-border); background: rgba(11,26,12,0.5); }
+  .box-total-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); font-weight: 600; }
+  .box-total { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; color: var(--gold); letter-spacing: 0.03em; }
+  .box-note { font-size: 0.62rem; color: rgba(242,236,224,0.4); font-weight: 300; margin: 6px 0 14px; line-height: 1.5; }
+  .box-cta { width: 100%; text-align: center; }
+  .box-clear { width: 100%; margin-top: 10px; background: none; border: none; color: rgba(242,236,224,0.35); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; font-weight: 600; transition: color 0.2s; }
+  .box-clear:hover { color: #d66a6a; }
+
+  /* TOASTS */
+  .toasts { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 2500; display: flex; flex-direction: column; gap: 10px; align-items: center; pointer-events: none; width: max-content; max-width: 92vw; }
+  .toast {
+    background: rgba(11,26,12,0.92); backdrop-filter: blur(8px);
+    border: 1px solid rgba(201,148,64,0.4); color: var(--cream);
+    font-size: 0.76rem; font-weight: 400; padding: 12px 22px; border-radius: 40px;
+    display: flex; gap: 10px; align-items: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    animation: toastIn 0.4s cubic-bezier(0.2,0.8,0.3,1);
+  }
+  .toast .t-ico { color: var(--gold); }
+  .toast.out { animation: toastOut 0.3s ease forwards; }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(16px) scale(0.95); } }
+  @keyframes toastOut { to { opacity: 0; transform: translateY(10px); } }
+
+  /* COOKING GUIDE */
+  .cook {
+    padding: 88px 48px; position: relative; overflow: hidden;
+    background: radial-gradient(820px 460px at 72% 50%, rgba(201,148,64,0.08), transparent 70%), var(--forest);
+  }
+  .cook-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+  .cook-tips { margin-top: 26px; display: flex; flex-direction: column; gap: 14px; }
+  .cook-tip { display: flex; gap: 14px; align-items: flex-start; }
+  .ct-num { font-family: 'Bebas Neue', sans-serif; color: var(--gold); font-size: 1.05rem; border: 1px solid rgba(201,148,64,0.35); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: 0 0 30px; }
+  .ct-body strong { display: block; font-size: 0.84rem; color: var(--white); font-weight: 600; margin-bottom: 2px; }
+  .ct-body span { font-size: 0.75rem; font-weight: 300; color: var(--cream-dim); line-height: 1.55; }
+  .doneness-card {
+    background: rgba(201,148,64,0.04);
+    border: 1px solid rgba(201,148,64,0.22); border-radius: 10px; padding: 30px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+  }
+  .heat-glow {
+    position: absolute; top: 42%; left: 42%; width: 360px; height: 250px;
+    transform: translate(-50%,-50%); border-radius: 50%;
+    filter: blur(70px); opacity: 0.3; background: #c4524e;
+    transition: background 0.7s ease; pointer-events: none;
+  }
+  .doneness-card > *:not(.heat-glow) { position: relative; z-index: 1; }
+  .doneness-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+  .d-btn {
+    flex: 1; min-width: 64px; background: transparent;
+    border: 1px solid rgba(242,236,224,0.15); color: rgba(242,236,224,0.5);
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 9px 6px; border-radius: 3px; cursor: pointer; transition: all 0.2s;
+  }
+  .d-btn:hover { border-color: rgba(201,148,64,0.5); color: var(--gold); }
+  .d-btn.active { background: var(--gold); border-color: var(--gold); color: var(--forest); }
+  .doneness-display { display: flex; gap: 24px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .steak-slice {
+    width: 178px; height: 110px; flex: 0 0 178px;
+    position: relative; overflow: hidden;
+    clip-path: path('M 14,62 C 10,34 34,14 66,12 C 96,10 118,20 138,16 C 158,12 172,26 170,44 C 168,60 156,66 150,78 C 142,94 118,104 90,102 C 58,100 40,96 28,84 C 20,76 17,72 14,62 Z');
+    background: #4a2f24;
+    filter: drop-shadow(0 12px 22px rgba(0,0,0,0.5));
+  }
+  .steak-slice::before {
+    content: ''; position: absolute; top: 13px; left: 20%; right: 20%;
+    height: 11px; border-radius: 50%;
+    background: rgba(242,236,224,0.3); filter: blur(3px);
+    transform: rotate(-3deg);
+  }
+  .steak-slice::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(120px 40px at 30% 55%, rgba(255,255,255,0.10), transparent 65%),
+      repeating-linear-gradient(115deg, transparent 0 14px, rgba(255,255,255,0.05) 14px 17px, transparent 17px 34px);
+    mix-blend-mode: screen; pointer-events: none;
+  }
+  @keyframes sizzle { 30% { transform: scale(1.045) rotate(-0.6deg); } }
+  .steak-slice.sizzle { animation: sizzle 0.45s ease; }
+  .thermo { display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; }
+  .thermo-track {
+    width: 10px; height: 104px; border-radius: 6px 6px 0 0;
+    background: rgba(242,236,224,0.09); border: 1px solid rgba(242,236,224,0.16); border-bottom: none;
+    position: relative; overflow: hidden;
+  }
+  .thermo-fill {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 37%;
+    background: linear-gradient(to top, #c99440, #d8623c);
+    transition: height 0.6s cubic-bezier(0.3,0.7,0.3,1);
+  }
+  .thermo-bulb {
+    width: 22px; height: 22px; border-radius: 50%; margin-top: -3px; position: relative; z-index: 1;
+    background: radial-gradient(circle at 35% 35%, #e8c37a, #c99440);
+    box-shadow: 0 0 14px rgba(201,148,64,0.5);
+    border: 1px solid rgba(242,236,224,0.2);
+  }
+  .thermo-label { font-size: 0.5rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); margin-top: 6px; }
+  .d-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--white); letter-spacing: 0.05em; }
+  .d-temp { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.05em; margin-top: 2px; }
+  .d-pull { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); margin-top: 4px; }
+  .d-desc { font-size: 0.78rem; font-weight: 300; color: var(--cream-dim); line-height: 1.65; min-height: 58px; }
+  .d-reco { margin-top: 14px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0; transition: opacity 0.3s; }
+  .d-reco.show { opacity: 0.85; }
+
+  /* RECIPES, TIPS & TRICKS */
+  .recipes {
+    padding: 88px 48px; position: relative; overflow: hidden;
+    background: radial-gradient(820px 460px at 78% 22%, rgba(201,148,64,0.07), transparent 70%), var(--forest);
+  }
+  .recipes-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+  .recipes-head { max-width: 620px; margin-bottom: 56px; }
+  .temp-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 400; letter-spacing: 0.04em; color: var(--white); line-height: 1; margin-bottom: 14px; }
+  .temp-body { font-size: 0.92rem; font-weight: 300; color: var(--cream-dim); line-height: 1.7; max-width: 500px; }
+  .temp-block { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; margin-bottom: 88px; }
+  .temp-left .section-label-dark { margin-bottom: 12px; }
+
+  /* Recipe list */
+  .recipes-list-head { max-width: 620px; margin-bottom: 34px; }
+  .recipe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .recipe-card {
+    background: var(--forest-mid); border: 1px solid var(--forest-border);
+    border-radius: 10px; overflow: hidden; cursor: pointer;
+    display: flex; flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .recipe-card:hover { transform: translateY(-5px); border-color: rgba(201,148,64,0.4); box-shadow: 0 22px 50px rgba(0,0,0,0.4); }
+  .recipe-card-img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+  .recipe-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .recipe-card:hover .recipe-card-img img { transform: scale(1.06); }
+  .recipe-card-tag {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    background: rgba(11,26,12,0.82); backdrop-filter: blur(4px);
+    color: var(--gold); font-size: 0.55rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 11px; border-radius: 3px;
+  }
+  .recipe-card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .recipe-card-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.03em; color: var(--white); line-height: 1.05; margin-bottom: 8px; }
+  .recipe-card-desc { font-size: 0.78rem; font-weight: 300; color: var(--cream-dim); line-height: 1.6; flex: 1; }
+  .recipe-card-more {
+    margin-top: 16px; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 7px;
+    transition: gap 0.25s ease;
+  }
+  .recipe-card:hover .recipe-card-more { gap: 12px; }
+  .recipe-card-more .arw { transition: transform 0.25s ease; }
+
+  /* Recipe modal */
+  .recipe-overlay {
+    position: fixed; inset: 0; background: rgba(4,10,5,0.72); backdrop-filter: blur(4px);
+    z-index: 1300; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+    display: flex; align-items: center; justify-content: center; padding: 32px 20px;
+  }
+  .recipe-overlay.open { opacity: 1; visibility: visible; }
+  .recipe-modal {
+    background: var(--forest-mid); border: 1px solid rgba(201,148,64,0.25); border-radius: 12px;
+    width: 720px; max-width: 100%; max-height: 88vh; overflow-y: auto; position: relative;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    transform: translateY(20px) scale(0.98); transition: transform 0.4s cubic-bezier(0.2,0.8,0.25,1);
+  }
+  .recipe-overlay.open .recipe-modal { transform: none; }
+  .recipe-modal::-webkit-scrollbar { width: 5px; }
+  .recipe-modal::-webkit-scrollbar-thumb { background: rgba(201,148,64,0.3); border-radius: 3px; }
+  .recipe-close {
+    position: absolute; top: 14px; right: 16px; z-index: 3;
+    width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(11,26,12,0.7); color: var(--cream); font-size: 1.5rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s, transform 0.2s, background 0.2s;
+  }
+  .recipe-close:hover { color: var(--gold); background: rgba(11,26,12,0.95); transform: rotate(90deg); }
+  .recipe-modal-img { aspect-ratio: 16 / 8; overflow: hidden; }
+  .recipe-modal-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .recipe-modal-body { padding: 30px 36px 36px; }
+  .rm-tag { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .rm-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.03em; color: var(--white); line-height: 1; margin-bottom: 12px; }
+  .rm-meta { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px; }
+  .rm-meta span { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-dim); display: flex; align-items: center; gap: 6px; }
+  .rm-meta span b { color: var(--gold); font-weight: 600; }
+  .rm-intro { font-size: 0.86rem; font-weight: 300; color: var(--cream-dim); line-height: 1.7; margin-bottom: 26px; padding-bottom: 24px; border-bottom: 1px solid var(--forest-border); }
+  .rm-cols { display: grid; grid-template-columns: 1fr 1.4fr; gap: 36px; }
+  .rm-col-head { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 14px; text-transform: uppercase; }
+  .rm-ingredients { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .rm-ingredients li { font-size: 0.8rem; font-weight: 300; color: var(--cream); line-height: 1.45; padding-left: 16px; position: relative; }
+  .rm-ingredients li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.7; }
+  .rm-steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 15px; }
+  .rm-steps li { font-size: 0.82rem; font-weight: 300; color: var(--cream); line-height: 1.6; padding-left: 34px; position: relative; counter-increment: step; }
+  .rm-steps li::before {
+    content: counter(step); position: absolute; left: 0; top: -1px;
+    width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(201,148,64,0.4);
+    color: var(--gold); font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rm-placeholder-note {
+    margin-top: 26px; padding: 14px 18px; border-radius: 6px;
+    background: rgba(201,148,64,0.07); border: 1px dashed rgba(201,148,64,0.3);
+    font-size: 0.72rem; font-weight: 300; font-style: italic; color: var(--cream-dim); line-height: 1.6;
+  }
+
+  /* BULK SELECTION */
+  .price-card { position: relative; }
+  .pc-check {
+    position: absolute; top: -7px; right: -7px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--gold); color: var(--forest);
+    display: none; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+  }
+  .price-card.featured .pc-check { display: flex; }
+  .bulk-calc {
+    margin-top: 22px; border: 1px solid rgba(201,148,64,0.25);
+    background: linear-gradient(135deg, rgba(201,148,64,0.08), rgba(201,148,64,0.02));
+    border-radius: 6px; padding: 22px 24px;
+  }
+  .bc-head { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 16px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .bc-sel { color: var(--gold); font-size: 0.66rem; }
+  .bc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .bc-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; color: var(--white); letter-spacing: 0.03em; }
+  .bc-label { font-size: 0.55rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); margin-top: 3px; line-height: 1.4; }
+  .bc-note { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(201,148,64,0.14); font-size: 0.68rem; font-weight: 300; color: var(--cream-dim); line-height: 1.6; }
+  .bc-note strong { color: var(--gold); font-weight: 600; }
+
+  /* FORM VALIDATION + SUCCESS */
+  .contact-form { position: relative; overflow: hidden; }
+  .form-group input.invalid, .form-group textarea.invalid { border-color: #c05050; animation: shake 0.35s ease; }
+  @keyframes shake { 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+  .form-success {
+    position: absolute; inset: 0; background: #243828; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; text-align: center; padding: 30px;
+    opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s;
+  }
+  .form-success.show { opacity: 1; visibility: visible; }
+  .fs-circle { width: 74px; height: 74px; }
+  .fs-circle circle { stroke: var(--gold); stroke-width: 2; fill: none; stroke-dasharray: 220; stroke-dashoffset: 220; }
+  .fs-circle path { stroke: var(--gold); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; }
+  .form-success.show circle { animation: drawStroke 0.7s ease forwards; }
+  .form-success.show path { animation: drawStroke 0.5s ease forwards 0.5s; }
+  @keyframes drawStroke { to { stroke-dashoffset: 0; } }
+  .fs-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.06em; color: var(--white); text-transform: uppercase; }
+  .form-success p { font-size: 0.78rem; font-weight: 300; color: var(--cream-dim); line-height: 1.7; max-width: 330px; }
+  .fs-again { background: none; border: none; color: var(--gold); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; margin-top: 6px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 12px 20px; }
+    .nav-links { display: none; }
+    .hero-center { padding: 80px 24px 32px; }
+    .hero-title-row { font-size: clamp(4rem, 18vw, 6rem); }
+    .hero-stats-row { gap: 28px; padding: 16px 24px 0; flex-wrap: wrap; justify-content: center; }
+    .mosaic { grid-template-columns: 1fr 1fr; height: 320px; }
+    .product-set.active,
+    #tab-steakhouse.active,
+    #tab-exotics.active { grid-template-columns: repeat(2, 1fr); }
+    #tab-steakhouse.active .product-card:nth-child(4) { grid-column-start: auto; }
+    .farm-story { grid-template-columns: 1fr; }
+    .farm-story-img { height: 260px; }
+    .farm-story-content { padding: 52px 28px; }
+    .story-hero-text { grid-template-columns: 1fr; }
+    .bulk-inner { grid-template-columns: 1fr; gap: 40px; }
+    .markets-grid { grid-template-columns: 1fr; }
+    .shop, .bulk, .markets, .cuts-diagram { padding: 56px 22px; }
+    .cuts-diagram-grid { grid-template-columns: 1fr; gap: 28px; }
+    .cut-panel-inner { min-height: 0; }
+    .cut-panel-placeholder { padding: 26px 0; }
+    .placeholder-icon { transform: rotate(90deg); }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .trust-bar { gap: 8px 24px; }
+    .nav-box-btn .nbb-text { display: none; }
+    .bc-grid { grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .cook { padding: 56px 22px; }
+    .cook-inner { grid-template-columns: 1fr; gap: 40px; }
+    .box-drawer { width: 100vw; max-width: 100vw; }
+    .recipes { padding: 56px 22px; }
+    .temp-block { grid-template-columns: 1fr; gap: 40px; margin-bottom: 60px; }
+    .recipe-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .recipe-modal-body { padding: 26px 24px 30px; }
+    .rm-cols { grid-template-columns: 1fr; gap: 26px; }
+  }
+  @media (max-width: 560px) {
+    .recipe-grid { grid-template-columns: 1fr; }
+  }
+
+  .nav-links a.nav-here { color: var(--gold); }
+  a.nav-box-btn { text-decoration: none; }
+  .farm-banner::after { background: linear-gradient(rgba(11,26,12,0.30), rgba(11,26,12,0.62)); }
+  .farm-banner .landscape-banner-text p { color: rgba(248,245,238,0.9); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="template-3-gallery.html" class="nav-brand">
+    <img src="../images/COW%20-%20Copy.png" alt="Miller Wagyu" class="nav-logo-img">
+    <div>
+      <div class="nav-brand-name">Miller Wagyu</div>
+      <div class="nav-brand-sub">La Crosse, Wisconsin</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="template-3-gallery.html#shop">Shop Cuts</a></li>
+    <li><a href="recipes.html" class="nav-here">Recipes</a></li>
+    <li><a href="template-3-gallery.html#bulk">Bulk Orders</a></li>
+    <li><a href="template-3-gallery.html#markets">Markets</a></li>
+    <li><a href="template-3-gallery.html#story">Our Story</a></li>
+    <li><a href="template-3-gallery.html#contact" class="nav-cta">Order Now</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-box-btn" href="template-3-gallery.html#shop" aria-label="Your box">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="nbb-text">Your Box</span>
+      <span class="nav-box-count" id="navBoxCount">0</span>
+    </a>
+  </div>
+</nav>
+
+<!-- RECIPES, TIPS & TRICKS -->
+<section class="recipes" id="recipes" style="padding-top: 128px; padding-bottom: 64px;">
+  <div class="recipes-inner">
+
+    <div class="recipes-head reveal">
+      <div class="section-label-dark">Recipes, Tips &amp; Tricks</div>
+      <h2 class="section-title-dark">From Our Kitchen<br>to Yours.</h2>
+      <p class="section-body-dark">A growing collection of our family's favorite Wagyu recipes. Browse below for inspiration, then scroll down to the temperature guide to cook every cut just right.</p>
+    </div>
+
+    <!-- RECIPE LIST -->
+    <div class="recipes-list-head reveal">
+      <div class="section-label-dark">Featured Recipes</div>
+      <h3 class="temp-title">Cook Something Special.</h3>
+      <p class="temp-body">More coming soon &mdash; check back as we add new favorites from the farm.</p>
+    </div>
+    <div class="recipe-grid reveal" id="recipeGrid"></div>
+
+  </div>
+</section>
+
+<!-- FARM BANNER -->
+<div class="landscape-banner farm-banner" style="background-image: url('../images/farm%20and%20many%20cows.jpg');">
+  <div class="landscape-banner-text">
+    <h3>Pasture Raised, Family Owned</h3>
+    <p>The Miller herd &middot; coulee region of La Crosse, Wisconsin</p>
+  </div>
+</div>
+
+<!-- MEAT TEMPERATURE DIAGRAM -->
+<section class="recipes" style="padding-top: 80px;">
+  <div class="recipes-inner">
+    <div class="temp-block reveal">
+      <div class="temp-left">
+        <div class="section-label-dark">The Doneness Guide</div>
+        <h3 class="temp-title">Find Your Perfect Temperature.</h3>
+        <p class="temp-body">Wagyu's rich marbling begins to render at a lower temperature than ordinary beef, so every level of doneness tastes a little different. Tap through the guide to find your family's sweet spot.</p>
+        <div class="cook-tips">
+          <div class="cook-tip"><div class="ct-num">1</div><div class="ct-body"><strong>Start dry &amp; near room temp</strong><span>Pat the surface dry and let the cut sit out 30&ndash;45 minutes before cooking for an even sear.</span></div></div>
+          <div class="cook-tip"><div class="ct-num">2</div><div class="ct-body"><strong>Salt, then sear hot &amp; fast</strong><span>Season generously with coarse salt and sear in a rippingly hot pan &mdash; Wagyu's own fat is all you need.</span></div></div>
+          <div class="cook-tip"><div class="ct-num">3</div><div class="ct-body"><strong>Pull early &amp; rest</strong><span>Pull 5&ndash;10&deg;F below your target and rest 5&ndash;10 minutes so the juices redistribute.</span></div></div>
+        </div>
+      </div>
+      <div class="temp-right">
+        <div class="doneness-card">
+          <div class="heat-glow" id="heatGlow"></div>
+          <div class="doneness-btns" id="donenessBtns">
+            <button class="d-btn" data-d="0">Blue</button>
+            <button class="d-btn" data-d="1">Rare</button>
+            <button class="d-btn active" data-d="2">Med Rare</button>
+            <button class="d-btn" data-d="3">Medium</button>
+            <button class="d-btn" data-d="4">Med Well</button>
+            <button class="d-btn" data-d="5">Well</button>
+          </div>
+          <div class="doneness-display">
+            <div class="steak-slice" id="steakSlice" aria-hidden="true"></div>
+            <div class="thermo" aria-hidden="true">
+              <div class="thermo-track"><div class="thermo-fill" id="thermoFill"></div></div>
+              <div class="thermo-bulb"></div>
+              <div class="thermo-label">&deg;F</div>
+            </div>
+            <div>
+              <div class="d-name" id="dName">Medium Rare</div>
+              <div class="d-temp" id="dTemp">130&ndash;135&deg;F</div>
+              <div class="d-pull" id="dPull">Pull at 125&deg;F &amp; rest</div>
+            </div>
+          </div>
+          <p class="d-desc" id="dDesc">The sweet spot for Wagyu: the intramuscular fat is fully rendered, carrying flavor through every bite.</p>
+          <div class="d-reco show" id="dReco">&#9733; Our recommendation for Wagyu steaks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPE MODAL -->
+<div class="recipe-overlay" id="recipeOverlay">
+  <div class="recipe-modal" id="recipeModal" role="dialog" aria-modal="true" aria-labelledby="rmTitle">
+    <button class="recipe-close" id="recipeClose" aria-label="Close recipe">&times;</button>
+    <div class="recipe-modal-img"><img id="rmImg" src="" alt=""></div>
+    <div class="recipe-modal-body">
+      <div class="rm-tag" id="rmTag"></div>
+      <h3 class="rm-title" id="rmTitle"></h3>
+      <div class="rm-meta" id="rmMeta"></div>
+      <p class="rm-intro" id="rmIntro"></p>
+      <div class="rm-cols">
+        <div class="rm-col">
+          <h4 class="rm-col-head">Ingredients</h4>
+          <ul class="rm-ingredients" id="rmIngredients"></ul>
+        </div>
+        <div class="rm-col">
+          <h4 class="rm-col-head">Directions</h4>
+          <ol class="rm-steps" id="rmSteps"></ol>
+        </div>
+      </div>
+      <div class="rm-placeholder-note" id="rmNote"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">
+    <img src="../images/COW%20-%20Copy.png" alt="Miller Wagyu" class="footer-logo-img">
+    <div>
+      <div class="footer-brand-name">Miller Wagyu</div>
+      <div class="footer-brand-sub">La Crosse, Wisconsin</div>
+    </div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="template-3-gallery.html#shop">Shop Cuts</a></li>
+    <li><a href="recipes.html">Recipes</a></li>
+    <li><a href="template-3-gallery.html#bulk">Bulk Orders</a></li>
+    <li><a href="template-3-gallery.html#markets">Markets</a></li>
+    <li><a href="template-3-gallery.html#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 Miller Wagyu Farms &middot; La Crosse, WI</p>
+</footer>
+
+<script>
+
+  /* reveal-on-scroll + nav shadow (shared with the main page) */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 40 ? '0 4px 24px rgba(0,0,0,0.5)' : 'none';
+  });
+
+  /* Mirror the "Your Box" count saved by the main page (drawer lives there) */
+  (function () {
+    let box = [];
+    try { box = JSON.parse(localStorage.getItem('mwBox')) || []; } catch (e) {}
+    const n = box.reduce((s, i) => s + (i.qty || 1), 0);
+    const el = document.getElementById('navBoxCount');
+    if (el) el.textContent = n;
+  })();
+
+  /* ── RECIPES ────────────────────────────────────────────────
+     Placeholder content — swap intro / ingredients / steps / meta
+     and the `img` path with the client's real recipes & photos as
+     they come in. Photos are royalty-free stock stand-ins for now. */
+  const RECIPES = [
+    {
+      id: 'ribeye',
+      name: 'Reverse-Seared Ribeye',
+      tag: 'Steakhouse',
+      img: '../images/recipe-ribeye.jpg',
+      desc: 'A foolproof method for an edge-to-edge pink, perfectly crusted Wagyu ribeye.',
+      meta: [['Serves', '2'], ['Prep', '10 min'], ['Cook', '45 min']],
+      intro: 'Placeholder recipe. A gentle low-oven start followed by a blazing sear is the classic way to bring out the best in a marbled Wagyu ribeye — the client will provide their preferred version of this recipe.',
+      ingredients: ['1 Miller Wagyu ribeye', 'Coarse sea salt', 'Fresh cracked pepper', 'A few sprigs of thyme', 'Optional: garlic & butter'],
+      steps: [
+        'Salt the steak and rest it in a low (250°F) oven until it reaches about 115°F internal.',
+        'Heat a cast-iron pan until nearly smoking.',
+        'Sear each side 45–60 seconds, basting with thyme, until a deep crust forms.',
+        'Rest 5–10 minutes, slice, and serve.'
+      ]
+    },
+    {
+      id: 'filet',
+      name: 'Pan-Seared Filet Mignon',
+      tag: 'Steakhouse',
+      img: '../images/recipe-filet.jpg',
+      desc: 'The most tender cut, kept simple with butter, garlic, and thyme.',
+      meta: [['Serves', '2'], ['Prep', '10 min'], ['Cook', '12 min']],
+      intro: 'Placeholder recipe. Lean and buttery-tender, the filet needs only a hot pan and a good baste. The client’s take on this steakhouse staple goes here.',
+      ingredients: ['2 Wagyu filet mignon', 'Butter', 'Garlic cloves', 'Fresh thyme', 'Salt & pepper'],
+      steps: [
+        'Pat dry, season, and bring to room temperature.',
+        'Sear in a hot pan 3–4 minutes per side.',
+        'Add butter, garlic, and thyme; baste continuously.',
+        'Rest 5 minutes before serving.'
+      ]
+    },
+    {
+      id: 'burger',
+      name: 'Wagyu Smash Burgers',
+      tag: 'Classic',
+      img: '../images/recipe-burger.jpg',
+      desc: 'Thin, crispy-edged smash patties that make the most of rich Wagyu ground beef.',
+      meta: [['Serves', '4'], ['Prep', '10 min'], ['Cook', '10 min']],
+      intro: 'Placeholder recipe. Wagyu ground beef makes an unbelievably juicy smash burger. Drop your family recipe in here and we’ll format it just like this.',
+      ingredients: ['1 lb Wagyu ground beef', 'Soft potato buns', 'American cheese', 'Salt & pepper', 'Pickles, onion, sauce to taste'],
+      steps: [
+        'Roll the beef into loose 2 oz balls — do not pack them tight.',
+        'Smash hard onto a screaming-hot griddle and season.',
+        'Flip once a deep crust forms, add cheese, and toast the buns.',
+        'Build and serve immediately.'
+      ]
+    },
+    {
+      id: 'shortrib',
+      name: 'Braised Short Ribs',
+      tag: 'Classic',
+      img: '../images/recipe-short-ribs.jpg',
+      desc: 'Low-and-slow braised until fork-tender in a rich red-wine sauce.',
+      meta: [['Serves', '4'], ['Prep', '20 min'], ['Cook', '3 hr']],
+      intro: 'Placeholder recipe. A long, gentle braise turns Wagyu short ribs meltingly tender. The client’s version of this comfort-food classic will live here.',
+      ingredients: ['3 lb Wagyu short ribs', 'Mirepoix (onion, carrot, celery)', 'Red wine & beef stock', 'Tomato paste', 'Herbs & aromatics'],
+      steps: [
+        'Sear the ribs on all sides, then set aside.',
+        'Soften the vegetables, add tomato paste, and deglaze with wine.',
+        'Return ribs, add stock, cover, and braise at 300°F for about 3 hours.',
+        'Reduce the sauce and spoon over the ribs to serve.'
+      ]
+    },
+    {
+      id: 'galbi',
+      name: 'Korean Short Ribs (Galbi)',
+      tag: 'Nouveau',
+      img: '../images/recipe-korean-short-ribs.jpg',
+      desc: 'Sweet-savory marinated short ribs, grilled fast and hot over high heat.',
+      meta: [['Serves', '4'], ['Prep', '15 min + marinate'], ['Cook', '8 min']],
+      intro: 'Placeholder recipe. Thin flanken-cut Wagyu short ribs soak up a sweet-savory marinade and cook in minutes. Swap in the client’s marinade and technique here.',
+      ingredients: ['2 lb Wagyu Korean short ribs', 'Soy sauce & brown sugar', 'Grated pear or apple', 'Garlic & sesame oil', 'Green onion'],
+      steps: [
+        'Whisk the marinade and coat the ribs; refrigerate at least 4 hours.',
+        'Bring to room temp before cooking.',
+        'Grill over high heat 2–3 minutes per side until caramelized.',
+        'Garnish with sesame and green onion; serve with rice.'
+      ]
+    },
+    {
+      id: 'ragu',
+      name: 'Wagyu Ragù over Pappardelle',
+      tag: 'Classic',
+      img: '../images/recipe-ragu.jpg',
+      desc: 'A slow, rich Sunday sauce built on Wagyu ground beef and red wine.',
+      meta: [['Serves', '6'], ['Prep', '20 min'], ['Cook', '2.5 hr']],
+      intro: 'Placeholder recipe. Wagyu ground beef makes a deeply savory ragù that clings to wide pappardelle. The client’s family sauce will go right here.',
+      ingredients: ['1.5 lb Wagyu ground beef', 'Soffritto (onion, carrot, celery)', 'Crushed tomatoes & red wine', 'Garlic, bay & herbs', 'Pappardelle & parmesan'],
+      steps: [
+        'Brown the beef well, then set aside.',
+        'Soften the soffritto, add garlic, and deglaze with red wine.',
+        'Return the beef with tomatoes and herbs; simmer low 2–3 hours.',
+        'Toss with cooked pappardelle and finish with parmesan.'
+      ]
+    }
+  ];
+
+  (function renderRecipes() {
+    const grid = document.getElementById('recipeGrid');
+    if (!grid) return;
+    RECIPES.forEach(r => {
+      const card = document.createElement('article');
+      card.className = 'recipe-card';
+      card.innerHTML =
+        '<div class="recipe-card-img"><span class="recipe-card-tag">' + r.tag + '</span>' +
+        '<img src="' + r.img + '" alt="' + r.name + '"></div>' +
+        '<div class="recipe-card-body">' +
+        '<div class="recipe-card-name">' + r.name + '</div>' +
+        '<p class="recipe-card-desc">' + r.desc + '</p>' +
+        '<span class="recipe-card-more">Read More <span class="arw">&rarr;</span></span>' +
+        '</div>';
+      card.addEventListener('click', () => openRecipe(r.id));
+      grid.appendChild(card);
+    });
+  })();
+
+  const recipeOverlay = document.getElementById('recipeOverlay');
+  function openRecipe(id) {
+    const r = RECIPES.find(x => x.id === id);
+    if (!r) return;
+    document.getElementById('rmImg').src = r.img;
+    document.getElementById('rmImg').alt = r.name;
+    document.getElementById('rmTag').textContent = r.tag;
+    document.getElementById('rmTitle').textContent = r.name;
+    document.getElementById('rmMeta').innerHTML =
+      r.meta.map(m => '<span>' + m[0] + ' <b>' + m[1] + '</b></span>').join('');
+    document.getElementById('rmIntro').textContent = r.intro;
+    document.getElementById('rmIngredients').innerHTML =
+      r.ingredients.map(i => '<li>' + i + '</li>').join('');
+    document.getElementById('rmSteps').innerHTML =
+      r.steps.map(s => '<li>' + s + '</li>').join('');
+    document.getElementById('rmNote').textContent =
+      'This is placeholder content. The Millers’ real recipe will appear here.';
+    recipeOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeRecipe() {
+    recipeOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('recipeClose').addEventListener('click', closeRecipe);
+  recipeOverlay.addEventListener('click', e => { if (e.target === recipeOverlay) closeRecipe(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRecipe(); });
+
+  /* ── Doneness guide (meat temperature diagram) ── */
+  (function () {
+    'use strict';
+    const $  = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DONENESS = [
+      { n: 'Blue Rare',   t: '115–120°F', p: 'Pull at 110°F & rest', c: '#a01f35', m: '#822634', k: 10, temp: 117, glow: '#8c1f35', d: "Seared outside, cool deep-red center. For the purists: the marbling stays silky and just barely warmed." },
+      { n: 'Rare',        t: '120–125°F', p: 'Pull at 115°F & rest', c: '#b32e40', m: '#8e2f3b', k: 13, temp: 122, glow: '#a12b3f', d: "Warm red center. The fat is starting to soften and the texture is lush and buttery." },
+      { n: 'Medium Rare', t: '130–135°F', p: 'Pull at 125°F & rest', c: '#c4524e', m: '#9a3f42', k: 17, temp: 132, glow: '#c4524e', reco: true, d: "The sweet spot for Wagyu: the intramuscular fat is fully rendered, carrying flavor through every bite." },
+      { n: 'Medium',      t: '140–145°F', p: 'Pull at 135°F & rest', c: '#c97a5e', m: '#99584a', k: 25, temp: 142, glow: '#c97a5e', d: "Pink center with a firmer bite. Still juicy thanks to the marbling, but you're leaving a little silk on the table." },
+      { n: 'Medium Well', t: '150–155°F', p: 'Pull at 145°F & rest', c: '#b98a6f', m: '#8d6753', k: 35, temp: 152, glow: '#b98a6f', d: "Just a whisper of pink. The marbling keeps it juicier than regular beef would be at this temperature." },
+      { n: 'Well Done',   t: '160°F+',    p: 'Pull at 155°F & rest', c: '#a08a72', m: '#7c6350', k: 46, temp: 162, glow: '#9a8163', d: "Cooked through. If this is your table's style, our slow-cooked cuts (short ribs, roasts, osso buco) will treat you even better." }
+    ];
+    const slice = $('#steakSlice');
+    function renderDoneness(d, animate) {
+      const edge = Math.round(d.k * 0.55);
+      slice.style.background =
+        `linear-gradient(to bottom, #35231c 0%, #4a2f24 ${edge}%, ${d.m} ${d.k}%, ${d.c} 50%, ${d.m} ${100 - d.k}%, #4a2f24 ${100 - edge}%, #35231c 100%)`;
+      $('#thermoFill').style.height = Math.min(100, Math.max(6, (d.temp - 110) / 60 * 100)) + '%';
+      $('#heatGlow').style.background = d.glow;
+      $('#dName').textContent = d.n;
+      $('#dTemp').textContent = d.t;
+      $('#dPull').textContent = d.p;
+      $('#dDesc').textContent = d.d;
+      $('#dReco').classList.toggle('show', !!d.reco);
+      if (animate && !reduceMotion) {
+        slice.classList.remove('sizzle'); void slice.offsetWidth; slice.classList.add('sizzle');
+      }
+    }
+    $$('#donenessBtns .d-btn').forEach(btn => btn.addEventListener('click', () => {
+      $$('#donenessBtns .d-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderDoneness(DONENESS[+btn.dataset.d], true);
+    }));
+    renderDoneness(DONENESS[2], false);
+  })();
+
+</script>
+</body>
+</html>
