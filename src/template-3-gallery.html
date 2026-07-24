@@ -667,88 +667,6 @@
   @keyframes toastIn { from { opacity: 0; transform: translateY(16px) scale(0.95); } }
   @keyframes toastOut { to { opacity: 0; transform: translateY(10px); } }
 
-  /* COOKING GUIDE */
-  .cook {
-    padding: 88px 48px; position: relative; overflow: hidden;
-    background: radial-gradient(820px 460px at 72% 50%, rgba(201,148,64,0.08), transparent 70%), var(--forest);
-  }
-  .cook-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
-  .cook-tips { margin-top: 26px; display: flex; flex-direction: column; gap: 14px; }
-  .cook-tip { display: flex; gap: 14px; align-items: flex-start; }
-  .ct-num { font-family: 'Bebas Neue', sans-serif; color: var(--gold); font-size: 1.05rem; border: 1px solid rgba(201,148,64,0.35); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: 0 0 30px; }
-  .ct-body strong { display: block; font-size: 0.84rem; color: var(--white); font-weight: 600; margin-bottom: 2px; }
-  .ct-body span { font-size: 0.75rem; font-weight: 300; color: var(--cream-dim); line-height: 1.55; }
-  .doneness-card {
-    background: rgba(201,148,64,0.04);
-    border: 1px solid rgba(201,148,64,0.22); border-radius: 10px; padding: 30px;
-    position: relative; overflow: hidden;
-    box-shadow: 0 24px 70px rgba(0,0,0,0.35);
-  }
-  .heat-glow {
-    position: absolute; top: 42%; left: 42%; width: 360px; height: 250px;
-    transform: translate(-50%,-50%); border-radius: 50%;
-    filter: blur(70px); opacity: 0.3; background: #c4524e;
-    transition: background 0.7s ease; pointer-events: none;
-  }
-  .doneness-card > *:not(.heat-glow) { position: relative; z-index: 1; }
-  .doneness-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
-  .d-btn {
-    flex: 1; min-width: 64px; background: transparent;
-    border: 1px solid rgba(242,236,224,0.15); color: rgba(242,236,224,0.5);
-    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 9px 6px; border-radius: 3px; cursor: pointer; transition: all 0.2s;
-  }
-  .d-btn:hover { border-color: rgba(201,148,64,0.5); color: var(--gold); }
-  .d-btn.active { background: var(--gold); border-color: var(--gold); color: var(--forest); }
-  .doneness-display { display: flex; gap: 24px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
-  .steak-slice {
-    width: 178px; height: 110px; flex: 0 0 178px;
-    position: relative; overflow: hidden;
-    clip-path: path('M 14,62 C 10,34 34,14 66,12 C 96,10 118,20 138,16 C 158,12 172,26 170,44 C 168,60 156,66 150,78 C 142,94 118,104 90,102 C 58,100 40,96 28,84 C 20,76 17,72 14,62 Z');
-    background: #4a2f24;
-    filter: drop-shadow(0 12px 22px rgba(0,0,0,0.5));
-  }
-  .steak-slice::before {
-    content: ''; position: absolute; top: 13px; left: 20%; right: 20%;
-    height: 11px; border-radius: 50%;
-    background: rgba(242,236,224,0.3); filter: blur(3px);
-    transform: rotate(-3deg);
-  }
-  .steak-slice::after {
-    content: ''; position: absolute; inset: 0;
-    background:
-      radial-gradient(120px 40px at 30% 55%, rgba(255,255,255,0.10), transparent 65%),
-      repeating-linear-gradient(115deg, transparent 0 14px, rgba(255,255,255,0.05) 14px 17px, transparent 17px 34px);
-    mix-blend-mode: screen; pointer-events: none;
-  }
-  @keyframes sizzle { 30% { transform: scale(1.045) rotate(-0.6deg); } }
-  .steak-slice.sizzle { animation: sizzle 0.45s ease; }
-  .thermo { display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; }
-  .thermo-track {
-    width: 10px; height: 104px; border-radius: 6px 6px 0 0;
-    background: rgba(242,236,224,0.09); border: 1px solid rgba(242,236,224,0.16); border-bottom: none;
-    position: relative; overflow: hidden;
-  }
-  .thermo-fill {
-    position: absolute; bottom: 0; left: 0; right: 0; height: 37%;
-    background: linear-gradient(to top, #c99440, #d8623c);
-    transition: height 0.6s cubic-bezier(0.3,0.7,0.3,1);
-  }
-  .thermo-bulb {
-    width: 22px; height: 22px; border-radius: 50%; margin-top: -3px; position: relative; z-index: 1;
-    background: radial-gradient(circle at 35% 35%, #e8c37a, #c99440);
-    box-shadow: 0 0 14px rgba(201,148,64,0.5);
-    border: 1px solid rgba(242,236,224,0.2);
-  }
-  .thermo-label { font-size: 0.5rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); margin-top: 6px; }
-  .d-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--white); letter-spacing: 0.05em; }
-  .d-temp { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; color: var(--gold); letter-spacing: 0.05em; margin-top: 2px; }
-  .d-pull { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); margin-top: 4px; }
-  .d-desc { font-size: 0.78rem; font-weight: 300; color: var(--cream-dim); line-height: 1.65; min-height: 58px; }
-  .d-reco { margin-top: 14px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0; transition: opacity 0.3s; }
-  .d-reco.show { opacity: 0.85; }
-
   /* BULK SELECTION */
   .price-card { position: relative; }
   .pc-check {
@@ -820,8 +738,6 @@
     .trust-bar { gap: 8px 24px; }
     .nav-box-btn .nbb-text { display: none; }
     .bc-grid { grid-template-columns: repeat(2,1fr); gap: 18px; }
-    .cook { padding: 56px 22px; }
-    .cook-inner { grid-template-columns: 1fr; gap: 40px; }
     .box-drawer { width: 100vw; max-width: 100vw; }
   }
 </style>
@@ -861,6 +777,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#shop">Shop Cuts</a></li>
+    <li><a href="recipes.html">Recipes</a></li>
     <li><a href="#bulk">Bulk Orders</a></li>
     <li><a href="#markets">Markets</a></li>
     <li><a href="#story">Our Story</a></li>
@@ -1376,50 +1293,6 @@
   </div>
 </section>
 
-<!-- COOKING GUIDE -->
-<section class="cook" id="cook">
-  <div class="cook-inner">
-    <div class="cook-left reveal">
-      <div class="section-label-dark">Wagyu 101</div>
-      <h2 class="section-title-dark">Find Your Perfect Temperature.</h2>
-      <p class="section-body-dark">Wagyu's rich marbling begins to render at a lower temperature than ordinary beef, so every level of doneness tastes a little different. Tap through the guide to find your family's sweet spot.</p>
-      <div class="cook-tips">
-        <div class="cook-tip"><div class="ct-num">1</div><div class="ct-body"><strong>Verified genetics</strong><span>Every animal is at least 98% pure Wagyu, with genetics verified by the American Wagyu Association.</span></div></div>
-        <div class="cook-tip"><div class="ct-num">2</div><div class="ct-body"><strong>Humanely raised</strong><span>Raised with humane practices on pasture in the coulee region. Hormone and antibiotic free, always.</span></div></div>
-        <div class="cook-tip"><div class="ct-num">3</div><div class="ct-body"><strong>Farm direct</strong><span>Custom cut, vacuum sealed, and sold straight from our family farm to your table.</span></div></div>
-      </div>
-    </div>
-    <div class="cook-right reveal">
-      <div class="doneness-card">
-        <div class="heat-glow" id="heatGlow"></div>
-        <div class="doneness-btns" id="donenessBtns">
-          <button class="d-btn" data-d="0">Blue</button>
-          <button class="d-btn" data-d="1">Rare</button>
-          <button class="d-btn active" data-d="2">Med Rare</button>
-          <button class="d-btn" data-d="3">Medium</button>
-          <button class="d-btn" data-d="4">Med Well</button>
-          <button class="d-btn" data-d="5">Well</button>
-        </div>
-        <div class="doneness-display">
-          <div class="steak-slice" id="steakSlice" aria-hidden="true"></div>
-          <div class="thermo" aria-hidden="true">
-            <div class="thermo-track"><div class="thermo-fill" id="thermoFill"></div></div>
-            <div class="thermo-bulb"></div>
-            <div class="thermo-label">&deg;F</div>
-          </div>
-          <div>
-            <div class="d-name" id="dName">Medium Rare</div>
-            <div class="d-temp" id="dTemp">130&ndash;135&deg;F</div>
-            <div class="d-pull" id="dPull">Pull at 125&deg;F &amp; rest</div>
-          </div>
-        </div>
-        <p class="d-desc" id="dDesc">The sweet spot for Wagyu: the intramuscular fat is fully rendered, carrying flavor through every bite.</p>
-        <div class="d-reco show" id="dReco">&#9733; Our recommendation for Wagyu steaks</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- BULK ORDERS + CONTACT -->
 <section class="bulk" id="bulk">
   <div class="bulk-inner">
@@ -1582,6 +1455,7 @@
   </div>
   <ul class="footer-links">
     <li><a href="#shop">Shop Cuts</a></li>
+    <li><a href="recipes.html">Recipes</a></li>
     <li><a href="#bulk">Bulk Orders</a></li>
     <li><a href="#markets">Markets</a></li>
     <li><a href="#story">Our Story</a></li>
@@ -1889,39 +1763,6 @@
       const b = e.target.closest('.cut-card-add');
       if (b) addToBox(b.dataset.name, 1, b);
     });
-
-    /* ── Doneness guide ──
-       c = center color, m = transition tone, k = crust depth (%), temp = midpoint °F for the thermometer */
-    const DONENESS = [
-      { n: 'Blue Rare',   t: '115–120°F', p: 'Pull at 110°F & rest', c: '#a01f35', m: '#822634', k: 10, temp: 117, glow: '#8c1f35', d: "Seared outside, cool deep-red center. For the purists: the marbling stays silky and just barely warmed." },
-      { n: 'Rare',        t: '120–125°F', p: 'Pull at 115°F & rest', c: '#b32e40', m: '#8e2f3b', k: 13, temp: 122, glow: '#a12b3f', d: "Warm red center. The fat is starting to soften and the texture is lush and buttery." },
-      { n: 'Medium Rare', t: '130–135°F', p: 'Pull at 125°F & rest', c: '#c4524e', m: '#9a3f42', k: 17, temp: 132, glow: '#c4524e', reco: true, d: "The sweet spot for Wagyu: the intramuscular fat is fully rendered, carrying flavor through every bite." },
-      { n: 'Medium',      t: '140–145°F', p: 'Pull at 135°F & rest', c: '#c97a5e', m: '#99584a', k: 25, temp: 142, glow: '#c97a5e', d: "Pink center with a firmer bite. Still juicy thanks to the marbling, but you're leaving a little silk on the table." },
-      { n: 'Medium Well', t: '150–155°F', p: 'Pull at 145°F & rest', c: '#b98a6f', m: '#8d6753', k: 35, temp: 152, glow: '#b98a6f', d: "Just a whisper of pink. The marbling keeps it juicier than regular beef would be at this temperature." },
-      { n: 'Well Done',   t: '160°F+',    p: 'Pull at 155°F & rest', c: '#a08a72', m: '#7c6350', k: 46, temp: 162, glow: '#9a8163', d: "Cooked through. If this is your table's style, our slow-cooked cuts (short ribs, roasts, osso buco) will treat you even better." }
-    ];
-    const slice = $('#steakSlice');
-    function renderDoneness(d, animate) {
-      const edge = Math.round(d.k * 0.55);
-      slice.style.background =
-        `linear-gradient(to bottom, #35231c 0%, #4a2f24 ${edge}%, ${d.m} ${d.k}%, ${d.c} 50%, ${d.m} ${100 - d.k}%, #4a2f24 ${100 - edge}%, #35231c 100%)`;
-      $('#thermoFill').style.height = Math.min(100, Math.max(6, (d.temp - 110) / 60 * 100)) + '%';
-      $('#heatGlow').style.background = d.glow;
-      $('#dName').textContent = d.n;
-      $('#dTemp').textContent = d.t;
-      $('#dPull').textContent = d.p;
-      $('#dDesc').textContent = d.d;
-      $('#dReco').classList.toggle('show', !!d.reco);
-      if (animate && !reduceMotion) {
-        slice.classList.remove('sizzle'); void slice.offsetWidth; slice.classList.add('sizzle');
-      }
-    }
-    $$('#donenessBtns .d-btn').forEach(btn => btn.addEventListener('click', () => {
-      $$('#donenessBtns .d-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderDoneness(DONENESS[+btn.dataset.d], true);
-    }));
-    renderDoneness(DONENESS[2], false);
 
     /* ── Bulk size selection + calculator ──
        Finished lbs, servings, family meals, weeks, and freezer space come from the
