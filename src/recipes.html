@@ -461,6 +461,18 @@
   .footer-links a { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(242,236,224,0.3); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--gold); }
   .footer-copy { font-size: 0.62rem; font-weight: 300; color: rgba(242,236,224,0.2); letter-spacing: 0.08em; }
+  .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .footer-social { display: flex; align-items: center; gap: 10px; }
+  .social-link {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 13px 7px 10px; border-radius: 999px;
+    border: 1px solid rgba(201,148,64,0.22); background: rgba(201,148,64,0.06);
+    color: rgba(242,236,224,0.55); text-decoration: none;
+    font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: color 0.25s, border-color 0.25s, background 0.25s, transform 0.25s;
+  }
+  .social-link svg { flex: 0 0 auto; }
+  .social-link:hover { color: var(--gold); border-color: rgba(201,148,64,0.6); background: rgba(201,148,64,0.13); transform: translateY(-2px); }
 
   /* REVEAL */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -725,7 +737,40 @@
     background: radial-gradient(820px 460px at 78% 22%, rgba(201,148,64,0.07), transparent 70%), var(--forest);
   }
   .recipes-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
-  .recipes-head { max-width: 620px; margin-bottom: 56px; }
+  .recipes-head {
+    display: grid; grid-template-columns: 1fr 400px; gap: 56px;
+    align-items: start; margin-bottom: 56px;
+  }
+  .recipes-head-text { max-width: 620px; }
+
+  /* Instagram feature card */
+  .ig-card {
+    background: linear-gradient(160deg, rgba(201,148,64,0.10), rgba(19,32,21,0.9) 55%), var(--forest-mid);
+    border: 1px solid rgba(201,148,64,0.28); border-radius: 12px;
+    padding: 22px 22px 20px; text-decoration: none; display: block;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .ig-card:hover { transform: translateY(-4px); border-color: rgba(201,148,64,0.6); box-shadow: 0 26px 60px rgba(0,0,0,0.48); }
+  .ig-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .ig-glyph {
+    flex: 0 0 auto; width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center; color: var(--forest);
+    background: linear-gradient(135deg, #e0a44c, #c99440 55%, #8a6224);
+  }
+  .ig-handle { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.05em; color: var(--white); line-height: 1; }
+  .ig-follow { font-size: 0.56rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-top: 4px; }
+  .ig-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; border-radius: 7px; overflow: hidden; }
+  .ig-shot { position: relative; aspect-ratio: 1 / 1; overflow: hidden; }
+  .ig-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.4s ease; filter: saturate(0.9); }
+  .ig-card:hover .ig-shot img { transform: scale(1.07); filter: saturate(1.05); }
+  .ig-note { font-size: 0.78rem; font-weight: 300; color: var(--cream-dim); line-height: 1.6; margin-top: 15px; }
+  .ig-cta {
+    margin-top: 14px; display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.63rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); transition: gap 0.25s ease;
+  }
+  .ig-card:hover .ig-cta { gap: 13px; }
   .temp-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 400; letter-spacing: 0.04em; color: var(--white); line-height: 1; margin-bottom: 14px; }
   .temp-body { font-size: 0.92rem; font-weight: 300; color: var(--cream-dim); line-height: 1.7; max-width: 500px; }
   .temp-block { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; margin-bottom: 88px; }
@@ -881,6 +926,8 @@
     .placeholder-icon { transform: rotate(90deg); }
     footer { flex-direction: column; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
+    .footer-right { align-items: center; }
+    .recipes-head { grid-template-columns: 1fr; gap: 34px; }
     .trust-bar { gap: 8px 24px; }
     .nav-box-btn .nbb-text { display: none; }
     .bc-grid { grid-template-columns: repeat(2,1fr); gap: 18px; }
@@ -935,9 +982,30 @@
   <div class="recipes-inner">
 
     <div class="recipes-head reveal">
-      <div class="section-label-dark">Recipes, Tips &amp; Tricks</div>
-      <h2 class="section-title-dark">From Our Kitchen<br>to Yours.</h2>
-      <p class="section-body-dark">A growing collection of our family's favorite Wagyu recipes. Browse below for inspiration, then scroll down to the temperature guide to cook every cut just right.</p>
+      <div class="recipes-head-text">
+        <div class="section-label-dark">Recipes, Tips &amp; Tricks</div>
+        <h2 class="section-title-dark">From Our Kitchen<br>to Yours.</h2>
+        <p class="section-body-dark">A growing collection of our family's favorite Wagyu recipes. Browse below for inspiration, then scroll down to the temperature guide to cook every cut just right.</p>
+      </div>
+
+      <a class="ig-card" href="https://www.instagram.com/millerwagyu/" target="_blank" rel="noopener" aria-label="Follow Miller Wagyu on Instagram">
+        <div class="ig-card-head">
+          <div class="ig-glyph">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <div>
+            <div class="ig-handle">@millerwagyu</div>
+            <div class="ig-follow">Follow Along</div>
+          </div>
+        </div>
+        <div class="ig-strip">
+          <div class="ig-shot"><img src="../images/instagram1.png" alt="Marbled Miller Wagyu ribeye with garlic and rosemary" loading="lazy"></div>
+          <div class="ig-shot"><img src="../images/instagram2.jpg" alt="The Miller Wagyu booth at a La Crosse farmers market" loading="lazy"></div>
+          <div class="ig-shot"><img src="../images/farm%20overhead%20view.jpg" alt="Overhead view of the Miller family farm" loading="lazy"></div>
+        </div>
+        <p class="ig-note">We share new recipes, fresh cuts, and where to find us each week over on Instagram.</p>
+        <span class="ig-cta">Follow on Instagram <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
     </div>
 
     <!-- RECIPE LIST -->
@@ -1045,7 +1113,19 @@
     <li><a href="template-3-gallery.html#markets">Markets</a></li>
     <li><a href="template-3-gallery.html#contact">Contact</a></li>
   </ul>
-  <p class="footer-copy">&copy; 2026 Miller Wagyu Farms &middot; La Crosse, WI</p>
+  <div class="footer-right">
+    <div class="footer-social">
+      <a class="social-link" href="https://www.instagram.com/millerwagyu/" target="_blank" rel="noopener" aria-label="Miller Wagyu on Instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <span>Instagram</span>
+      </a>
+      <a class="social-link" href="https://www.facebook.com/profile.php?id=61562742320928" target="_blank" rel="noopener" aria-label="Miller Wagyu on Facebook">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <span>Facebook</span>
+      </a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Miller Wagyu Farms &middot; La Crosse, WI</p>
+  </div>
 </footer>
 
 <script>
