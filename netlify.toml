@@ -1,0 +1,31 @@
+# Miller Wagyu Farms — Netlify deploy config
+#
+# The site source lives in src/ with images/ one level up, so build.sh assembles a flat
+# dist/ where the gallery page becomes the real index.html at the site root. That matters
+# for Netlify Forms: submissions POST to "/", and "/" needs to be an actual static HTML
+# file, not a rewrite, for the form handler to pick them up reliably.
+
+[build]
+  publish = "dist"
+  command = "bash build.sh"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Long-cache the images (they never change under the same filename); always revalidate HTML.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Pretty URL for the recipes page (recipes.html is still served directly too).
+[[redirects]]
+  from = "/recipes"
+  to = "/recipes.html"
+  status = 200

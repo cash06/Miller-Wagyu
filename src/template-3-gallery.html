@@ -481,6 +481,9 @@
     padding: 15px; border-radius: 2px; cursor: pointer; transition: opacity 0.2s;
   }
   .form-submit:hover { opacity: 0.85; }
+  .form-submit:disabled { opacity: 0.55; cursor: default; }
+  /* Spam honeypot — hidden from people, visible to bots that fill in every field. */
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
   /* MARKETS */
   .markets { padding: 80px 48px; background: var(--forest); }
@@ -1427,35 +1430,46 @@
     <div class="contact-form" id="contact">
       <div class="form-title">Get In Touch</div>
       <div class="form-subtitle">We answer every message personally. We're a family farm.</div>
-      <div class="form-row">
-        <div class="form-group"><label for="t3-fname">First Name</label><input id="t3-fname" type="text" placeholder="Steve"></div>
-        <div class="form-group"><label for="t3-lname">Last Name</label><input id="t3-lname" type="text" placeholder="Johnson"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label for="t3-email">Email</label><input id="t3-email" type="email" placeholder="you@email.com"></div>
-        <div class="form-group"><label for="t3-phone">Phone</label><input id="t3-phone" type="tel" placeholder="608.555.0100"></div>
-      </div>
-      <div class="form-group">
-        <label for="t3-interest">I'm interested in…</label>
-        <select id="t3-interest">
-          <option value="">Select an option</option>
-          <option>Quarter animal (~188 lb HW)</option>
-          <option>Half animal (~375 lb HW)</option>
-          <option>Whole animal (~750 lb HW)</option>
-          <option>Individual cuts</option>
-          <option>Restaurant / wholesale inquiry</option>
-          <option>General question</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="t3-msg">Message</label>
-        <textarea id="t3-msg" placeholder="Tell us what you're looking for…"></textarea>
-      </div>
-      <button class="form-submit" id="formSubmit">Send Message &rarr;</button>
+      <!-- Netlify Forms: data-netlify makes Netlify detect this form at deploy time and email every
+           submission to the address set in Site settings > Forms > Form notifications. The honeypot
+           field below is hidden from people; bots fill it in and those submissions get dropped. -->
+      <form name="order" id="orderForm" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="order">
+        <p class="hp-field"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form-row">
+          <div class="form-group"><label for="t3-fname">First Name</label><input id="t3-fname" name="first-name" type="text" autocomplete="given-name" placeholder="Steve"></div>
+          <div class="form-group"><label for="t3-lname">Last Name</label><input id="t3-lname" name="last-name" type="text" autocomplete="family-name" placeholder="Johnson"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="t3-email">Email</label><input id="t3-email" name="email" type="email" autocomplete="email" placeholder="you@email.com"></div>
+          <div class="form-group"><label for="t3-phone">Phone</label><input id="t3-phone" name="phone" type="tel" autocomplete="tel" placeholder="608.555.0100"></div>
+        </div>
+        <div class="form-group">
+          <label for="t3-interest">I'm interested in…</label>
+          <select id="t3-interest" name="interest">
+            <option value="">Select an option</option>
+            <option>Quarter animal (~188 lb HW)</option>
+            <option>Half animal (~375 lb HW)</option>
+            <option>Whole animal (~750 lb HW)</option>
+            <option>Individual cuts</option>
+            <option>Restaurant / wholesale inquiry</option>
+            <option>General question</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="t3-msg">Message</label>
+          <textarea id="t3-msg" name="message" placeholder="Tell us what you're looking for…"></textarea>
+        </div>
+        <!-- Filled from the Your Box drawer at submit time, so the farm's email always has a clean
+             itemized list even if the customer rewrites the message above. -->
+        <input type="hidden" name="box-items" id="t3-box-items">
+        <input type="hidden" name="box-total" id="t3-box-total">
+        <button class="form-submit" id="formSubmit" type="submit">Send Message &rarr;</button>
+      </form>
       <div class="form-success" id="formSuccess">
         <svg class="fs-circle" viewBox="0 0 74 74"><circle cx="37" cy="37" r="34"/><path d="M23 38l10 10 18-20"/></svg>
         <div class="fs-title">Thanks, <span id="fsWho">Friend</span>!</div>
-        <p>We read every message personally. This concept form isn't wired up yet; in the finished site it will land straight in our inbox. For now, reach us at <a href="mailto:millerwagyu@gmail.com" style="color:var(--gold)">millerwagyu@gmail.com</a> or call Steve at 608.386.4670.</p>
+        <p>Your message is in our inbox, and we read every one personally — expect to hear back from Steve or Catherine shortly. In a hurry? Reach us at <a href="mailto:millerwagyu@gmail.com" style="color:var(--gold)">millerwagyu@gmail.com</a> or call Steve at 608.386.4670.</p>
         <button class="fs-again" id="fsAgain">&larr; Back to the form</button>
       </div>
     </div>
@@ -1911,8 +1925,14 @@
       prefillForm(currentSize, `Hi Steve & Sally!\n\nI'm interested in a ${s.label.toLowerCase()} (~${s.hw} lb hanging weight). Could you tell me about availability and next steps?\n\nThanks!`);
     });
 
-    /* ── Contact form validation + success ── */
-    $('#formSubmit').addEventListener('click', () => {
+    /* ── Contact form validation + submit ──
+       Posts to Netlify Forms over fetch rather than a normal form navigation, so the page
+       stays put and the success animation still plays. Netlify accepts a urlencoded POST to
+       any path on the site as long as the body carries the matching `form-name`. */
+    $('#orderForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const btn = $('#formSubmit');
       const fname = $('#t3-fname'), email = $('#t3-email'), phone = $('#t3-phone'), msg = $('#t3-msg');
       let ok = true;
       function need(el, pass) {
@@ -1925,8 +1945,35 @@
       need(email, hasEmail || hasPhone);
       need(msg, msg.value.trim().length > 3);
       if (!ok) { toast('Add your name, a way to reach you, and a message', '!'); return; }
-      $('#fsWho').textContent = fname.value.trim();
-      $('#formSuccess').classList.add('show');
+
+      /* Snapshot the box into the hidden fields so the farm's email is itemized. */
+      if (BOX.length) {
+        $('#t3-box-items').value = BOX
+          .map(i => `${i.name} - about ${i.qty} lb @ ${fmtPrice(PRODUCTS[i.name].price)}/lb`)
+          .join('\n');
+        $('#t3-box-total').value = fmt(BOX.reduce((s, i) => s + PRODUCTS[i.name].price * i.qty, 0));
+      }
+
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)).toString()
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        $('#fsWho').textContent = fname.value.trim();
+        $('#formSuccess').classList.add('show');
+        form.reset();
+        BOX = []; saveBox(); renderBox();
+      } catch (err) {
+        toast('Could not send — please email millerwagyu@gmail.com or call 608.386.4670', '!');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
     });
     $('#fsAgain').addEventListener('click', () => $('#formSuccess').classList.remove('show'));
 
